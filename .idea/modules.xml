@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Volontair-Spring.iml" filepath="$PROJECT_DIR$/Volontair-Spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Volontair-API.iml" filepath="$PROJECT_DIR$/Volontair-API.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Domain/domain.iml" filepath="$PROJECT_DIR$/Domain/domain.iml" />
     </modules>
   </component>
 </project>
