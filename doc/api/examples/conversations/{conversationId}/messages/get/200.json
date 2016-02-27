@@ -1,0 +1,16 @@
+[
+  {
+    "messageId": 1,
+    "message": "Hoi, ik speel ook basketbal. Ik zou graag mee rijden naar basketbal elke vrijdag!",
+    "sender": 1,
+    "created": "2016-02-23T22:49:05+00:00",
+    "read": "2016-02-23T22:49:05+00:00"
+  },
+  {
+    "messageId": 2,
+    "message": "Prima! Waar kan ik je op komen halen?",
+    "sender": 2,
+    "created": "2016-02-23T22:49:05+00:00",
+    "read": "2016-02-23T22:49:05+00:00"
+  }
+]

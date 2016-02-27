@@ -1,0 +1,26 @@
+[
+  {
+    "conversationId": 1,
+    "starter": 1,
+    "listener": 2,
+    "created": "20130102",
+    "updated": "20140102",
+    "unread": 3
+  },
+  {
+    "conversationId": 2,
+    "starter": 1,
+    "listener": 3,
+    "created": "20130102",
+    "updated": "20140102",
+    "unread": 1
+  },
+  {
+    "conversationId": 1,
+    "starter": 1,
+    "listener": 4,
+    "created": "20130102",
+    "updated": "20140102",
+    "unread": 0
+  }
+]
