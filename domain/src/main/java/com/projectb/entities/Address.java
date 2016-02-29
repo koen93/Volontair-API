@@ -20,11 +20,11 @@ public class Address extends AbsEntity {
 
     @NotNull
     @Setter
-    private int houseNumber;
+    private int streetNumber;
 
     @Nullable
     @Setter
-    private int houseNumberAddition;
+    private int streetNumberAddition;
 
     @NotNull
     @Setter

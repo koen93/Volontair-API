@@ -1,6 +1,16 @@
 package com.projectb.entities;
 
-import com.projectb.abs.AbsEntity;
+import com.projectb.abs.AbsTask;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public class Request extends AbsEntity {
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
+@Entity
+@Getter
+@NoArgsConstructor
+public class Request extends AbsTask {
+    //TODO: Think about specific Request properties?
 }
