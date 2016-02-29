@@ -1,4 +1,4 @@
-package com.projectb.servicerepo;
+package com.projectb.vault;
 
 import com.projectb.abs.AbsEntity;
 import com.projectb.repo.BasicRepo;
@@ -11,6 +11,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 
+//TODO: Create our own exceptions for the platform
 //TODO: Look out for this one
 @CrossOrigin
 public abstract class AbsRestVault<E extends AbsEntity> {
