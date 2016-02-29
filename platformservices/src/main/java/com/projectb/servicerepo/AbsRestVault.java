@@ -2,6 +2,7 @@ package com.projectb.servicerepo;
 
 import com.projectb.abs.AbsEntity;
 import com.projectb.repo.BasicRepo;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,7 +10,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
-public class AbsRestVault<E extends AbsEntity> {
+
+//TODO: Look out for this one
+@CrossOrigin
+public abstract class AbsRestVault<E extends AbsEntity> {
 
     private BasicRepo<E> repo;
 
@@ -26,4 +30,12 @@ public class AbsRestVault<E extends AbsEntity> {
     public List<E> getAll() {
         return repo.findAll();
     }
+
+    //TODO: Implement update
+
+    //TODO: Is it smart to add delete to this abstract layer? When do we want to use it?
+
+
+    //TODO: However this one could be not implemented if you don't require more operations...
+    public abstract BasicRepo<E> provideRepo();
 }
