@@ -9,11 +9,19 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/BsUserManagement" />
+            <option value="$PROJECT_DIR$/PcsUser" />
+            <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/platformservices" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/BsUserManagement" />
+            <option value="$PROJECT_DIR$/PcsUser" />
+            <option value="$PROJECT_DIR$/domain" />
+            <option value="$PROJECT_DIR$/platformservices" />
           </set>
         </option>
       </GradleProjectSettings>
