@@ -1,8 +1,8 @@
 package com.projectb.repo;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.NoRepositoryBean;
+import com.sun.xml.internal.bind.v2.model.core.ID;
+import org.springframework.data.repository.CrudRepository;
 
-@NoRepositoryBean
-public interface BasicRepo<T> extends JpaRepository<T, Long> {
+public interface BasicRepo<T> extends CrudRepository<T, ID> {
+    //TODO: Default functionality?
 }

@@ -2,6 +2,7 @@ package com.projectb.vault;
 
 import com.projectb.abs.AbsEntity;
 import com.projectb.repo.BasicRepo;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ public abstract class AbsRestVault<E extends AbsEntity> {
     private BasicRepo<E> repo;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public E getById(@PathVariable("id") final long id)  {
+    public E getById(@PathVariable("id") final ID id)  {
         E foundedEntity = repo.findOne(id);
         if (foundedEntity == null) {
             throw new EntityNotFoundException("Entity not found");
@@ -28,7 +29,7 @@ public abstract class AbsRestVault<E extends AbsEntity> {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<E> getAll() {
+    public Iterable<E> getAll() {
         return repo.findAll();
     }
 
