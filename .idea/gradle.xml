@@ -4,6 +4,41 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="distributionType" value="WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/BsUserManagement" />
+        <option name="gradleHome" value="$PROJECT_DIR$/gradle" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/Domain" />
+        <option name="gradleHome" value="$PROJECT_DIR$/gradle" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/Domain" />
+          </set>
+        </option>
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$/Domain" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/PcsUser" />
+        <option name="gradleHome" value="$PROJECT_DIR$/gradle" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/PcsUser" />
+          </set>
+        </option>
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$/PcsUser" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="distributionType" value="WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/PlatformServices" />
         <option name="gradleHome" value="$PROJECT_DIR$/gradle" />
         <option name="modules">
