@@ -11,5 +11,6 @@
     <orderEntry type="module" module-name="platform-services" />
     <orderEntry type="library" name="Gradle: org.hibernate:hibernate-core:4.3.11.Final" level="project" />
     <orderEntry type="library" name="Gradle: org.springframework:spring-context:4.2.4.RELEASE" level="project" />
+    <orderEntry type="module" module-name="PlatformServices" />
   </component>
 </module>
