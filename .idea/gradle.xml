@@ -6,6 +6,16 @@
         <option name="distributionType" value="WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/PlatformServices" />
         <option name="gradleHome" value="$PROJECT_DIR$/gradle" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/PlatformServices" />
+          </set>
+        </option>
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$/PlatformServices" />
+          </set>
+        </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
