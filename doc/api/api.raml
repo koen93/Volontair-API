@@ -1,0 +1,159 @@
+#%RAML 1.0
+title: Volontair
+version: v3
+baseUri: https://api.volontair.nl/{version}
+mediaType: application/json
+documentation:
+  - title: Home
+    content: |
+      Welcome to the _Volontair API_ documentation. This _Volontair API_
+      allows you to connect your application to the Volontair community.
+protocols: [ HTTPS ]
+securedBy: [ oauth_2_0 ]
+securitySchemes:
+  - oauth_2_0: !include securitySchemes/oauth_2_0.raml
+uses:
+  type: !include libraries/types.raml
+  model: !include libraries/modelTypes.raml
+traits:
+  local: !include traits/local.raml
+  orderable: !include traits/orderable.raml
+
+/setup: # TODO: Not a resource. Uses several resources to create a new \user. To be used by the setup wizard in the app
+  /{userId}:
+    post:
+      displayName: Setup
+      description: Sets up a new user.
+      responses:
+        201:
+          body:
+            application/json:
+              type: model.User
+              example: !include examples/setup/{userId}/post/201.json
+
+/dashboard: # TODO: Assuming dashboard does not include any user-specific data
+  get:
+    description: Retrieves some interesting data to show in a dashboard
+    responses:
+      200:
+        body:
+          application/json:
+            type: model.Dashboard
+            example: !include examples/dashboard/get/200.json
+
+# TODO: Add filters
+/discover:
+  /requests:
+    get:
+      description: Retrieves a list of all requests
+      is: [ local ]
+      responses:
+        200:
+          body:
+            application/json:
+              type: model.Request[]
+              example: !include examples/discover/requests/get/200.json
+  /offers:
+    get:
+      description: Retrieves a list of all offers
+      is: [ local ]
+      responses:
+        200:
+          body:
+            application/json:
+              type: model.Offer[]
+              example: !include examples/discover/offers/get/200.json
+
+/conversations:
+  get:
+    description: Retrieves a list of all private conversations or this user
+    responses:
+      200:
+        body:
+          application/json:
+            type: model.Conversation[]
+            example: !include examples/conversations/get/200.json
+      401:
+        description: Response if the user is not authenticated
+  /{conversationId}:
+    get:
+      description: Retrieves a private conversation
+      responses:
+        200:
+          body:
+            application/json:
+              type: model.Conversation
+              example: !include examples/conversations/{conversationId}/get/200.json
+        403:
+          description: Response if authenticated user is not part of the conversation
+    /messages:
+      get:
+        description: Retrieves a list of messages
+        queryParameters:
+          limit:
+            type: integer
+            default: 32
+          since_id:
+            description: Get messages starting from the message in id
+            type: integer
+        responses:
+          200:
+            body:
+              application/json:
+                type: model.Message[]
+                example: !include examples/conversations/{conversationId}/messages/get/200.json
+      post:
+        description: Send a new message
+        responses:
+          200:
+            body:
+              application/json:
+                type: model.Message[]
+                example: !include examples/conversations/{conversationId}/messages/post/201.json
+      /{messageId}:
+        get:
+          description: Retrieve a message
+          responses:
+            200:
+              body:
+                application/json:
+                  type: model.Message
+                  example: !include examples/conversations/{conversationId}/messages/{messageId}/get/200.json
+        put:
+          description: Update a message
+
+/users:
+  /{userId}:
+    get:
+      description: Retrieve a user
+      responses:
+        200:
+          body:
+            application/json:
+              type: model.User
+              example: !include examples/users/{userId}/get/200.json
+    put:
+      description: Update a user
+      responses:
+        200:
+          body:
+            application/json:
+              type: model.User
+              example: !include examples/users/{userId}/put/200.json
+    /settings: # TODO: depends how to implement this, might expose key-value
+      put:
+      get:
+    /contacts:
+      get:
+        description: Retrieves a list of user contacts
+        responses:
+          200:
+            body:
+              application/json:
+                type: model.User[]
+                example: !include examples/users/{userId}/contacts/get/200.json
+      /{contactId}:
+        put:
+          description: Add a new contact
+        delete:
+          description: Deletes contact
