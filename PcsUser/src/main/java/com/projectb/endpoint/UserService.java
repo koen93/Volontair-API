@@ -2,7 +2,7 @@ package com.projectb.endpoint;
 
 import com.projectb.entities.User;
 import com.projectb.repo.BasicRepo;
-import com.projectb.servicerepo.UserRepo;
+import com.projectb.repositories.UserRepo;
 import com.projectb.vault.AbsRestVault;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
