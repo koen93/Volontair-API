@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="$PROJECT_DIR$/gradle" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/BsUserManagement" />
+            <option value="$PROJECT_DIR$/Domain" />
+            <option value="$PROJECT_DIR$/PcsUser" />
+            <option value="$PROJECT_DIR$/PlatformServices" />
+            <option value="$PROJECT_DIR$/Starter" />
+          </set>
+        </option>
+        <option name="myModules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/BsUserManagement" />
+            <option value="$PROJECT_DIR$/Domain" />
+            <option value="$PROJECT_DIR$/PcsUser" />
+            <option value="$PROJECT_DIR$/PlatformServices" />
+            <option value="$PROJECT_DIR$/Starter" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
