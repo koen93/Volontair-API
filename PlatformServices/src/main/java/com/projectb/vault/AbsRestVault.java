@@ -1,7 +1,6 @@
 package com.projectb.vault;
 
 import com.projectb.abs.AbsEntity;
-import com.projectb.entities.User;
 import com.projectb.repo.BasicRepo;
 import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.persistence.EntityNotFoundException;
-import java.util.List;
 
 
 //TODO: Create our own exceptions for the platform

@@ -1,14 +1,14 @@
 package com.projectb.abs;
 
-import com.projectb.abs.AbsEntity;
 import com.projectb.entities.Tag;
 import com.projectb.entities.User;
 import com.sun.istack.internal.NotNull;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.OneToMany;
 import java.util.List;
 
 @Getter
