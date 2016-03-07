@@ -1,6 +1,5 @@
 package com.projectb.starter;
 
-import com.projectb.starter.VolontairSpringApplication;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.web.WebAppConfiguration;

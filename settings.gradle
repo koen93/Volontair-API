@@ -1,5 +1,0 @@
-include 'Domain'
-include 'PlatformServices'
-include 'BsUserManagement'
-include 'PcsUser'
-include 'Starter'
