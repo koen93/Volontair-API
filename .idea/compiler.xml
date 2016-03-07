@@ -22,20 +22,44 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="BsUserManagement" />
-        <module name="Domain" />
-        <module name="PcsUser" />
-        <module name="PlatformServices" />
         <module name="Starter" />
+      </profile>
+      <profile default="false" name="Annotation profile for Domain" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="Domain" />
+      </profile>
+      <profile default="false" name="Annotation profile for PlatformServices" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="PlatformServices" />
+      </profile>
+      <profile default="false" name="Annotation profile for PcsUser" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="PcsUser" />
+      </profile>
+      <profile default="false" name="Annotation profile for BsUserManagement" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="BsUserManagement" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="BsUserManagement" target="1.5" />
-      <module name="Domain" target="1.5" />
-      <module name="PcsUser" target="1.5" />
-      <module name="PlatformServices" target="1.5" />
+      <module name="BsUserManagement" target="1.8" />
+      <module name="Domain" target="1.8" />
+      <module name="PcsUser" target="1.8" />
+      <module name="PlatformServices" target="1.8" />
       <module name="Starter" target="1.8" />
-      <module name="Volontair-API" target="1.5" />
+      <module name="Volontair-API" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

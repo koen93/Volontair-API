@@ -2,7 +2,6 @@ package com.projectb.vault;
 
 import com.projectb.abs.AbsEntity;
 import com.projectb.repo.BasicRepo;
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,11 +1,11 @@
 package com.projectb.entities;
 
 import com.projectb.abs.AbsEntity;
-import com.sun.istack.internal.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
@@ -13,7 +13,7 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class Tag extends AbsEntity {
 
-    @NotNull
+    @Column(nullable = false)
     @Setter
     private String title;
 }

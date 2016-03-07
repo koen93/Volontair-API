@@ -1,8 +1,6 @@
 package com.projectb.entities;
 
 import com.projectb.abs.AbsEntity;
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,11 +17,9 @@ import java.util.List;
 @Getter
 public class User extends AbsEntity {
 
-    @NotNull
     @Setter
     private String userName;
 
-    @Nullable
     @OneToMany(cascade = CascadeType.DETACH)
     @Setter
     List<User> contacts;

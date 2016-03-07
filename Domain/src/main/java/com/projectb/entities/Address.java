@@ -1,12 +1,11 @@
 package com.projectb.entities;
 
 import com.projectb.abs.AbsEntity;
-import com.sun.istack.internal.NotNull;
-import com.sun.istack.internal.Nullable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 @Entity
@@ -14,27 +13,26 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 public class Address extends AbsEntity {
 
-    @NotNull
+    @Column(nullable = false)
     @Setter
     private String street;
 
-    @NotNull
+    @Column(nullable = false)
     @Setter
     private int streetNumber;
 
-    @Nullable
     @Setter
     private int streetNumberAddition;
 
-    @NotNull
+    @Column(nullable = false)
     @Setter
     private String zipCode;
 
-    @NotNull
+    @Column(nullable = false)
     @Setter
     private int city;
 
-    @NotNull
+    @Column(nullable = false)
     @Setter
     private String country;
 }
