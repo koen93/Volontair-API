@@ -12,8 +12,8 @@
         <module>Starter</module>
         <module>Domain</module>
         <module>PlatformServices</module>
-        <module>PcsUser</module>
         <module>BsUserManagement</module>
+        <module>PcsUser</module>
     </modules>
 
     <!--Project tools here-->

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityNotFoundException;
 
 
@@ -19,7 +20,7 @@ public abstract class AbsRestVault<E extends AbsEntity> {
     private BasicRepo<E> repo;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public E getById(@PathVariable("id") final ID id)  {
+    public E getById(@PathVariable("id") final Long id)  {
         E foundedEntity = repo.findOne(id);
         if (foundedEntity == null) {
             throw new EntityNotFoundException("Entity not found");
@@ -30,6 +31,11 @@ public abstract class AbsRestVault<E extends AbsEntity> {
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<E> getAll() {
         return repo.findAll();
+    }
+
+    @PostConstruct
+    public void fillValues() {
+        this.repo = provideRepo();
     }
 
     //TODO: Implement update
