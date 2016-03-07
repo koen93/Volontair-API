@@ -2,7 +2,7 @@ language: java
 jdk:
  - oraclejdk8
 before_install:
- - chmod +x gradlew
+# - chmod +x gradlew
 notifications:
   slack: projectb-avans:siOpU3NrKhK1f4IkjwfKx0el
   on_success: change
