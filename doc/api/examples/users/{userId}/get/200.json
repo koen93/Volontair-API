@@ -1,13 +1,58 @@
 {
-  "userId": 1,
-  "name": "John Doe",
-  "avatar": "2123.png",
-  "summary": "I like turtles",
+  "id": 1,
+  "name": "Laura Kalbag",
+  "avatar": "users/1/973496582646.png",
+  "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mollis quis nisi sed sagittis. Fusce malesuada turpis feugiat mauris malesuada faucibus. Fusce lacinia dolor vitae lacus accumsan, ac ullamcorper sapien facilisis. Morbi maximus accumsan purus, in convallis odio. Morbi pellentesque lacinia dui a elementum.",
+  "offersCategories": {
+    "main": [ "cooking", "social", "computer" ],
+    "additional": [ "Wandeling maken", "Boodschappen doen" ]
+  },
+  "contacts": [
+    {
+      "userId": 2,
+      "name": "Jan Smit",
+      "avatar": "2123.png",
+      "summary": "Lorum ipsum dolor sit amet",
+      "offers": [ ],
+      "requests": [ ],
+      "created": "2016-02-23T22:49:05+00:00",
+      "updated": "2016-02-23T22:49:05+00:00"
+    },
+    {
+      "userId": 3,
+      "name": "Maria Klavers",
+      "avatar": "2123.png",
+      "summary": "Lorum ipsum",
+      "offers": [ ],
+      "requests": [ ],
+      "created": "2016-02-23T22:49:05+00:00",
+      "updated": "2016-02-23T22:49:05+00:00"
+    }
+  ],
   "offers": [
-    1, 2, 3
+    {
+      "title": "Hulp met meterkast",
+      "category": "handyman",
+      "summary": "Alle lampen in de kamer werken niet meer waarschijnlijk een stop gesprongen in de meterkast.",
+      "created": "2016-02-23T22:49:05+00:00",
+      "updated": "2016-02-23T22:49:05+00:00"
+    }
   ],
   "requests": [
-    4, 5, 6
+    {
+      "title": "Hulp met computer",
+      "category": "computer",
+      "summary": "Zodra ik mijn internet opstart verschijnen er veel schermpjes hierdoor kan ik niks meer zien op de pagina.",
+      "created": "2016-01-23T22:49:05+00:00",
+      "updated": "2016-01-23T22:49:05+00:00"
+    },
+    {
+      "title": "Een drankje doen",
+      "category": "handyman",
+      "summary": "Lorum ipsum dolor sit amet, consectetur.",
+      "created": "2016-01-11T22:49:05+00:00",
+      "updated": "2016-01-11T22:49:05+00:00"
+    }
   ],
   "created": "2016-02-23T22:49:05+00:00",
   "updated": "2016-02-23T22:49:05+00:00"
