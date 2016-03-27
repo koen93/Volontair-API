@@ -1,16 +1,22 @@
-[
-  {
-    "userId": 1,
-    "name": "John Doe",
-    "avatar": "2123.png",
-    "summary": "I like turtles",
-    "offers": [
-      1, 2, 3
-    ],
-    "requests": [
-      4, 5, 6
-    ],
-    "created": "2016-02-23T22:49:05+00:00",
-    "updated": "2016-02-23T22:49:05+00:00"
-  }
-]
+{
+  "count": 1,
+  "offset": 0,
+  "limit": 10,
+  "data": [
+    {
+      "userId": 1,
+      "name": "John Doe",
+      "avatar": "2123.png",
+      "summary": "I like turtles",
+      "contacts": [ ]
+      "offers": [
+        1, 2, 3
+      ],
+      "requests": [
+        4, 5, 6
+      ],
+      "created": "2016-02-23T22:49:05+00:00",
+      "updated": "2016-02-23T22:49:05+00:00"
+    }
+  ]
+}
