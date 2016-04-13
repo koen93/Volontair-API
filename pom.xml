@@ -204,6 +204,13 @@
             <artifactId>lombok</artifactId>
             <version>1.16.6</version>
         </dependency>
+
+        <!-- Data -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-spatial</artifactId>
+            <version>LATEST</version>
+        </dependency>
     </dependencies>
 
 </project>

@@ -10,5 +10,5 @@ import javax.persistence.Entity;
 @Getter
 @NoArgsConstructor
 public class Request extends AbsTask {
-    //TODO: Think about specific Request properties?
+
 }

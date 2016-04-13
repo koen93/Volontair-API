@@ -11,7 +11,6 @@ import java.util.Date;
 @Getter
 @MappedSuperclass
 public abstract class AbsEntity {
-
     @Id
     @GeneratedValue
     private Long id;
@@ -21,7 +20,4 @@ public abstract class AbsEntity {
 
     @GeneratedValue
     private Date updated;
-
-    @Version
-    private int version;
 }
