@@ -1,16 +1,40 @@
-[
-  {
-    "offerId": 1,
-    "title": "Voetbal",
-    "summary": "Ik breng mijn zoons elke vrijdag naar basketbal. We hebben nog een plek vrij in onze bus.",
-    "created": "2016-02-23T22:49:05+00:00",
-    "updated": "2016-02-23T22:49:05+00:00"
-  },
-  {
-    "offerId": 2,
-    "title": "Lorum ipsum",
-    "summary": "Lorum ipsum dolor sit amet.",
-    "created": "2016-02-23T22:49:05+00:00",
-    "updated": "2016-02-23T22:49:05+00:00"
-  }
-]
+{
+  "count": 3,
+  "offset": 0,
+  "limit": 10,
+  "data": [
+    {
+      "title": "Hulp met meterkast",
+       "category": "handyman",
+      "summary": "Alle lampen in de kamer werken niet meer waarschijnlijk een stop gesprongen in de meterkast.",
+      "location": {
+        "lat": 51.697816,
+        "lng": 5.303675
+      },
+      "created": "2016-02-23T22:49:05+00:00",
+      "updated": "2016-02-23T22:49:05+00:00"
+    },
+    {
+      "title": "Hulp met computer",
+      "category": "computer",
+      "summary": "Zodra ik mijn internet opstart verschijnen er veel schermpjes hierdoor kan ik niks meer zien op de pagina.",
+      "location": {
+        "lat": 51.699211,
+        "lng": 5.299214
+      },
+      "created": "2016-01-23T22:49:05+00:00",
+      "updated": "2016-01-23T22:49:05+00:00"
+    },
+    {
+      "title": "Een drankje doen",
+      "category": "handyman",
+      "summary": "Lorum ipsum dolor sit amet, consectetur.",
+      "location": {
+        "lat": 51.699351,
+        "lng": 5.305812
+      },
+      "created": "2016-01-11T22:49:05+00:00",
+      "updated": "2016-01-11T22:49:05+00:00"
+    }
+  ]
+}
