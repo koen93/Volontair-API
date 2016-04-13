@@ -4,8 +4,7 @@ import com.projectb.entities.Category;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @Getter
 @MappedSuperclass
@@ -18,7 +17,7 @@ public abstract class AbsTask extends AbsEntity {
     @Setter
     private String description;
 
-    @Column(nullable = false)
+    @OneToOne(cascade = CascadeType.DETACH)
     @Setter
     private Category category;
 

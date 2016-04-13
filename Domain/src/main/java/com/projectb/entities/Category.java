@@ -4,12 +4,11 @@ import com.projectb.abs.AbsEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import javax.annotation.Nullable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -30,5 +29,5 @@ public class Category extends AbsEntity {
 
     @Column(nullable = false)
     @Setter
-    public List<Request> requests;
+    public ArrayList<Request> requests;
 }

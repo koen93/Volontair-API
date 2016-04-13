@@ -14,6 +14,8 @@
         <module>PlatformServices</module>
         <module>BsUserManagement</module>
         <module>PcsUser</module>
+        <module>BsTask</module>
+        <module>PcsTask</module>
     </modules>
 
 
@@ -203,13 +205,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.6</version>
-        </dependency>
-
-        <!-- Data -->
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-spatial</artifactId>
-            <version>LATEST</version>
         </dependency>
     </dependencies>
 

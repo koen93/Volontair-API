@@ -23,5 +23,4 @@ public class UserService extends AbsRestVault<User> {
         return userRepo;
     }
 
-
 }
