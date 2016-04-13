@@ -1,10 +1,10 @@
 package com.projectb.repositories;
 
 import com.projectb.entities.Request;
-import com.projectb.repo.BasicRepo;
+import com.projectb.repositories.abs.TaskRepo;
 import org.springframework.stereotype.Component;
 
 @Component
-public interface RequestRepo extends BasicRepo<Request> {
+public interface RequestRepo extends TaskRepo<Request> {
 
 }

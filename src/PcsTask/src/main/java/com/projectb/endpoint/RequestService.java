@@ -13,22 +13,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value = "requests", produces = "application/json")
-public class RequestService extends AbsRestVault<Request> {
-    @Autowired
-    private RequestRepo requestRepo;
+public class RequestService extends TaskService<Request> {
 
-    @Override
-    public BasicRepo<Request> provideRepo() {
-        return requestRepo;
-    }
+
+//    @Autowired
+//    private RequestRepo requestRepo;
+
+//    @Override
+//    public BasicRepo<Request> provideRepo() {
+//        return requestRepo;
+//    }
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public Request insert(@RequestBody Request request) {
-        requestRepo.save(request);
-
-//        Request r = new Request();
-//        r.setTitle("Title");
-
+        super.provideRepo().save(request);
         return request;
     }
 
