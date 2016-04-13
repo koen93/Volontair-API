@@ -7,17 +7,17 @@
     <groupId>Volontair-API</groupId>
     <artifactId>Volontair-API</artifactId>
     <packaging>pom</packaging>
+    <!--<packaging>war</packaging>-->
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>Starter</module>
-        <module>Domain</module>
-        <module>PlatformServices</module>
-        <module>BsUserManagement</module>
-        <module>PcsUser</module>
-        <module>BsTask</module>
-        <module>PcsTask</module>
+        <module>src/Starter</module>
+        <module>src/Domain</module>
+        <module>src/PlatformServices</module>
+        <module>src/BsUserManagement</module>
+        <module>src/PcsUser</module>
+        <module>src/BsTask</module>
+        <module>src/PcsTask</module>
     </modules>
-
 
     <properties>
         <test.server.port>9001</test.server.port>
@@ -25,7 +25,35 @@
         <argLine>-Xmx128m</argLine>
         <sonar.junit.reportsPath>target/surefire-reports</sonar.junit.reportsPath>
         <sonar.jacoco.reportPath>target/jacoco.exec</sonar.jacoco.reportPath>
+        <project.build.sourceEncoding>UTF-8`</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
     </properties>
+    
+    <repositories>
+		<repository>
+			<id>eap</id>
+			<url>http://maven.repository.redhat.com/techpreview/all</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>eap</id>
+			<url>http://maven.repository.redhat.com/techpreview/all</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
 
     <profiles>
         <profile>
@@ -49,6 +77,23 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+			<id>openshift</id>
+			<build>
+				<finalName>volontair</finalName>
+				<plugins>
+					<plugin>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>2.1.1</version>
+						<configuration>
+							<outputDirectory>webapps</outputDirectory>
+							<warName>ROOT</warName>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
     </profiles>
 
     <build>
@@ -206,6 +251,19 @@
             <artifactId>lombok</artifactId>
             <version>1.16.6</version>
         </dependency>
+        
+        <!-- Data -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.2-1003-jdbc4</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+			<scope>provided</scope>
+		</dependency>
     </dependencies>
 
 </project>
