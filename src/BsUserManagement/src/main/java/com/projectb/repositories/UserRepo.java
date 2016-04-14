@@ -6,4 +6,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface UserRepo extends BasicRepo<User> {
+    User findByUsername(String username);
 }
