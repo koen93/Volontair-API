@@ -17,6 +17,7 @@
         <module>src/PcsUser</module>
         <module>src/BsTask</module>
         <module>src/PcsTask</module>
+        <module>src/PcsAuth</module>
     </modules>
 
     <properties>
