@@ -1,9 +1,12 @@
 package com.projectb.config;
 
+import com.projectb.auth.SimpleSocialUserDetailsService;
+import com.projectb.auth.SimpleUserDetailsService;
 import com.projectb.entities.Role;
 import com.projectb.entities.User;
 import com.projectb.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.userdetails.UserDetailsServiceConfigurer;
@@ -11,6 +14,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.social.security.SocialUserDetailsService;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
@@ -20,14 +25,11 @@ public class AuthWebSecurityConfig extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
     private UserRepo userRepo;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.userDetailsService(userDetailsService);
+        http.userDetailsService(userDetailsService());
         http.authorizeRequests()
                 .antMatchers("/**")
                 .hasRole("USER")
@@ -36,9 +38,13 @@ public class AuthWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .permitAll()
                 .and()
+            .rememberMe()
+                .and()
             .logout()
                 .logoutUrl("/logout")
-                .permitAll();
+                .permitAll()
+            .and()
+                .apply(new SpringSocialConfigurer());
     }
 
     @Override
@@ -56,5 +62,15 @@ public class AuthWebSecurityConfig extends WebSecurityConfigurerAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Bean
+    public SocialUserDetailsService socialUserDetailsService() {
+        return new SimpleSocialUserDetailsService(userDetailsService());
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return new SimpleUserDetailsService();
     }
 }
