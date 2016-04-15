@@ -1,4 +1,4 @@
-package com.projectb.endpoint;
+package com.projectb.config;
 
 import com.projectb.entities.Role;
 import com.projectb.entities.User;
@@ -32,7 +32,9 @@ public class AuthWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**")
                 .hasRole("USER")
                 .and()
-            .formLogin();
+            .formLogin()
+                .loginPage("/login")
+                .permitAll();
     }
 
     @Override
