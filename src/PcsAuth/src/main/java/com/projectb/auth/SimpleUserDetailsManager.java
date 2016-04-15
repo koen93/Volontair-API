@@ -66,12 +66,7 @@ public class SimpleUserDetailsManager implements UserDetailsManager {
                 logger.warn(String.format("Could not find role %s.", authority.getAuthority()));
         }
 
-        try {
-            userRepo.saveAndFlush(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        userRepo.saveAndFlush(user);
     }
 
     @Override
@@ -83,11 +78,11 @@ public class SimpleUserDetailsManager implements UserDetailsManager {
         user.setPassword(userDetails.getPassword());
         user.setEnabled(userDetails.isEnabled());
 
-        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-        user.getRoles().clear();
-        for(GrantedAuthority authority : authorities) {
-            user.getRoles().add(new Role(authority.getAuthority()));
-        }
+//        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
+//        user.getRoles().clear();
+//        for(GrantedAuthority authority : authorities) {
+//            user.getRoles().add(new Role(authority.getAuthority()));
+//        }
 
         userRepo.save(user);
     }

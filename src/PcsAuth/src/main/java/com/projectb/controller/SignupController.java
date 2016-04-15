@@ -1,5 +1,7 @@
 package com.projectb.controller;
 
+import com.projectb.entities.User;
+import com.projectb.repositories.UserRepo;
 import edu.emory.mathcs.backport.java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -27,6 +29,9 @@ public class SignupController {
     private final UserDetailsManager userDetailsManager;
 
     @Autowired
+    private UserRepo userRepo;
+
+    @Autowired
     public SignupController(ProviderSignInUtils providerSignInUtils, UserDetailsManager userDetailsManager) {
         this.providerSignInUtils = providerSignInUtils;
         this.userDetailsManager = userDetailsManager;
@@ -48,7 +53,7 @@ public class SignupController {
         SocialUser user = createUser(form);
         if(user != null) {
             SecurityContextHolder.getContext().setAuthentication(
-                    new UsernamePasswordAuthenticationToken(user.getUsername(), null, null));
+                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities()));
             providerSignInUtils.doPostSignUp(user.getUsername(), request);
             return "redirect:/";
         }
