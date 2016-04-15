@@ -18,6 +18,7 @@
         <module>src/BsTask</module>
         <module>src/PcsTask</module>
         <module>src/PcsAuth</module>
+        <module>src/BsAuth</module>
     </modules>
 
     <properties>

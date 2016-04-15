@@ -18,10 +18,11 @@ import java.util.Set;
 @Getter
 public class User extends AbsEntity {
 
+    @Column
     @Setter
     private String username;
 
-    @Column(nullable = false)
+    @Column
     @Setter
     private String password;
 

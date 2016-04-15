@@ -1,19 +1,21 @@
 package com.projectb.config;
 
 import com.projectb.auth.SimpleSocialUserDetailsService;
-import com.projectb.auth.SimpleUserDetailsService;
+import com.projectb.auth.SimpleUserDetailsManager;
 import com.projectb.entities.Role;
 import com.projectb.entities.User;
+import com.projectb.repositories.RoleRepo;
 import com.projectb.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.userdetails.UserDetailsServiceConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.social.security.SpringSocialConfigurer;
 
@@ -27,24 +29,36 @@ public class AuthWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private RoleRepo roleRepo;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.userDetailsService(userDetailsService());
         http.authorizeRequests()
+                .antMatchers("/signup")
+                .permitAll()
+                .and()
+            .authorizeRequests()
                 .antMatchers("/**")
                 .hasRole("USER")
                 .and()
             .formLogin()
-                .loginPage("/login")
+                .loginPage("/signin")
+                .loginProcessingUrl("/signin/authenticate")
+                .failureUrl("/signin?param.error=bad_credentials")
                 .permitAll()
                 .and()
             .rememberMe()
                 .and()
             .logout()
-                .logoutUrl("/logout")
-                .permitAll()
+                .logoutUrl("/signout")
+                .deleteCookies("JSESSIONID")
             .and()
-                .apply(new SpringSocialConfigurer());
+                .apply(new SpringSocialConfigurer()).signupUrl("/signup");
     }
 
     @Override
@@ -71,6 +85,11 @@ public class AuthWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new SimpleUserDetailsService();
+        return new SimpleUserDetailsManager(userRepo, roleRepo, authenticationManager);
+    }
+
+    @Bean
+    public UserDetailsManager userDetailsManager() {
+        return new SimpleUserDetailsManager(userRepo, roleRepo, authenticationManager);
     }
 }
