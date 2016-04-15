@@ -12,11 +12,6 @@ import java.util.Map;
 
 @Controller
 public class AuthController {
-    @RequestMapping(value = "/signin")
-    public String signin() {
-        return "signin";
-    }
-
     @RequestMapping(value = "/signout")
     public String singout() {
         return "signout";
