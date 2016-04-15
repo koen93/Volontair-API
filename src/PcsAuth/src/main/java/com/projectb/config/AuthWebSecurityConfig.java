@@ -57,6 +57,7 @@ public class AuthWebSecurityConfig extends WebSecurityConfigurerAdapter {
             .logout()
                 .logoutUrl("/signout")
                 .deleteCookies("JSESSIONID")
+                .permitAll()
             .and()
                 .apply(new SpringSocialConfigurer()).signupUrl("/signup");
     }

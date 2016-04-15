@@ -13,13 +13,13 @@ import java.util.Map;
 @Controller
 public class AuthController {
     @RequestMapping(value = "/signin")
-    public String login() {
-        return "login";
+    public String signin() {
+        return "signin";
     }
 
     @RequestMapping(value = "/signout")
-    public String logout() {
-        return "logout";
+    public String singout() {
+        return "signout";
     }
 
     @RequestMapping(value = "/signup")
