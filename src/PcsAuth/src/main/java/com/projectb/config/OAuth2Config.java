@@ -20,10 +20,15 @@ import org.springframework.security.oauth2.provider.approval.DefaultUserApproval
 import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.security.SpringSocialConfigurer;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class OAuth2Config {
@@ -39,13 +44,21 @@ public class OAuth2Config {
 
         @Override
         public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-            resources.resourceId(VOLONTAIR_RESOURCE_ID).stateless(false);
+            resources
+                    .resourceId(VOLONTAIR_RESOURCE_ID)
+                    .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/signin"))
+                    .stateless(false);
         }
 
         @Override
         public void configure(HttpSecurity http) throws Exception {
             http.userDetailsService(userDetailsService);
-            http.formLogin()
+            http
+                .authorizeRequests()
+                    .antMatchers("/jj", "/", "/signup**", "/signin**", "/auth/socialAccessToken**")
+                    .permitAll()
+                    .and()
+                .formLogin()
                     .loginPage("/signin")
                     .loginProcessingUrl("/signin/authenticate")
                     .failureUrl("/signin?param.error=bad_credentials")
@@ -59,11 +72,15 @@ public class OAuth2Config {
                     .permitAll()
                     .and()
                 .authorizeRequests()
-                    .anyRequest()
-                    .permitAll()
+                    .antMatchers("/connect**")
+                    .authenticated()
                     .and()
                 .authorizeRequests()
                     .antMatchers("/api/v1")
+                    .authenticated()
+                    .and()
+                .authorizeRequests()
+                    .anyRequest()
                     .authenticated()
                     .and()
                 .csrf()
@@ -82,6 +99,9 @@ public class OAuth2Config {
     @EnableAuthorizationServer
     protected static class AuthorizationServerConfiguration implements AuthorizationServerConfigurer {
         @Autowired
+        private DataSource dataSource;
+
+        @Autowired
         private TokenStore tokenStore;
 
         @Autowired
@@ -98,7 +118,7 @@ public class OAuth2Config {
 
         @Override
         public void configure(ClientDetailsServiceConfigurer clientDetailsServiceConfigurer) throws Exception {
-            clientDetailsServiceConfigurer.inMemory()
+            clientDetailsServiceConfigurer.jdbc(dataSource)
                     .withClient("volontair")
                     .authorizedGrantTypes("authorization_code", "implicit")
                     .authorities("ROLE_USER")
@@ -114,7 +134,7 @@ public class OAuth2Config {
 
         @Bean
         public TokenStore tokenStore() {
-            return new InMemoryTokenStore();
+            return new JdbcTokenStore(dataSource);
         }
 
         @Bean

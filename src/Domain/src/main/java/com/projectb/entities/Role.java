@@ -12,15 +12,11 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 public class Role extends AbsEntity {
     @Column(nullable = false)
     @Setter
     private String name;
-
-    @ManyToMany
-    private List<User> user = new ArrayList<>();
 
     public Role(String name) {
         this.name = name;

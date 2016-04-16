@@ -40,22 +40,6 @@ public class AuthWebSecurityConfig extends WebSecurityConfigurerAdapter {
     private AuthenticationManager authenticationManager;
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.userDetailsService(userDetailsService());
-        http.authorizeRequests()
-                .antMatchers("/signup", "/auth/socialAccessToken")
-                .permitAll()
-                .and()
-            .authorizeRequests()
-                .antMatchers("/**")
-                .hasRole("USER");
-    }
-
-    private CsrfTokenRepository csrfTokenRepository() {
-        return new HttpSessionCsrfTokenRepository();
-    }
-
-    @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth
 //            .userDetailsService(userDetailsService);

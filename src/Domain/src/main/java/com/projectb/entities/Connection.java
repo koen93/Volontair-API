@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @IdClass(ConnectionId.class)
-@Table(name = "UserConnection", uniqueConstraints = @UniqueConstraint(columnNames = {"userId", "providerId", "rank"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"userId", "providerId", "rank"}))
 @Getter
 public class Connection {
     @Id
