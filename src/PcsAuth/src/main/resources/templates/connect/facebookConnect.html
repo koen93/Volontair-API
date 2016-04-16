@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:social="http://spring.io/springsocial"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout_blank">
 <head>
     <title>Spring Social Showcase</title>
 </head>
 <body>
-<div id="content" layout:fragment="content">
+<div layout:fragment="content">
     <h3>Connect to Facebook</h3>
 
     <form th:action="@{/connect/facebook}" method="POST">
@@ -15,9 +16,9 @@
         <div class="formInfo">
             <p>You aren't connected to Facebook yet. Click the button to connect Spring Social Showcase with your Facebook account.</p>
         </div>
-        <p><button type="submit">Connect to Facebook</button></p>
-        <label for="postToWall"><input id="postToWall" type="checkbox" name="postToWall" /> Tell your friends about Spring Social Showcase on your Facebook wall</label>
+        <p><button type="submit" class="btn btn-raised btn-danger btn-facebook"><i class="fa fa-facebook-square" aria-hidden="true"></i> Connect to Facebook</button></p>
     </form>
+    <a th:href="@{/connect}" class="btn btn-primary">Back</a>
 </div>
 </body>
 </html>

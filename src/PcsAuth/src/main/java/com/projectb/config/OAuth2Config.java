@@ -55,7 +55,7 @@ public class OAuth2Config {
             http.userDetailsService(userDetailsService);
             http
                 .authorizeRequests()
-                    .antMatchers("/jj", "/", "/signup**", "/signin**", "/auth/socialAccessToken**")
+                    .antMatchers("/", "/signup**", "/signin**", "/auth/socialAccessToken**", "/webjars/**")
                     .permitAll()
                     .and()
                 .formLogin()

@@ -1,30 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:social="http://spring.io/springsocial"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout_blank">
 <head>
-    <title>Spring Social Showcase</title>
+    <title>Connections - Volontair</title>
 </head>
 <body>
-<div id="header">
-    <h1>Connections</h1>
-</div>
-
 <div id="content" layout:fragment="content">
-    <h3>Your Connections</h3>
-
-    <div class="accountConnection" th:each="providerId : ${providerIds}">
-        <h4><span th:text="${providerId}">provider name</span></h4>
-        <p>
-            <span th:if="${!#lists.isEmpty(connectionMap[__${providerId}__])}">
-                You are connected to <span th:text="${providerId}">provider name</span> as <span th:text="${connectionMap[__${providerId}__][0].displayName}">user display name</span>.
-            </span>
-            <span th:if="${#lists.isEmpty(connectionMap[__${providerId}__])}">
-                You are not yet connected to <span th:text="${providerId}">provider name</span>.
-            </span>
-            Click <a th:href="@{'/connect/' + ${providerId}}">here</a> to manage your <span th:text="${providerId}">provider name</span> connection.
-        </p>
-    </div>
+    <h3>Your connections</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Type</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="providerId : ${providerIds}">
+            <td><img th:src="@{'/images/connect/' + ${providerId} + '.png'}" th:alt="${providerId}" /></td>
+            <td th:text="${providerId}"></td>
+            <td>
+                <span th:if="${!#lists.isEmpty(connectionMap[__${providerId}__])}">
+                    Connected to as <span th:text="${connectionMap[__${providerId}__][0].displayName}">user display name</span>.
+                </span>
+                <span th:if="${#lists.isEmpty(connectionMap[__${providerId}__])}">
+                    Not connected.
+                </span>
+            </td>
+            <td>
+                <a th:href="@{'/connect/' + ${providerId}}" class="btn btn-primary">
+                <span th:if="${!#lists.isEmpty(connectionMap[__${providerId}__])}">
+                    Disconnect
+                </span>
+                <span th:if="${#lists.isEmpty(connectionMap[__${providerId}__])}">
+                    Connect
+                </span>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

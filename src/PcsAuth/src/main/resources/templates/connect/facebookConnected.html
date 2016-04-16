@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:social="http://spring.io/springsocial"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout_blank">
 <head>
     <title>Spring Social Showcase</title>
     <link rel="stylesheet" th:href="@{/resources/page.css}" type="text/css" media="screen"></link>
@@ -9,11 +10,7 @@
     <link rel="stylesheet" th:href="@{/resources/messages/messages.css}" type="text/css" media="screen"></link>
 </head>
 <body>
-<div id="header">
-    <h1><a th:href="@{/}">Spring Social Showcase</a></h1>
-</div>
-
-<div id="content" layout:fragment="content">
+<div layout:fragment="content">
     <h3>Connected to Facebook</h3>
 
     <form id="disconnect" method="post">
@@ -24,11 +21,10 @@
                 Click the button if you wish to disconnect.
             </p>
         </div>
-        <button type="submit">Disconnect</button>
+        <button type="submit" class="btn btn-raised btn-danger">Disconnect</button>
         <input type="hidden" name="_method" value="delete" />
     </form>
-
-    <a th:href="@{/facebook}">View your Facebook profile</a>
+    <a th:href="@{/connect}" class="btn btn-primary">Back</a>
 </div>
 </body>
 </html>
