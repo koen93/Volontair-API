@@ -52,10 +52,11 @@ public class OAuth2Config {
 
         @Override
         public void configure(HttpSecurity http) throws Exception {
+            // TODO: /login should no longer be working, who's providing that?
             http.userDetailsService(userDetailsService);
             http
                 .authorizeRequests()
-                    .antMatchers("/", "/signup**", "/signin**", "/auth/socialAccessToken**", "/webjars/**")
+                    .antMatchers("/", "/signup**", "/signin**", "/auth/socialAccessToken**", "/webjars/**", "/login")
                     .permitAll()
                     .and()
                 .formLogin()
@@ -116,7 +117,8 @@ public class OAuth2Config {
 
         @Override
         public void configure(AuthorizationServerSecurityConfigurer authorizationServerSecurityConfigurer) throws Exception {
-            authorizationServerSecurityConfigurer.allowFormAuthenticationForClients()
+            authorizationServerSecurityConfigurer
+                    .allowFormAuthenticationForClients()
                     .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/signin"));
         }
 
@@ -124,7 +126,7 @@ public class OAuth2Config {
         public void configure(ClientDetailsServiceConfigurer clientDetailsServiceConfigurer) throws Exception {
             clientDetailsServiceConfigurer.jdbc(dataSource)
                     .withClient("volontair")
-                    .authorizedGrantTypes("authorization_code", "implicit")
+                    .authorizedGrantTypes("authorization_code", "implicit", "client_credentials")
                     .authorities("ROLE_USER")
                     .scopes("test")
                     .secret("secret");
@@ -132,7 +134,9 @@ public class OAuth2Config {
 
         @Override
         public void configure(AuthorizationServerEndpointsConfigurer authorizationServerEndpointsConfigurer) throws Exception {
-            authorizationServerEndpointsConfigurer.tokenStore(tokenStore()).userApprovalHandler(userApprovalHandler)
+            authorizationServerEndpointsConfigurer
+                    .tokenStore(tokenStore())
+                    .userApprovalHandler(userApprovalHandler)
                     .authenticationManager(authenticationManager);
         }
 

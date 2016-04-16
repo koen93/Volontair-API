@@ -35,7 +35,11 @@ body {
     max-width: 600px;
 }
 
-.btn-facebook {
+.btn-facebook.btn-raised {
     background-color: #3B5998 !important;
     color: #ffffff !important;
+}
+
+.btn-primary.btn-raised {
+    background-color: #03a9f4 !important;
 }
