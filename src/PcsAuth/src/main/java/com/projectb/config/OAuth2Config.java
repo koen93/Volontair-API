@@ -116,7 +116,8 @@ public class OAuth2Config {
 
         @Override
         public void configure(AuthorizationServerSecurityConfigurer authorizationServerSecurityConfigurer) throws Exception {
-            authorizationServerSecurityConfigurer.allowFormAuthenticationForClients();
+            authorizationServerSecurityConfigurer.allowFormAuthenticationForClients()
+                    .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/signin"));
         }
 
         @Override
