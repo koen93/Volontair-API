@@ -2,13 +2,11 @@ package com.projectb.entities;
 
 import lombok.Getter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 
 @Entity
 @IdClass(ConnectionId.class)
+@Table(name = "UserConnection", uniqueConstraints = @UniqueConstraint(columnNames = {"userId", "providerId", "rank"}))
 @Getter
 public class Connection {
     @Id
