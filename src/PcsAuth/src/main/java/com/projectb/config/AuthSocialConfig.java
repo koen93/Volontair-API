@@ -69,8 +69,4 @@ public class AuthSocialConfig implements SocialConfigurer {
         return new UserConnectionSignUp(userRepo);
     }
 
-    @Bean
-    public SignInAdapter signInAdapter() {
-        return new SimpleSignInAdapter();
-    }
 }
