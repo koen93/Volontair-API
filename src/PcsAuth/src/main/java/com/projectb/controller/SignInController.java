@@ -2,8 +2,14 @@ package com.projectb.controller;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.projectb.entities.Role;
+import com.projectb.repositories.UserRepo;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.social.ExpiredAuthorizationException;
 import org.springframework.social.UserIdSource;
 import org.springframework.social.connect.*;
@@ -19,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.WebRequest;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -34,7 +42,7 @@ public class SigninController {
     private ConnectionSignUp connectionSignUp;
 
     @Autowired
-    private SignInAdapter signInAdapter;
+    private UserRepo userRepo;
 
     @RequestMapping(value = "/signin")
     public String signin() {
@@ -77,7 +85,15 @@ public class SigninController {
         if(userIdsWithConnection.isEmpty())
             connectionSignUp.execute(connection);
 
-        signInAdapter.signIn(userIdsWithConnection.get(0), connection, request);
+        // sign in
+        com.projectb.entities.User user = userRepo.findByUsername(userIdsWithConnection.get(0));
+
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        for(Role role : user.getRoles()) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+
+        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userIdsWithConnection, user.getPassword(), authorities));
 
         return "redirect:/";
     }

@@ -7,6 +7,8 @@ import com.projectb.entities.User;
 import com.projectb.repositories.RoleRepo;
 import com.projectb.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.social.SocialWebAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +18,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.social.security.SpringSocialConfigurer;
 
@@ -44,22 +48,11 @@ public class AuthWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
             .authorizeRequests()
                 .antMatchers("/**")
-                .hasRole("USER")
-                .and()
-            .formLogin()
-                .loginPage("/signin")
-                .loginProcessingUrl("/signin/authenticate")
-                .failureUrl("/signin?param.error=bad_credentials")
-                .permitAll()
-                .and()
-            .rememberMe()
-                .and()
-            .logout()
-                .logoutUrl("/signout")
-                .deleteCookies("JSESSIONID")
-                .permitAll()
-            .and()
-                .apply(new SpringSocialConfigurer()).signupUrl("/signup");
+                .hasRole("USER");
+    }
+
+    private CsrfTokenRepository csrfTokenRepository() {
+        return new HttpSessionCsrfTokenRepository();
     }
 
     @Override
@@ -92,7 +85,7 @@ public class AuthWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new SimpleUserDetailsManager(userRepo, roleRepo, authenticationManager);
+        return userDetailsManager();
     }
 
     @Bean

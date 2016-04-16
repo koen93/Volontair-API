@@ -2,26 +2,81 @@ package com.projectb.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.social.SocialWebAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.*;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.approval.DefaultUserApprovalHandler;
 import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.web.csrf.CsrfTokenRepository;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 @Configuration
 public class OAuth2Config {
-//    @Configuration
-//    @EnableResourceServer
-//    protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
-//
-//    }
+
+    private static final String VOLONTAIR_RESOURCE_ID = "volontair";
+
+    @Configuration
+    @EnableResourceServer
+    protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+
+        @Autowired
+        private UserDetailsService userDetailsService;
+
+        @Override
+        public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+            resources.resourceId(VOLONTAIR_RESOURCE_ID).stateless(false);
+        }
+
+        @Override
+        public void configure(HttpSecurity http) throws Exception {
+            http.userDetailsService(userDetailsService);
+            http.formLogin()
+                    .loginPage("/signin")
+                    .loginProcessingUrl("/signin/authenticate")
+                    .failureUrl("/signin?param.error=bad_credentials")
+                    .permitAll()
+                    .and()
+                .rememberMe()
+                    .and()
+                .logout()
+                    .logoutUrl("/signout")
+                    .deleteCookies("JSESSIONID")
+                    .permitAll()
+                    .and()
+                .authorizeRequests()
+                    .anyRequest()
+                    .permitAll()
+                    .and()
+                .authorizeRequests()
+                    .antMatchers("/api/v1")
+                    .authenticated()
+                    .and()
+                .csrf()
+                    .csrfTokenRepository(csrfTokenRepository())
+                    .and()
+                .apply(new SpringSocialConfigurer()).signupUrl("/signup");
+        }
+
+        private CsrfTokenRepository csrfTokenRepository() {
+            return new HttpSessionCsrfTokenRepository();
+        }
+
+    }
 
     @Configuration
     @EnableAuthorizationServer
