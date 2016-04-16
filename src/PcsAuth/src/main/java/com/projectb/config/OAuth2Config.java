@@ -86,6 +86,9 @@ public class OAuth2Config {
                 .csrf()
                     .csrfTokenRepository(csrfTokenRepository())
                     .and()
+                .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                    .and()
                 .apply(new SpringSocialConfigurer()).signupUrl("/signup");
         }
 
