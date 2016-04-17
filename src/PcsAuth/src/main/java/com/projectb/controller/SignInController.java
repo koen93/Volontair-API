@@ -30,7 +30,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Controller
-public class SigninController {
+public class SignInController {
 
     @Autowired
     private ConnectionFactoryLocator connectionFactoryLocator;

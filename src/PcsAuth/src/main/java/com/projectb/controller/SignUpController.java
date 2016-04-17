@@ -1,6 +1,5 @@
 package com.projectb.controller;
 
-import com.projectb.entities.User;
 import com.projectb.repositories.UserRepo;
 import edu.emory.mathcs.backport.java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,20 +10,15 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.social.security.SocialUser;
-import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.request.WebRequest;
 
-import javax.xml.ws.spi.Provider;
-
 @Controller
-public class SignupController {
+public class SignUpController {
     private final ProviderSignInUtils providerSignInUtils;
     private final UserDetailsManager userDetailsManager;
 
@@ -32,7 +26,7 @@ public class SignupController {
     private UserRepo userRepo;
 
     @Autowired
-    public SignupController(ProviderSignInUtils providerSignInUtils, UserDetailsManager userDetailsManager) {
+    public SignUpController(ProviderSignInUtils providerSignInUtils, UserDetailsManager userDetailsManager) {
         this.providerSignInUtils = providerSignInUtils;
         this.userDetailsManager = userDetailsManager;
     }
@@ -41,15 +35,15 @@ public class SignupController {
     public void signupForm(WebRequest request, Model model) {
         Connection<?> connectionFromSession = providerSignInUtils.getConnectionFromSession(request);
 
-        SignupForm form = new SignupForm();
+        SignUpForm form = new SignUpForm();
         if(connectionFromSession != null) {
-            form = SignupForm.fromProviderUser(connectionFromSession.fetchUserProfile());
+            form = SignUpForm.fromProviderUser(connectionFromSession.fetchUserProfile());
         }
         model.addAttribute("form", form);
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public String signup(@ModelAttribute SignupForm form, WebRequest request) {
+    public String signup(@ModelAttribute SignUpForm form, WebRequest request) {
         SocialUser user = createUser(form);
         if(user != null) {
             SecurityContextHolder.getContext().setAuthentication(
@@ -60,7 +54,7 @@ public class SignupController {
         return null;
     }
 
-    private SocialUser createUser(SignupForm form) {
+    private SocialUser createUser(SignUpForm form) {
         SocialUser user = new SocialUser(
                 form.getUsername(),
                 form.getPassword(),

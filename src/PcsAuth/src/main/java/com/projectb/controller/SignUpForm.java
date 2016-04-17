@@ -6,12 +6,12 @@ import org.springframework.social.connect.UserProfile;
 
 @Getter
 @Setter
-public class SignupForm {
+public class SignUpForm {
     private String username;
     private String password;
 
-    public static SignupForm fromProviderUser(UserProfile userProfile) {
-        SignupForm form = new SignupForm();
+    public static SignUpForm fromProviderUser(UserProfile userProfile) {
+        SignUpForm form = new SignUpForm();
 
         form.setUsername(userProfile.getEmail());
 
