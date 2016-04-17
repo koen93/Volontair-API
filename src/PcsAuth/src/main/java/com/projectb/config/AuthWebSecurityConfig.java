@@ -64,6 +64,7 @@ public class AuthWebSecurityConfig extends WebSecurityConfigurerAdapter {
             User user = new User();
             user.setUsername("user");
             user.setPassword("password");
+            user.setEnabled(true);
             user.getRoles().add(new Role("ROLE_USER"));
 
             userRepo.save(user);

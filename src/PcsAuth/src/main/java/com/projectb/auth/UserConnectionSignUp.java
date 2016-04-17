@@ -21,6 +21,7 @@ public class UserConnectionSignUp implements ConnectionSignUp {
         try {
             User user = new User();
             user.setUsername(profile.getEmail());
+            user.setEnabled(true);
             user.getRoles().add(new Role("ROLE_USER"));
             userRepo.saveAndFlush(user);
 

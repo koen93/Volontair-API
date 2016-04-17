@@ -62,7 +62,7 @@ public class OAuth2Config {
                 .formLogin()
                     .loginPage("/signin")
                     .loginProcessingUrl("/signin/authenticate")
-                    .failureUrl("/signin?param.error=bad_credentials")
+                    .failureUrl("/signin?error")
                     .permitAll()
                     .and()
                 .rememberMe()
