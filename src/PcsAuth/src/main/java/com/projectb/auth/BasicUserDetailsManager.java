@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
@@ -24,8 +22,8 @@ import org.springframework.util.Assert;
 import java.util.Collection;
 
 @Service
-public class SimpleUserDetailsManager implements UserDetailsManager {
-    private static final Log logger = LogFactory.getLog(SimpleUserDetailsManager.class.getClass());
+public final class BasicUserDetailsManager implements UserDetailsManager {
+    private static final Log logger = LogFactory.getLog(BasicUserDetailsManager.class.getClass());
 
     private UserRepo userRepo;
 
@@ -33,11 +31,14 @@ public class SimpleUserDetailsManager implements UserDetailsManager {
 
     private AuthenticationManager authenticationManager;
 
+    private SignUpService signUpService;
+
     @Autowired
-    public SimpleUserDetailsManager(UserRepo userRepo, RoleRepo roleRepo, AuthenticationManager authenticationManager) {
+    public BasicUserDetailsManager(UserRepo userRepo, RoleRepo roleRepo, AuthenticationManager authenticationManager, SignUpService signUpService) {
         this.userRepo = userRepo;
         this.roleRepo = roleRepo;
         this.authenticationManager = authenticationManager;
+        this.signUpService = signUpService;
     }
 
     @Override
@@ -45,7 +46,7 @@ public class SimpleUserDetailsManager implements UserDetailsManager {
         User user = userRepo.findByUsername(username);
         if(user == null)
             throw new UsernameNotFoundException(String.format("Username %s could not be found.", username));
-        return new AuthUserDetails(user);
+        return new BasicUserDetails(user);
     }
 
     @Override
@@ -66,7 +67,7 @@ public class SimpleUserDetailsManager implements UserDetailsManager {
                 logger.warn(String.format("Could not find role %s.", authority.getAuthority()));
         }
 
-        userRepo.saveAndFlush(user);
+        signUpService.signUp(user);
     }
 
     @Override

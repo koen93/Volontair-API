@@ -11,19 +11,9 @@ import java.security.Principal;
 import java.util.Map;
 
 @Controller
-public class AuthController {
+public class IndexController {
     @RequestMapping(value = "/")
     public String index() {
         return "index";
-    }
-
-    @RequestMapping(value = "/signout")
-    public String singout() {
-        return "signout";
-    }
-
-    @RequestMapping(value = "/signup")
-    public String signup() {
-        return "signup";
     }
 }

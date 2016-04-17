@@ -1,11 +1,10 @@
 package com.projectb.controller;
 
+import com.projectb.auth.SignInService;
 import com.projectb.repositories.UserRepo;
 import edu.emory.mathcs.backport.java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.web.ProviderSignInUtils;
@@ -24,6 +23,9 @@ public class SignUpController {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private SignInService signInService;
 
     @Autowired
     public SignUpController(ProviderSignInUtils providerSignInUtils, UserDetailsManager userDetailsManager) {
@@ -46,12 +48,16 @@ public class SignUpController {
     public String signup(@ModelAttribute SignUpForm form, WebRequest request) {
         SocialUser user = createUser(form);
         if(user != null) {
-            SecurityContextHolder.getContext().setAuthentication(
-                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities()));
+            signInService.signIn(user.getUsername());
             providerSignInUtils.doPostSignUp(user.getUsername(), request);
             return "redirect:/";
         }
         return null;
+    }
+
+    @RequestMapping(value = "/signup")
+    public String signup() {
+        return "signup";
     }
 
     private SocialUser createUser(SignUpForm form) {

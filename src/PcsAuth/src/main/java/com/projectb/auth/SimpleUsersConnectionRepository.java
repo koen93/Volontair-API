@@ -4,6 +4,7 @@ import com.projectb.repositories.ConnectionRepo;
 import edu.emory.mathcs.backport.java.util.Arrays;
 import edu.emory.mathcs.backport.java.util.Collections;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.social.connect.*;
 import org.springframework.social.connect.Connection;
 import org.springframework.stereotype.Repository;
@@ -13,6 +14,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 //@Repository
+@Deprecated
 public class SimpleUsersConnectionRepository implements UsersConnectionRepository {
 
     private final ConnectionRepo connectionRepo;

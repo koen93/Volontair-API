@@ -35,6 +35,11 @@ public class OAuth2Config {
 
     private static final String VOLONTAIR_RESOURCE_ID = "volontair";
 
+    @Bean
+    public LoginUrlAuthenticationEntryPoint loginUrlAuthenticationEntryPoint() {
+        return new LoginUrlAuthenticationEntryPoint("/signin");
+    }
+
     @Configuration
     @EnableResourceServer
     protected static class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
@@ -42,17 +47,19 @@ public class OAuth2Config {
         @Autowired
         private UserDetailsService userDetailsService;
 
+        @Autowired
+        private LoginUrlAuthenticationEntryPoint loginUrlAuthenticationEntryPoint;
+
         @Override
         public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
             resources
                     .resourceId(VOLONTAIR_RESOURCE_ID)
-                    .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/signin"))
+                    .authenticationEntryPoint(loginUrlAuthenticationEntryPoint)
                     .stateless(false);
         }
 
         @Override
         public void configure(HttpSecurity http) throws Exception {
-            // TODO: /login should no longer be working, who's providing that?
             http.userDetailsService(userDetailsService);
             http
                 .authorizeRequests()
@@ -115,11 +122,14 @@ public class OAuth2Config {
         @Qualifier("authenticationManagerBean")
         private AuthenticationManager authenticationManager;
 
+        @Autowired
+        private LoginUrlAuthenticationEntryPoint loginUrlAuthenticationEntryPoint;
+
         @Override
         public void configure(AuthorizationServerSecurityConfigurer authorizationServerSecurityConfigurer) throws Exception {
             authorizationServerSecurityConfigurer
                     .allowFormAuthenticationForClients()
-                    .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/signin"));
+                    .authenticationEntryPoint(loginUrlAuthenticationEntryPoint);
         }
 
         @Override

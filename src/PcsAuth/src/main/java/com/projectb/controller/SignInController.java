@@ -1,32 +1,20 @@
 package com.projectb.controller;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
-import com.projectb.entities.Role;
+import com.projectb.auth.SignInService;
 import com.projectb.repositories.UserRepo;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.social.ExpiredAuthorizationException;
-import org.springframework.social.UserIdSource;
 import org.springframework.social.connect.*;
-import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.social.facebook.api.User;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
-import org.springframework.social.support.ParameterMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.context.request.WebRequest;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Controller
@@ -43,6 +31,9 @@ public class SignInController {
 
     @Autowired
     private UserRepo userRepo;
+
+    @Autowired
+    private SignInService signInService;
 
     @RequestMapping(value = "/signin")
     public String signin() {
@@ -86,16 +77,14 @@ public class SignInController {
             connectionSignUp.execute(connection);
 
         // sign in
-        com.projectb.entities.User user = userRepo.findByUsername(userIdsWithConnection.get(0));
-
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        for(Role role : user.getRoles()) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
-        }
-
-        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userIdsWithConnection, user.getPassword(), authorities));
+        signInService.signIn(userIdsWithConnection.get(0));
 
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/signout")
+    public String singout() {
+        return "signout";
     }
 
     @Getter

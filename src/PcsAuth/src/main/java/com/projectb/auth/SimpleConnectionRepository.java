@@ -14,6 +14,7 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Deprecated
 public final class SimpleConnectionRepository implements ConnectionRepository {
     private final String userId;
     private final ConnectionRepo connectionRepo;

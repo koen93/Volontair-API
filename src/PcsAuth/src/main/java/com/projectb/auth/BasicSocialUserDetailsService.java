@@ -11,13 +11,11 @@ import org.springframework.social.security.SocialUserDetailsService;
  * as the {@link org.springframework.social.UserIdSource}.
  */
 @AllArgsConstructor
-public class SimpleSocialUserDetailsService implements SocialUserDetailsService {
+public final class BasicSocialUserDetailsService implements SocialUserDetailsService {
     private final UserDetailsService userDetailsService;
-
 
     @Override
     public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
-        AuthUserDetails userDetails = (AuthUserDetails) userDetailsService.loadUserByUsername(userId);
-        return new AuthSocialUserDetails(userDetails.getUser());
+        return (SocialUserDetails) userDetailsService.loadUserByUsername(userId);
     }
 }

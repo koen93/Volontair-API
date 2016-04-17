@@ -31,7 +31,7 @@ public class User extends AbsEntity implements Serializable {
     @Setter
     private List<User> contacts = new ArrayList<>(); // TODO: Should be Set?
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     private List<Role> roles = new ArrayList<>(); // TODO: Should be Set?
 
     @Setter

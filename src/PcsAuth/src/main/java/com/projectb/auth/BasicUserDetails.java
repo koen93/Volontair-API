@@ -2,23 +2,19 @@ package com.projectb.auth;
 
 import com.projectb.entities.Role;
 import com.projectb.entities.User;
-import lombok.Getter;
-import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.social.security.SocialUserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class AuthSocialUserDetails implements SocialUserDetails {
-    @Getter
-    private User user;
-
-    public AuthSocialUserDetails(@NonNull User user) {
-        this.user = user;
-    }
+@RequiredArgsConstructor
+public final class BasicUserDetails implements UserDetails, SocialUserDetails {
+    private final User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -31,6 +27,11 @@ public class AuthSocialUserDetails implements SocialUserDetails {
         }
 
         return authorities;
+    }
+
+    @Override
+    public String getUserId() {
+        return getUsername();
     }
 
     @Override
@@ -50,7 +51,7 @@ public class AuthSocialUserDetails implements SocialUserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return !user.isEnabled();
+        return user.isEnabled();
     }
 
     @Override
@@ -61,10 +62,5 @@ public class AuthSocialUserDetails implements SocialUserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    @Override
-    public String getUserId() {
-        return getUsername();
     }
 }
