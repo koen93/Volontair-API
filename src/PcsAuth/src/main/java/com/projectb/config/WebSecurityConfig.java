@@ -31,9 +31,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private RoleRepo roleRepo;
 
     @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
     private SignUpService signUpService;
 
     @Override
@@ -69,17 +66,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public SocialUserDetailsService socialUserDetailsService() {
+    public SocialUserDetailsService socialUserDetailsService() throws Exception {
         return new BasicSocialUserDetailsService(userDetailsService());
     }
 
     @Bean
+    @Override
     public UserDetailsService userDetailsService() {
-        return userDetailsManager();
+        try {
+            return userDetailsManager();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Bean
-    public UserDetailsManager userDetailsManager() {
-        return new BasicUserDetailsManager(userRepo, roleRepo, authenticationManager, signUpService);
+    public UserDetailsManager userDetailsManager() throws Exception {
+        return new BasicUserDetailsManager(userRepo, roleRepo, authenticationManager(), signUpService);
     }
 }
