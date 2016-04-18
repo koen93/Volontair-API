@@ -18,20 +18,18 @@ import org.springframework.web.context.request.WebRequest;
 
 @Controller
 public class SignUpController {
-    private final ProviderSignInUtils providerSignInUtils;
-    private final UserDetailsManager userDetailsManager;
+
+    @Autowired
+    private ProviderSignInUtils providerSignInUtils;
+
+    @Autowired
+    private UserDetailsManager userDetailsManager;
 
     @Autowired
     private UserRepo userRepo;
 
     @Autowired
     private SignInService signInService;
-
-    @Autowired
-    public SignUpController(ProviderSignInUtils providerSignInUtils, UserDetailsManager userDetailsManager) {
-        this.providerSignInUtils = providerSignInUtils;
-        this.userDetailsManager = userDetailsManager;
-    }
 
     @RequestMapping(value = "/signup", method = RequestMethod.GET)
     public void signupForm(WebRequest request, Model model) {
