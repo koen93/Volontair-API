@@ -4,6 +4,9 @@ import com.projectb.entities.Role;
 import com.projectb.entities.User;
 import com.projectb.repositories.RoleRepo;
 import com.projectb.repositories.UserRepo;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,27 +26,24 @@ import org.springframework.util.Assert;
 import java.util.Collection;
 
 @Service
+@NoArgsConstructor
 public final class BasicUserDetailsManager implements UserDetailsManager {
     private static final Log logger = LogFactory.getLog(BasicUserDetailsManager.class.getClass());
 
+    @Autowired
     private UserRepo userRepo;
 
+    @Autowired
     private RoleRepo roleRepo;
 
+    @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
     private SignUpService signUpService;
 
-    private PasswordEncoder passwordEncoder;
-
     @Autowired
-    public BasicUserDetailsManager(UserRepo userRepo, RoleRepo roleRepo, AuthenticationManager authenticationManager, SignUpService signUpService, PasswordEncoder passwordEncoder) {
-        this.userRepo = userRepo;
-        this.roleRepo = roleRepo;
-        this.authenticationManager = authenticationManager;
-        this.signUpService = signUpService;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

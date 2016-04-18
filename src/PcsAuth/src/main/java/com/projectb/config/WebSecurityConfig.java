@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private SignUpService signUpService;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsManager userDetailsManager;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -75,13 +75,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public SocialUserDetailsService socialUserDetailsService() throws Exception {
-        return new BasicSocialUserDetailsService(userDetailsService);
+        return new BasicSocialUserDetailsService(userDetailsManager);
     }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService);
+        authenticationProvider.setUserDetailsService(userDetailsManager);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
 
         return authenticationProvider;
@@ -92,19 +92,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
     @Override
     public UserDetailsService userDetailsService() {
-        try {
-            return userDetailsManager();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        return userDetailsManager;
     }
 
-    @Bean
-    public UserDetailsManager userDetailsManager() throws Exception {
-        return new BasicUserDetailsManager(userRepo, roleRepo, authenticationManager(), signUpService, passwordEncoder());
-    }
+//    @Bean
+//    public UserDetailsManager userDetailsManager() throws Exception {
+//        return new BasicUserDetailsManager(userRepo, roleRepo, authenticationManager(), signUpService, passwordEncoder());
+//    }
 }
