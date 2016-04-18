@@ -6,6 +6,7 @@ import com.projectb.repositories.RoleRepo;
 import com.projectb.repositories.UserRepo;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +16,13 @@ public class BasicSignUpService implements SignUpService {
 
     private final RoleRepo roleRepo;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public BasicSignUpService(@NonNull UserRepo userRepo, @NonNull RoleRepo roleRepo) {
+    public BasicSignUpService(@NonNull UserRepo userRepo, @NonNull RoleRepo roleRepo, @NonNull PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.roleRepo = roleRepo;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User signUp(@NonNull User user) {
@@ -42,7 +46,7 @@ public class BasicSignUpService implements SignUpService {
     public User signUp(@NonNull String username, @NonNull String password) {
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password);
+        user.setPassword(passwordEncoder.encode(password));
         signUp(user);
 
         return user;

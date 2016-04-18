@@ -2,12 +2,16 @@ package com.projectb.config;
 
 import com.projectb.auth.SignUpService;
 import com.projectb.auth.UserConnectionSignUp;
+import com.projectb.exception.SecretPasswordNotSetException;
 import com.projectb.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.security.crypto.encrypt.BytesEncryptor;
 import org.springframework.security.crypto.encrypt.Encryptors;
+import org.springframework.security.crypto.encrypt.TextEncryptor;
+import org.springframework.security.crypto.keygen.KeyGenerators;
 import org.springframework.social.UserIdSource;
 import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
 import org.springframework.social.config.annotation.EnableSocial;
@@ -34,6 +38,9 @@ public class SocialConfig implements SocialConfigurer {
     @Autowired
     private SignUpService signUpService;
 
+    @Autowired
+    private Environment environment;
+
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer connectionFactoryConfigurer, Environment environment) {
         connectionFactoryConfigurer.addConnectionFactory(new FacebookConnectionFactory(
@@ -49,7 +56,13 @@ public class SocialConfig implements SocialConfigurer {
 
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
+        String salt = KeyGenerators.string().generateKey();
+        String secretPassword = environment.getProperty("security.secretPassword");
+        if(secretPassword == null)
+            throw new SecretPasswordNotSetException();
+
+        TextEncryptor standard = Encryptors.queryableText(environment.getProperty("security.secretPassword"), salt);
+        JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, standard);
         repository.setConnectionSignUp(connectionSignUp());
         return repository;
     }

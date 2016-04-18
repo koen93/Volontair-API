@@ -23,7 +23,7 @@ public class User extends AbsEntity implements Serializable {
     @Setter
     private String username;
 
-    @Column
+    @Column(length = 60)
     @Setter
     private String password;
 

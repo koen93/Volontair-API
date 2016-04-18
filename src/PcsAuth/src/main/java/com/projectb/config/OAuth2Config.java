@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -50,6 +51,9 @@ public class OAuth2Config {
         @Autowired
         private LoginUrlAuthenticationEntryPoint loginUrlAuthenticationEntryPoint;
 
+        @Autowired
+        private DaoAuthenticationProvider daoAuthenticationProvider;
+
         @Override
         public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
             resources
@@ -60,7 +64,9 @@ public class OAuth2Config {
 
         @Override
         public void configure(HttpSecurity http) throws Exception {
+            http.authenticationProvider(daoAuthenticationProvider);
             http.userDetailsService(userDetailsService);
+
             http
                 .authorizeRequests()
                     .antMatchers("/", "/signup**", "/signin**", "/auth/socialAccessToken**", "/webjars/**", "/login")

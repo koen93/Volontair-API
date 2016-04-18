@@ -15,6 +15,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -33,12 +34,15 @@ public final class BasicUserDetailsManager implements UserDetailsManager {
 
     private SignUpService signUpService;
 
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
-    public BasicUserDetailsManager(UserRepo userRepo, RoleRepo roleRepo, AuthenticationManager authenticationManager, SignUpService signUpService) {
+    public BasicUserDetailsManager(UserRepo userRepo, RoleRepo roleRepo, AuthenticationManager authenticationManager, SignUpService signUpService, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
         this.roleRepo = roleRepo;
         this.authenticationManager = authenticationManager;
         this.signUpService = signUpService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -55,7 +59,7 @@ public final class BasicUserDetailsManager implements UserDetailsManager {
 
         User user = new User();
         user.setUsername(userDetails.getUsername());
-        user.setPassword(userDetails.getPassword());
+        user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
         user.setEnabled(userDetails.isEnabled());
 
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
@@ -76,7 +80,7 @@ public final class BasicUserDetailsManager implements UserDetailsManager {
 
         User user = userRepo.findByUsername(userDetails.getUsername());
         user.setUsername(userDetails.getUsername());
-        user.setPassword(userDetails.getPassword());
+        user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
         user.setEnabled(userDetails.isEnabled());
 
 //        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
