@@ -7,5 +7,4 @@ import org.springframework.stereotype.Component;
 
 @Component
 public interface RequestRepo extends TaskRepo<Request> {
-    //TODO: If you want specific things of the RequestRepo
 }
