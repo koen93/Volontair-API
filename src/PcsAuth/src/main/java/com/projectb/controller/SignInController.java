@@ -2,9 +2,11 @@ package com.projectb.controller;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.projectb.auth.SignInService;
+import com.projectb.exception.InvalidFacebookCredentials;
 import com.projectb.repositories.UserRepo;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.social.connect.*;
 import org.springframework.social.facebook.api.User;
 import org.springframework.social.facebook.api.impl.FacebookTemplate;
@@ -35,6 +37,9 @@ public class SignInController {
     @Autowired
     private SignInService signInService;
 
+    @Autowired
+    private Environment environment;
+
     @RequestMapping(value = "/signin")
     public String signin() {
         return "signin";
@@ -52,6 +57,12 @@ public class SignInController {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.set("input_token", accessToken);
         DebugToken debugToken = facebookTemplate.fetchObject("debug_token", DebugToken.class, map);
+        DebugData debugData = debugToken.getData();
+
+        if(!debugData.getAppId().equals(environment.getProperty("facebook.clientId")))
+            throw new InvalidFacebookCredentials();
+        if(!debugData.isValid())
+            throw new InvalidFacebookCredentials();
 
         String providerUserId = profile.getId();
         String displayName = profile.getName();
