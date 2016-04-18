@@ -1,7 +1,9 @@
 package com.projectb.abs;
 
 import lombok.Getter;
+import lombok.Setter;
 
+import javax.annotation.Nullable;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -15,9 +17,9 @@ public abstract class AbsEntity {
     @GeneratedValue
     private Long id;
 
-    @GeneratedValue
-    private Date created;
+    private Date created = new Date();
 
-    @GeneratedValue
+    @Setter
     private Date updated;
+
 }
