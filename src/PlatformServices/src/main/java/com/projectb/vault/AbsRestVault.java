@@ -12,7 +12,6 @@ import javax.persistence.EntityNotFoundException;
 
 
 //TODO: Create our own exceptions for the platform
-//TODO: Look out for this one
 @CrossOrigin
 public abstract class AbsRestVault<E extends AbsEntity> {
 
@@ -25,11 +24,6 @@ public abstract class AbsRestVault<E extends AbsEntity> {
             throw new EntityNotFoundException("Entity not found");
         }
         return foundedEntity;
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    public Iterable<E> getAll() {
-        return repo.findAll();
     }
 
     @PostConstruct
