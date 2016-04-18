@@ -8,22 +8,17 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BasicSignUpService implements SignUpService {
-    private final UserRepo userRepo;
-
-    private final RoleRepo roleRepo;
-
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserRepo userRepo;
 
     @Autowired
-    public BasicSignUpService(@NonNull UserRepo userRepo, @NonNull RoleRepo roleRepo, @NonNull PasswordEncoder passwordEncoder) {
-        this.userRepo = userRepo;
-        this.roleRepo = roleRepo;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private RoleRepo roleRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public User signUp(@NonNull User user) {
         if(user.getUsername() == null && user.getUsername().isEmpty())
