@@ -94,7 +94,7 @@ public class SignInController {
     }
 
     @RequestMapping(value = "/signout")
-    public String singout() {
+    public String signout() {
         return "signout";
     }
 
