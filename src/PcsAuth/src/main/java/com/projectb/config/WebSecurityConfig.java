@@ -25,9 +25,6 @@ import javax.sql.DataSource;
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
-    private DataSource dataSource;
-
-    @Autowired
     private UserRepo userRepo;
 
     @Autowired
@@ -93,14 +90,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public UserDetailsService userDetailsService() {
         try {
-            return userDetailsManager();
+            return userDetailsManager;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-    }
-
-    public UserDetailsManager userDetailsManager() throws Exception {
-        return new BasicUserDetailsManager(userRepo, roleRepo, authenticationManager(), signUpService, passwordEncoder());
     }
 }
