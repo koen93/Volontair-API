@@ -1,5 +1,6 @@
 package com.projectb.config;
 
+import com.projectb.auth.BasicSignUpService;
 import com.projectb.auth.BasicSocialUserDetailsService;
 import com.projectb.auth.BasicUserDetailsManager;
 import com.projectb.auth.SignUpService;
@@ -7,6 +8,7 @@ import com.projectb.entities.Role;
 import com.projectb.repositories.RoleRepo;
 import com.projectb.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,10 +33,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private RoleRepo roleRepo;
 
     @Autowired
-    private SignUpService signUpService;
+    private AutowireCapableBeanFactory autowireCapableBeanFactory;
 
-    @Autowired
-    private UserDetailsManager userDetailsManager;
+    @Bean
+    public SignUpService signUpService() {
+        return new BasicSignUpService();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -59,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         Role role = new Role("ROLE_USER");
         roleRepo.saveAndFlush(role);
 
-        signUpService.signUp("user", "password");
+        signUpService().signUp("user", "password");
     }
 
     @Bean(name="authenticationManagerBean")
@@ -70,13 +74,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public SocialUserDetailsService socialUserDetailsService() throws Exception {
-        return new BasicSocialUserDetailsService(userDetailsManager);
+        return new BasicSocialUserDetailsService(userDetailsService());
     }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsManager);
+        authenticationProvider.setUserDetailsService(userDetailsService());
         authenticationProvider.setPasswordEncoder(passwordEncoder());
 
         return authenticationProvider;
@@ -89,11 +93,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public UserDetailsService userDetailsService() {
-        try {
-            return userDetailsManager;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        BasicUserDetailsManager basicUserDetailsManager = new BasicUserDetailsManager();
+        autowireCapableBeanFactory.autowireBean(basicUserDetailsManager);
+
+        return basicUserDetailsManager;
     }
 }
