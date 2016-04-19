@@ -2,6 +2,7 @@ package com.projectb.vault;
 
 import com.projectb.abs.AbsEntity;
 import com.projectb.repo.BasicRepo;
+import com.projectb.repo.CRUDRepo;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +14,9 @@ import javax.persistence.EntityNotFoundException;
 
 //TODO: Create our own exceptions for the platform
 @CrossOrigin
-public abstract class AbsRestVault<E extends AbsEntity> {
+public abstract class AbsCRUDRestVault<E extends AbsEntity> {
 
-    private BasicRepo<E> repo;
+    private CRUDRepo<E> repo;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public E getById(@PathVariable("id") final Long id)  {
@@ -26,16 +27,15 @@ public abstract class AbsRestVault<E extends AbsEntity> {
         return foundedEntity;
     }
 
+    @RequestMapping(method = RequestMethod.GET)
+    public Iterable<E> getAll() {
+        return repo.findAll();
+    }
+
     @PostConstruct
     public void fillValues() {
         this.repo = provideRepo();
     }
 
-    //TODO: Implement update
-
-    //TODO: Is it smart to add delete to this abstract layer? When do we want to use it?
-
-
-    //TODO: However this one could be not implemented if you don't require more operations...
-    public abstract BasicRepo<E> provideRepo();
+    public abstract CRUDRepo<E> provideRepo();
 }
