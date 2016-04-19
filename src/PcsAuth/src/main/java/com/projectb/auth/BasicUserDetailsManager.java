@@ -27,6 +27,7 @@ import java.util.Collection;
 
 @Service
 @NoArgsConstructor
+@AllArgsConstructor
 public final class BasicUserDetailsManager implements UserDetailsManager {
     private static final Log logger = LogFactory.getLog(BasicUserDetailsManager.class.getClass());
 
