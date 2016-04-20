@@ -1,6 +1,8 @@
 package com.projectb.starter.init;
 
+import com.projectb.entities.Offer;
 import com.projectb.entities.Request;
+import com.projectb.repositories.OfferRepo;
 import com.projectb.repositories.RequestRepo;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -29,19 +31,35 @@ public class Initializer {
     private Double FIX_LAMP_LAT = 51.6889006;
     private Double FIX_LAMP_LONG = 5.2848906;
 
+    //Offer constants
+    private String DRINKING_CHAT_TITLE = "Chat with some coffee";
+    private String HELPING_WITH_GARDEN_TITLE = "Helping in your garden";
+    private String DRINKING_CHAT_DESC = "Anybody who likes a simple chat with some fresh coffee :)";
+    private String HELPING_WITH_GARDEN_DESC = "Anybody who needs help in their garden? I could help if you like!";
+
+    private Double DRINKING_CHAT_LAT = 51.6889006;
+    private Double DRINKING_CHAT_LONG = 5.2848906;
+    private Double HELPING_WITH_GARDEN_LAT = 51.6889006;
+    private Double HELPING_WITH_GARDEN_LONG = 5.2848906;
+
     @Autowired
     private RequestRepo requestRepo;
+
+    @Autowired
+    private OfferRepo offerRepo;
 
     // Call to create dummy data
     @PostConstruct
     public void init() {
         //Creating requests
         initRequests();
+
+        //Creating offers
+        initOffers();
     }
 
     private void initRequests() {
         Request requestComputer = new Request();
-        requestComputer.setUpdated(new Date());
         requestComputer.setTitle(COMPUTER_HELP_TITLE);
         requestComputer.setDescription(COMPUTER_HELP_DESC);
         requestComputer.setLatitude(COMPUTER_HELP_LAT);
@@ -64,6 +82,24 @@ public class Initializer {
         requestLamp.setLatitude(FIX_LAMP_LAT);
 
         requestRepo.save(requestLamp);
+    }
+
+    private void initOffers() {
+        Offer offerChatAndDrink = new Offer();
+        offerChatAndDrink.setTitle(DRINKING_CHAT_TITLE);
+        offerChatAndDrink.setDescription(DRINKING_CHAT_DESC);
+        offerChatAndDrink.setLatitude(DRINKING_CHAT_LAT);
+        offerChatAndDrink.setLongitude(DRINKING_CHAT_LONG);
+
+        offerRepo.save(offerChatAndDrink);
+
+        Offer offerHelpGarden = new Offer();
+        offerHelpGarden.setTitle(HELPING_WITH_GARDEN_TITLE);
+        offerHelpGarden.setDescription(HELPING_WITH_GARDEN_DESC);
+        offerHelpGarden.setLatitude(HELPING_WITH_GARDEN_LAT);
+        offerHelpGarden.setLongitude(HELPING_WITH_GARDEN_LONG);
+
+        offerRepo.save(offerHelpGarden);
     }
 
 }
