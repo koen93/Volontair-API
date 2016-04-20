@@ -11,6 +11,13 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/BsTask/pom.xml" />
+        <option value="$PROJECT_DIR$/src/BsUserManagement/pom.xml" />
+        <option value="$PROJECT_DIR$/src/Domain/pom.xml" />
+        <option value="$PROJECT_DIR$/src/PcsTask/pom.xml" />
+        <option value="$PROJECT_DIR$/src/PcsUser/pom.xml" />
+        <option value="$PROJECT_DIR$/src/PlatformServices/pom.xml" />
+        <option value="$PROJECT_DIR$/src/Starter/pom.xml" />
       </list>
     </option>
   </component>
