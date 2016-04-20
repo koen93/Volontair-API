@@ -1,5 +1,6 @@
 package com.projectb.repositories;
 
+import com.projectb.entities.Offer;
 import com.projectb.entities.Request;
 import com.projectb.repositories.abs.TaskRepo;
 import org.springframework.http.ResponseEntity;
