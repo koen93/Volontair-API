@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.security.crypto.encrypt.BytesEncryptor;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
@@ -56,13 +57,18 @@ public class SocialConfig implements SocialConfigurer {
 
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        String salt = KeyGenerators.string().generateKey();
-        String secretPassword = environment.getProperty("security.secretPassword");
-        if(secretPassword == null)
-            throw new SecretPasswordNotSetException();
+        TextEncryptor encryptor = Encryptors.noOpText();
 
-        TextEncryptor standard = Encryptors.queryableText(environment.getProperty("security.secretPassword"), salt);
-        JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, standard);
+        boolean hashAccessTokens = environment.getProperty("security.hashAccessTokens", "true").equals("true");
+        if(hashAccessTokens) {
+            String salt = KeyGenerators.string().generateKey();
+            String secretPassword = environment.getProperty("security.secretPassword");
+            if(secretPassword == null)
+                throw new SecretPasswordNotSetException();
+            encryptor = Encryptors.queryableText(secretPassword, salt);
+        }
+
+        JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, encryptor);
         repository.setConnectionSignUp(connectionSignUp());
         return repository;
     }
