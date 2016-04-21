@@ -135,9 +135,10 @@ public final class BasicUserDetailsManager implements UserDetailsManager {
     }
 
     private Authentication createNewAuthentication(Authentication currentAuth, String newPassword) {
-        UserDetails user = loadUserByUsername(currentAuth.getName());
+        UserDetails userDetails = loadUserByUsername(currentAuth.getName());
+        User user = userRepo.findByUsername(userDetails.getUsername());
 
-        UsernamePasswordAuthenticationToken newAuthentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+        UsernamePasswordAuthenticationToken newAuthentication = new UsernamePasswordAuthenticationToken(user, null, userDetails.getAuthorities());
         newAuthentication.setDetails(currentAuth.getDetails());
 
         return newAuthentication;

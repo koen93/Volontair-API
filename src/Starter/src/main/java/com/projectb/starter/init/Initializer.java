@@ -21,21 +21,21 @@ public class Initializer {
     private static final Logger logger = LogManager.getLogger(Initializer.class.getSimpleName());
 
     // Categories constants
-    private String CATEGORY_NAME_COOKING = "Cooking";
-    private String CATEGORY_COLOR_COOKING = "FF0000";
-    private String CATEGORY_ICON_COOKING = "cooking";
+    private static final String CATEGORY_NAME_COOKING = "Cooking";
+    private static final String CATEGORY_COLOR_COOKING = "FF0000";
+    private static final String CATEGORY_ICON_COOKING = "cooking";
 
-    private String CATEGORY_NAME_HOUSEWORK = "Housework";
-    private String CATEGORY_COLOR_HOUSEWORK = "00FF00";
-    private String CATEGORY_ICON_HOUSEWORK = "housework";
+    private static final String CATEGORY_NAME_HOUSEWORK = "Housework";
+    private static final String CATEGORY_COLOR_HOUSEWORK = "00FF00";
+    private static final String CATEGORY_ICON_HOUSEWORK = "housework";
 
-    private String CATEGORY_NAME_SOCIAL = "Social";
-    private String CATEGORY_COLOR_SOCIAL = "0000FF";
-    private String CATEGORY_ICON_SOCIAL = "social";
+    private static final String CATEGORY_NAME_SOCIAL = "Social";
+    private static final String CATEGORY_COLOR_SOCIAL = "0000FF";
+    private static final String CATEGORY_ICON_SOCIAL = "social";
 
-    private String CATEGORY_NAME_SPORT = "Sport";
-    private String CATEGORY_COLOR_SPORT = "F0F0F0";
-    private String CATEGORY_ICON_SPORT = "sport";
+    private static final String CATEGORY_NAME_SPORT = "Sport";
+    private static final String CATEGORY_COLOR_SPORT = "F0F0F0";
+    private static final String CATEGORY_ICON_SPORT = "sport";
 
     //Request constants
     private String COMPUTER_HELP_TITLE = "Helping with some computer problems";

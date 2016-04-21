@@ -5,11 +5,11 @@ import com.projectb.abs.AbsEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -26,16 +26,20 @@ public class User extends AbsEntity implements Serializable {
     @JsonIgnore
     private String password;
 
-    @Column(length = 255)
+    @Column(length = 255, nullable = false)
     @Setter
+    @NotNull
+    @Size(min = 8)
     private String name;
 
     @Column(length = 255)
     @Setter
     private String avatar;
 
-    @Column(length = 512)
+    @Column(length = 512, nullable = false)
     @Setter
+    @NotNull
+    @Size(max = 512)
     private String summary;
 
     @ManyToMany
