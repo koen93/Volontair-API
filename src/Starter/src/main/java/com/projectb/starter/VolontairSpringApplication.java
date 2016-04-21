@@ -7,8 +7,6 @@ import org.springframework.boot.orm.jpa.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EnableAutoConfiguration(exclude = {
-		org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration.class})
 @EnableJpaRepositories("com.projectb.repositories")
 @EntityScan("com.projectb.entities")
 @ComponentScan("com.projectb")

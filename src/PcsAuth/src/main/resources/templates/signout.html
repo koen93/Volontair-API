@@ -1,0 +1,20 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:tiles="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout_blank">
+<head>
+    <title>Sign out - Volontair</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <form name="f" th:action="@{/signout}" method="post">
+        <fieldset>
+            <legend>Local</legend>
+            <div class="form-actions">
+                <button type="submit" class="btn">Log out</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+</body>
+</html>
