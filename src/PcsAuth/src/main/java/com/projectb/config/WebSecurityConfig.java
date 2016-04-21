@@ -4,7 +4,9 @@ import com.projectb.auth.BasicSignUpService;
 import com.projectb.auth.BasicSocialUserDetailsService;
 import com.projectb.auth.BasicUserDetailsManager;
 import com.projectb.auth.SignUpService;
+import com.projectb.entities.Offer;
 import com.projectb.entities.Role;
+import com.projectb.entities.User;
 import com.projectb.repositories.RoleRepo;
 import com.projectb.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +65,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         Role role = new Role("ROLE_USER");
         roleRepo.saveAndFlush(role);
 
-        signUpService().signUp("user", "password");
+        User user = new User();
+        user.setUsername("user");
+        user.setPassword("password");
+        user.setName("Sara Tancredi");
+        user.setSummary("Lorum ipsum dolor sit amet.");
+
+        signUpService().signUp(user);
     }
 
     @Bean(name="authenticationManagerBean")
