@@ -1,7 +1,7 @@
 package com.projectb.endpoint;
 
-import com.projectb.entities.Request;
-import com.projectb.repositories.RequestRepo;
+import com.projectb.entities.Offer;
+import com.projectb.repositories.OfferRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,26 +11,26 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "requests", produces = "application/json")
-public class RequestService extends TaskService<Request> {
+@RequestMapping(value = "offers", produces = "application/json")
+public class OfferService extends TaskService<Offer> {
 
 
     @Autowired
-    private RequestRepo requestRepo;
+    private OfferRepo offerRepo;
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-    public Request insertOrUpdate(@RequestBody Request request) {
-        super.provideRepo().save(request);
-        return request;
+    public Offer insertOrUpdate(@RequestBody Offer offer) {
+        super.provideRepo().save(offer);
+        return offer;
     }
 
     @RequestMapping(value= "open", method = RequestMethod.GET)
-    public List<Request> showOpenTasks() {
-        return requestRepo.findAllOpen();
+    public List<Offer> showOpenTasks() {
+        return offerRepo.findAllOpen();
     }
 
     @RequestMapping(value= "closed", method = RequestMethod.GET)
-    public List<Request> showClosedTasks() {
-        return requestRepo.findAllClosed();
+    public List<Offer> showClosedTasks() {
+        return offerRepo.findAllClosed();
     }
 }

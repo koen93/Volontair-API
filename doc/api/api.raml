@@ -63,6 +63,12 @@ traits:
             application/json:
               type: model.Offer[]
               example: !include examples/discover/offers/get/200.json
+              
+/categories:
+  get:
+    description: Retreives a list of all categories
+    /{categoryId}:
+      get:
 
 /conversations:
   get:
