@@ -1,10 +1,8 @@
 package com.projectb.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.projectb.abs.AbsEntity;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,13 +23,36 @@ public class User extends AbsEntity implements Serializable {
 
     @Column(length = 60)
     @Setter
+    @JsonIgnore
     private String password;
 
-    @OneToMany(cascade = CascadeType.DETACH)
+    @Column(length = 255)
     @Setter
-    private List<User> contacts = new ArrayList<>(); // TODO: Should be Set?
+    private String name;
+
+    @Column(length = 255)
+    @Setter
+    private String avatar;
+
+    @Column(length = 512)
+    @Setter
+    private String summary;
+
+    @ManyToMany
+    private List<Category> categories = new ArrayList<>();
+
+//    @OneToMany(cascade = CascadeType.DETACH)
+//    @Setter
+//    private List<Conversation> conversations = new ArrayList<>(); // TODO: Should be Set?
+
+    @OneToMany
+    private List<Offer> offers = new ArrayList<>();
+
+    @OneToMany
+    private List<Request> requests = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @JsonIgnore
     private List<Role> roles = new ArrayList<>(); // TODO: Should be Set?
 
     @Setter
