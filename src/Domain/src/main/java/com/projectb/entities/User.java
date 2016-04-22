@@ -9,7 +9,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -43,7 +45,7 @@ public class User extends AbsEntity implements Serializable {
     private String summary;
 
     @ManyToMany
-    private List<Category> categories = new ArrayList<>();
+    private Set<Category> categories = new LinkedHashSet<>();
 
 //    @OneToMany(cascade = CascadeType.DETACH)
 //    @Setter
