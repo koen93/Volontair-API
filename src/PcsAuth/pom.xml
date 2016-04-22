@@ -44,7 +44,7 @@
         </dependency>
         <dependency>
             <groupId>Volontair-API</groupId>
-            <artifactId>BsUserManagement</artifactId>
+            <artifactId>BsUser</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

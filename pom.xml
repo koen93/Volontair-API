@@ -13,7 +13,7 @@
         <module>src/Starter</module>
         <module>src/Domain</module>
         <module>src/PlatformServices</module>
-        <module>src/BsUserManagement</module>
+        <module>src/BsUser</module>
         <module>src/PcsUser</module>
         <module>src/BsTask</module>
         <module>src/PcsTask</module>

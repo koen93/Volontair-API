@@ -7,5 +7,11 @@ import org.springframework.data.rest.core.annotation.RestResource;
 
 @RepositoryRestResource(path = "users", collectionResourceRel = "users", itemResourceRel = "users")
 public interface UserService extends UserRepo, UserServiceCustom {
+    @Override
+    @RestResource(exported = false)
+    void delete(Long id);
 
+    @Override
+    @RestResource(exported = false)
+    <S extends User> S save(S entity);
 }
