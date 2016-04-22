@@ -34,10 +34,6 @@ public class User extends AbsEntity implements Serializable {
     @Size(min = 8)
     private String name;
 
-    @Column(length = 255)
-    @Setter
-    private String avatar;
-
     @Column(length = 512, nullable = false)
     @Setter
     @NotNull
