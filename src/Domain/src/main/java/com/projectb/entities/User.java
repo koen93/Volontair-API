@@ -41,7 +41,7 @@ public class User extends AbsEntity implements Serializable {
     private String summary;
 
     @ManyToMany
-    private Set<Category> categories = new LinkedHashSet<>();
+    private List<Category> categories = new ArrayList<>();
 
 //    @OneToMany(cascade = CascadeType.DETACH)
 //    @Setter

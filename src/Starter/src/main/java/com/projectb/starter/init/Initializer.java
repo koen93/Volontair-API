@@ -1,19 +1,13 @@
 package com.projectb.starter.init;
 
-import com.projectb.entities.Category;
-import com.projectb.entities.Offer;
-import com.projectb.entities.Request;
-import com.projectb.entities.User;
+import com.projectb.entities.*;
 import com.projectb.repositories.*;
-import edu.emory.mathcs.backport.java.util.Arrays;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.jws.soap.SOAPBinding;
-import java.util.Date;
 
 @Component
 public class Initializer {
@@ -77,10 +71,17 @@ public class Initializer {
     @Autowired
     private RoleRepo roleRepo;
 
+    @Autowired
+    private ConversationRepo conversationRepo;
+
+    @Autowired
+    private MessageRepo messageRepo;
+
     private Category categoryCooking;
     private Category categoryHousework;
 
-    private User user;
+    private User userOne;
+    private User userTwo;
 
     private Request requestComputer;
     private Offer offerChatAndDrink;
@@ -99,25 +100,39 @@ public class Initializer {
 
         //Creating offers
         initOffers();
+
+        //Creating conversations
+        initConversations();
     }
 
     private void initUsers() {
-        user = new User();
+        userOne = new User();
 
-        user.setUsername("kotterdijk91");
-        user.setPassword("password");
-        user.setName("Karel Otterdijk");
-        user.setSummary("Hallo, ik ben Karel Otterdijk.");
-        user.setEnabled(true);
-        user.getRoles().add(roleRepo.findByName("ROLE_USER"));
+        userOne.setUsername("kotterdijk91");
+        userOne.setPassword("password");
+        userOne.setName("Karel Otterdijk");
+        userOne.setSummary("Hallo, ik ben Karel Otterdijk.");
+        userOne.setEnabled(true);
+        userOne.getRoles().add(roleRepo.findByName("ROLE_USER"));
 
-        user.getCategories().add(categoryCooking);
-        user.getCategories().add(categoryHousework);
+        userOne.getCategories().add(categoryCooking);
+        userOne.getCategories().add(categoryHousework);
 
-        user.getRequests().add(requestComputer);
-        user.getOffers().add(offerChatAndDrink);
+        userOne.getRequests().add(requestComputer);
+        userOne.getOffers().add(offerChatAndDrink);
 
-        userRepo.save(user);
+        userRepo.save(userOne);
+
+        userTwo = new User();
+
+        userTwo.setUsername("annaliebherr");
+        userTwo.setPassword("password");
+        userTwo.setName("Anna Liebherr");
+        userTwo.setSummary("Hallo, ik ben Karel Otterdijk.");
+        userTwo.setEnabled(true);
+        userTwo.getRoles().add(roleRepo.findByName("ROLE_USER"));
+
+        userRepo.save(userTwo);
     }
 
     private void initCategories() {
@@ -148,7 +163,7 @@ public class Initializer {
 
     private void initRequests() {
         requestComputer = new Request();
-        requestComputer.setCreator(user);
+        requestComputer.setCreator(userOne);
         requestComputer.setTitle(COMPUTER_HELP_TITLE);
         requestComputer.setDescription(COMPUTER_HELP_DESC);
         requestComputer.setLatitude(COMPUTER_HELP_LAT);
@@ -175,7 +190,7 @@ public class Initializer {
 
     private void initOffers() {
         offerChatAndDrink = new Offer();
-        offerChatAndDrink.setCreator(user);
+        offerChatAndDrink.setCreator(userOne);
         offerChatAndDrink.setTitle(DRINKING_CHAT_TITLE);
         offerChatAndDrink.setDescription(DRINKING_CHAT_DESC);
         offerChatAndDrink.setLatitude(DRINKING_CHAT_LAT);
@@ -192,4 +207,26 @@ public class Initializer {
         offerRepo.save(offerHelpGarden);
     }
 
+    private void initConversations() {
+        Conversation conversation = new Conversation();
+        conversation.setStarter(userOne);
+        conversation.setListener(userTwo);
+        conversationRepo.save(conversation);
+
+        Message message1 = new Message(userOne, "Hallo!");
+        conversation.addMessage(message1);
+        messageRepo.save(message1);
+
+        Message message2 = new Message(userTwo, "Hej!");
+        conversation.addMessage(message2);
+        messageRepo.save(message2);
+
+        Message message3 = new Message(userOne, "Hoe gaat het?");
+        conversation.addMessage(message3);
+        messageRepo.save(message3);
+
+        Message message4 = new Message(userTwo, "Goed hoor! Met jou?");
+        conversation.addMessage(message4);
+        messageRepo.save(message4);
+    }
 }
