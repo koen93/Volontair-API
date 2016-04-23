@@ -21,6 +21,7 @@ public class Message extends AbsEntity {
     public Conversation conversation;
 
     @ManyToOne
+    @Setter
     public User sender;
 
     public Message(User sender, String message) {

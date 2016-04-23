@@ -28,6 +28,7 @@ public class MessageEventHandler {
     @HandleBeforeCreate
     public void checkPostPrivileges(Message message) {
         User authenticatedUser = principalService.getAuthenticatedUser();
+        message.setSender(authenticatedUser);
         if(!message.getConversation().getListener().getId().equals(authenticatedUser.getId())
         && !message.getConversation().getStarter().getId().equals(authenticatedUser.getId())) {
             throw new ResourceNotOwnedByPrincipalException();
