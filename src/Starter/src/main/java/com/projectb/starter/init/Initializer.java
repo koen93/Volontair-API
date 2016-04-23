@@ -84,6 +84,8 @@ public class Initializer {
     private Category categoryCooking;
     private Category categoryHousework;
 
+    private User user;
+
     private Request requestComputer;
     private Offer offerChatAndDrink;
 
@@ -93,23 +95,24 @@ public class Initializer {
         //Creating categories
         initCategories();
 
+        //Creating users
+        initUsers();
+
         //Creating requests
         initRequests();
 
         //Creating offers
         initOffers();
-
-        //Creating users
-        initUsers();
     }
 
     private void initUsers() {
-        User user = new User();
+        user = new User();
 
         user.setUsername("kotterdijk91");
         user.setPassword("password");
         user.setName("Karel Otterdijk");
         user.setSummary("Hallo, ik ben Karel Otterdijk.");
+        user.setEnabled(true);
         user.getRoles().add(roleRepo.findByName("ROLE_USER"));
 
         user.getCategories().add(categoryCooking);
@@ -152,6 +155,7 @@ public class Initializer {
         Point point = geometryFactory.createPoint(new Coordinate(52.3702157, 4.895167899999933));
 
         requestComputer = new Request();
+        requestComputer.setCreator(user);
         requestComputer.setTitle(COMPUTER_HELP_TITLE);
         requestComputer.setDescription(COMPUTER_HELP_DESC);
         requestComputer.setLocation(point);
@@ -184,6 +188,7 @@ public class Initializer {
         Point point = geometryFactory.createPoint(new Coordinate(52.3702157, 4.895167899999933));
 
         offerChatAndDrink = new Offer();
+        offerChatAndDrink.setCreator(user);
         offerChatAndDrink.setTitle(DRINKING_CHAT_TITLE);
         offerChatAndDrink.setDescription(DRINKING_CHAT_DESC);
         offerChatAndDrink.setLocation(point);
