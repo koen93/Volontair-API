@@ -1,36 +1,16 @@
 package com.projectb.endpoint;
 
-import com.projectb.entities.Request;
 import com.projectb.repositories.RequestRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 
-import java.util.List;
+@RepositoryRestResource(path = "requests", collectionResourceRel = "requests", itemResourceRel = "requests")
+public interface RequestService extends RequestRepo {
+    @RestResource(path = "open", rel = "open")
+    Page findByClosedIsFalse(Pageable p);
 
-@RestController
-@RequestMapping(value = "requests", produces = "application/json")
-public class RequestService extends TaskService<Request> {
-
-
-    @Autowired
-    private RequestRepo requestRepo;
-
-    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-    public Request insertOrUpdate(@RequestBody Request request) {
-        super.provideRepo().save(request);
-        return request;
-    }
-
-    @RequestMapping(value= "open", method = RequestMethod.GET)
-    public List<Request> showOpenTasks() {
-        return requestRepo.findAllOpen();
-    }
-
-    @RequestMapping(value= "closed", method = RequestMethod.GET)
-    public List<Request> showClosedTasks() {
-        return requestRepo.findAllClosed();
-    }
+    @RestResource(path = "closed", rel = "closed")
+    Page findByClosedIsTrue(Pageable p);
 }

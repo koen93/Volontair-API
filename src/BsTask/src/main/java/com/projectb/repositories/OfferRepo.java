@@ -11,6 +11,5 @@ import java.util.List;
 
 @Component
 public interface OfferRepo extends TaskRepo<Offer> {
-    List<Offer> findAllOpen();
-    List<Offer> findAllClosed();
+
 }
