@@ -12,12 +12,6 @@ import javax.persistence.NamedQuery;
 @Entity
 @Getter
 @AllArgsConstructor
-@NamedQueries({
-        @NamedQuery(name = "Offer.findAllOpen",
-                query = "select o from Offer o where o.closed = false"),
-        @NamedQuery(name = "Offer.findAllClosed",
-                query = "select o from Offer o where o.closed = true")
-})
 public class Offer extends AbsTask {
 
 }
