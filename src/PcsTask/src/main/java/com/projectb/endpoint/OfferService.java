@@ -1,36 +1,16 @@
 package com.projectb.endpoint;
 
-import com.projectb.entities.Offer;
 import com.projectb.repositories.OfferRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.core.annotation.RestResource;
 
-import java.util.List;
+@RepositoryRestResource(path = "offers", collectionResourceRel = "offers", itemResourceRel = "offers")
+public interface OfferService extends OfferRepo {
+    @RestResource(path = "open", rel = "open")
+    Page findByClosedIsFalse(Pageable p);
 
-@RestController
-@RequestMapping(value = "offers", produces = "application/json")
-public class OfferService extends TaskService<Offer> {
-
-
-    @Autowired
-    private OfferRepo offerRepo;
-
-    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-    public Offer insertOrUpdate(@RequestBody Offer offer) {
-        super.provideRepo().save(offer);
-        return offer;
-    }
-
-    @RequestMapping(value= "open", method = RequestMethod.GET)
-    public List<Offer> showOpenTasks() {
-        return offerRepo.findAllOpen();
-    }
-
-    @RequestMapping(value= "closed", method = RequestMethod.GET)
-    public List<Offer> showClosedTasks() {
-        return offerRepo.findAllClosed();
-    }
+    @RestResource(path = "closed", rel = "closed")
+    Page findByClosedIsTrue(Pageable p);
 }
