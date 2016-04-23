@@ -11,6 +11,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>Domain</artifactId>
+
+    <repositories>
+        <repository>
+            <id>OSGEO GeoTools repo</id>
+            <url>http://download.osgeo.org/webdav/geotools</url>
+        </repository>
+        <repository>
+            <id>Hibernate Spatial repo</id>
+            <url>http://www.hibernatespatial.org/repository</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
@@ -21,6 +33,11 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>4.3.11.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-spatial</artifactId>
+            <version>4.3.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
