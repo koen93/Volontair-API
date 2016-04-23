@@ -19,7 +19,12 @@ public class UserConnectionSignUp implements ConnectionSignUp {
         UserProfile profile = connection.fetchUserProfile();
 
         try {
-            User user = signUpService.signUp(profile.getEmail(), "generate");
+            User user = new User();
+            user.setUsername(profile.getEmail());
+            user.setPassword("generate"); // TODO: Generate a password, or better yet. Or disable local login.
+            user.setName(profile.getName());
+
+            signUpService.signUp(user);
 
             return user.getUsername();
         } catch (Exception e) {

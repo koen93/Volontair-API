@@ -1,8 +1,12 @@
 package com.projectb.abs;
 
 import com.projectb.entities.Category;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.Point;
+import com.projectb.entities.User;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,6 +14,10 @@ import java.util.Date;
 @Getter
 @MappedSuperclass
 public abstract class AbsTask extends AbsEntity {
+    @ManyToOne
+    @Setter
+    private User creator;
+
     @Column(nullable = false)
     @Setter
     private String title;
@@ -21,6 +29,11 @@ public abstract class AbsTask extends AbsEntity {
     @OneToOne(cascade = CascadeType.DETACH)
     @Setter
     private Category category;
+
+    @Column(nullable = false)
+    @Type(type="org.hibernate.spatial.GeometryType")
+    @Setter
+    private Point location;
 
     @Setter
     private Double latitude;

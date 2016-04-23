@@ -1,21 +1,45 @@
 package com.projectb.starter.init;
 
+import com.projectb.entities.Category;
 import com.projectb.entities.Offer;
 import com.projectb.entities.Request;
-import com.projectb.repositories.OfferRepo;
-import com.projectb.repositories.RequestRepo;
+import com.projectb.entities.User;
+import com.projectb.repositories.*;
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.Point;
+import edu.emory.mathcs.backport.java.util.Arrays;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.jws.soap.SOAPBinding;
 import java.util.Date;
 
 @Component
 public class Initializer {
 
     private static final Logger logger = LogManager.getLogger(Initializer.class.getSimpleName());
+
+    // Categories constants
+    private static final String CATEGORY_NAME_COOKING = "Cooking";
+    private static final String CATEGORY_COLOR_COOKING = "FF0000";
+    private static final String CATEGORY_ICON_COOKING = "cooking";
+
+    private static final String CATEGORY_NAME_HOUSEWORK = "Housework";
+    private static final String CATEGORY_COLOR_HOUSEWORK = "00FF00";
+    private static final String CATEGORY_ICON_HOUSEWORK = "housework";
+
+    private static final String CATEGORY_NAME_SOCIAL = "Social";
+    private static final String CATEGORY_COLOR_SOCIAL = "0000FF";
+    private static final String CATEGORY_ICON_SOCIAL = "social";
+
+    private static final String CATEGORY_NAME_SPORT = "Sport";
+    private static final String CATEGORY_COLOR_SPORT = "F0F0F0";
+    private static final String CATEGORY_ICON_SPORT = "sport";
 
     //Request constants
     private String COMPUTER_HELP_TITLE = "Helping with some computer problems";
@@ -48,9 +72,32 @@ public class Initializer {
     @Autowired
     private OfferRepo offerRepo;
 
+    @Autowired
+    private CategoryRepo categoryRepo;
+
+    @Autowired
+    private UserRepo userRepo;
+
+    @Autowired
+    private RoleRepo roleRepo;
+
+    private Category categoryCooking;
+    private Category categoryHousework;
+
+    private User user;
+
+    private Request requestComputer;
+    private Offer offerChatAndDrink;
+
     // Call to create dummy data
     @PostConstruct
     public void init() {
+        //Creating categories
+        initCategories();
+
+        //Creating users
+        initUsers();
+
         //Creating requests
         initRequests();
 
@@ -58,10 +105,60 @@ public class Initializer {
         initOffers();
     }
 
+    private void initUsers() {
+        user = new User();
+
+        user.setUsername("kotterdijk91");
+        user.setPassword("password");
+        user.setName("Karel Otterdijk");
+        user.setSummary("Hallo, ik ben Karel Otterdijk.");
+        user.setEnabled(true);
+        user.getRoles().add(roleRepo.findByName("ROLE_USER"));
+
+        user.getCategories().add(categoryCooking);
+        user.getCategories().add(categoryHousework);
+
+        user.getRequests().add(requestComputer);
+        user.getOffers().add(offerChatAndDrink);
+
+        userRepo.save(user);
+    }
+
+    private void initCategories() {
+        categoryCooking = new Category();
+        categoryCooking.setName(CATEGORY_NAME_COOKING);
+        categoryCooking.setColorHex(CATEGORY_COLOR_COOKING);
+        categoryCooking.setIconKey(CATEGORY_ICON_COOKING);
+        categoryRepo.save(categoryCooking);
+
+        categoryHousework = new Category();
+        categoryHousework.setName(CATEGORY_NAME_HOUSEWORK);
+        categoryHousework.setColorHex(CATEGORY_COLOR_HOUSEWORK);
+        categoryHousework.setIconKey(CATEGORY_ICON_HOUSEWORK);
+        categoryRepo.save(categoryHousework);
+
+        Category categorySocial = new Category();
+        categorySocial.setName(CATEGORY_NAME_SOCIAL);
+        categorySocial.setColorHex(CATEGORY_COLOR_SOCIAL);
+        categorySocial.setIconKey(CATEGORY_ICON_SOCIAL);
+        categoryRepo.save(categorySocial);
+
+        Category categorySport = new Category();
+        categorySport.setName(CATEGORY_NAME_SPORT);
+        categorySport.setColorHex(CATEGORY_COLOR_SPORT);
+        categorySport.setIconKey(CATEGORY_ICON_SPORT);
+        categoryRepo.save(categorySport);
+    }
+
     private void initRequests() {
-        Request requestComputer = new Request();
+        GeometryFactory geometryFactory = new GeometryFactory();
+        Point point = geometryFactory.createPoint(new Coordinate(52.3702157, 4.895167899999933));
+
+        requestComputer = new Request();
+        requestComputer.setCreator(user);
         requestComputer.setTitle(COMPUTER_HELP_TITLE);
         requestComputer.setDescription(COMPUTER_HELP_DESC);
+        requestComputer.setLocation(point);
         requestComputer.setLatitude(COMPUTER_HELP_LAT);
         requestComputer.setLongitude(COMPUTER_HELP_LONG);
 
@@ -70,6 +167,7 @@ public class Initializer {
         Request requestGrocery = new Request();
         requestGrocery.setTitle(GROCERY_TITLE);
         requestGrocery.setDescription(GROCERY_DESC);
+        requestGrocery.setLocation(point);
         requestGrocery.setLatitude(GROCERY_LAT);
         requestGrocery.setLongitude(GROCERY_LONG);
 
@@ -78,6 +176,7 @@ public class Initializer {
         Request requestLamp = new Request();
         requestLamp.setTitle(FIX_LAMP_TITLE);
         requestLamp.setDescription(FIX_LAMP_DESC);
+        requestLamp.setLocation(point);
         requestLamp.setLongitude(FIX_LAMP_LONG);
         requestLamp.setLatitude(FIX_LAMP_LAT);
 
@@ -85,9 +184,14 @@ public class Initializer {
     }
 
     private void initOffers() {
-        Offer offerChatAndDrink = new Offer();
+        GeometryFactory geometryFactory = new GeometryFactory();
+        Point point = geometryFactory.createPoint(new Coordinate(52.3702157, 4.895167899999933));
+
+        offerChatAndDrink = new Offer();
+        offerChatAndDrink.setCreator(user);
         offerChatAndDrink.setTitle(DRINKING_CHAT_TITLE);
         offerChatAndDrink.setDescription(DRINKING_CHAT_DESC);
+        offerChatAndDrink.setLocation(point);
         offerChatAndDrink.setLatitude(DRINKING_CHAT_LAT);
         offerChatAndDrink.setLongitude(DRINKING_CHAT_LONG);
 
@@ -96,6 +200,7 @@ public class Initializer {
         Offer offerHelpGarden = new Offer();
         offerHelpGarden.setTitle(HELPING_WITH_GARDEN_TITLE);
         offerHelpGarden.setDescription(HELPING_WITH_GARDEN_DESC);
+        offerHelpGarden.setLocation(point);
         offerHelpGarden.setLatitude(HELPING_WITH_GARDEN_LAT);
         offerHelpGarden.setLongitude(HELPING_WITH_GARDEN_LONG);
 

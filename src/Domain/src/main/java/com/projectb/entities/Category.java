@@ -26,8 +26,4 @@ public class Category extends AbsEntity {
     @Column(nullable = false)
     @Setter
     public String colorHex = "#9E9E9E";
-
-    @Column(nullable = false)
-    @Setter
-    public ArrayList<Request> requests;
 }

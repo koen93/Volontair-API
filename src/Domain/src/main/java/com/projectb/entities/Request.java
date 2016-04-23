@@ -13,12 +13,6 @@ import javax.persistence.NamedQuery;
 @Entity
 @Getter
 @AllArgsConstructor
-@NamedQueries({
-        @NamedQuery(name = "Request.findAllOpen",
-                query = "select r from Request r where r.closed = false"),
-        @NamedQuery(name = "Request.findAllClosed",
-        query = "select r from Request r where r.closed = true")
-})
 public class Request extends AbsTask {
 
 }
