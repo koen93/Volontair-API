@@ -10,6 +10,6 @@ import org.springframework.scheduling.config.Task;
 
 import java.util.List;
 
-public interface TaskRepo<T extends AbsTask> extends CRUDRepo<T> {
+public interface TaskRepo<T extends AbsTask> extends BasicRepo<T> {
     //TODO: Implement Hibernate Spartial for searching based on lat & lng
 }

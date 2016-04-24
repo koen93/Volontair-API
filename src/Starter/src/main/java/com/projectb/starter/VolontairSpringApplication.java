@@ -20,6 +20,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 
 import java.util.Arrays;
+import java.util.TimeZone;
 
 @EnableJpaRepositories({"com.projectb.repositories", "com.projectb.endpoint"})
 @EntityScan("com.projectb.entities")
@@ -29,6 +30,7 @@ import java.util.Arrays;
 public class VolontairSpringApplication extends RepositoryRestConfigurerAdapter {
 
 	public static void main(String[] args) {
+		TimeZone.setDefault(TimeZone.getTimeZone("GMT"));
 		SpringApplication.run(VolontairSpringApplication.class, args);
 	}
 

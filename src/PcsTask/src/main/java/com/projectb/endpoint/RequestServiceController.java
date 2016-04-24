@@ -1,5 +1,6 @@
 package com.projectb.endpoint;
 
+import com.projectb.repositories.RequestRepo;
 import com.projectb.repositories.abs.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RepositoryRestController
 public class RequestServiceController extends TaskServiceController {
     @Autowired
-    private RequestService requestService;
+    private RequestRepo requestRepo;
 
     @RequestMapping(value= "/requests/{id}/close", method = RequestMethod.PUT)
     public ResponseEntity<?> closeTask(@PathVariable Long id) {
@@ -25,6 +26,6 @@ public class RequestServiceController extends TaskServiceController {
 
     @Override
     public TaskRepo provideRepo() {
-        return requestService;
+        return requestRepo;
     }
 }

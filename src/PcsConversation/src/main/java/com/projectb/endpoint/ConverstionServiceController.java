@@ -5,6 +5,7 @@ import com.projectb.entities.Conversation;
 import com.projectb.entities.Message;
 import com.projectb.entities.User;
 import com.projectb.exception.ResourceNotOwnedByPrincipalException;
+import com.projectb.repositories.ConversationRepo;
 import com.projectb.repositories.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RepositoryRestController
 public class ConverstionServiceController {
     @Autowired
-    private ConversationService conversationService;
+    private ConversationRepo conversationRepo;
 
     @Autowired
     private MessageRepo messageRepo;
@@ -27,7 +28,7 @@ public class ConverstionServiceController {
     @RequestMapping(method = RequestMethod.POST, value = "/conversations/{id}/message")
     public @ResponseBody ResponseEntity<?> addMessage(@PathVariable("id") long id, @RequestBody Message message) {
         User authenticatedUser = principalService.getAuthenticatedUser();
-        Conversation conversation = conversationService.findOne(id);
+        Conversation conversation = conversationRepo.findOne(id);
         if(conversation == null)
             throw new ResourceNotFoundException();
         if(!conversation.getListener().getId().equals(authenticatedUser.getId())
