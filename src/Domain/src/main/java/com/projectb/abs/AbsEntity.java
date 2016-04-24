@@ -4,10 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.annotation.Nullable;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Version;
+import javax.persistence.*;
 import java.util.Date;
 
 @Getter
@@ -17,8 +14,10 @@ public abstract class AbsEntity {
     @GeneratedValue
     private Long id;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date created = new Date();
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Setter
     private Date updated;
 

@@ -5,21 +5,17 @@ import com.projectb.entities.User;
 import com.projectb.exception.CouldNotProcessAvatarException;
 import com.projectb.exception.IdDoesNotMatchResourceException;
 import com.projectb.exception.ResourceNotOwnedByPrincipalException;
+import com.projectb.repositories.UserRepo;
 import org.apache.commons.io.IOUtils;
-import org.codehaus.plexus.util.IOUtil;
-import org.codehaus.plexus.util.io.InputStreamFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.BufferedImageHttpMessageConverter;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,7 +35,7 @@ public class UserServiceController {
     private PrincipalService principalService;
 
     @Autowired
-    private UserService userService;
+    private UserRepo userRepo;
 
     @Autowired
     private Environment environment;
@@ -49,14 +45,14 @@ public class UserServiceController {
     public @ResponseBody ResponseEntity<?> update(@RequestBody User user, @PathVariable("id") long id) {
         if(user.getId() != id)
             throw new IdDoesNotMatchResourceException();
-        User userToUpdate = userService.findOne(id);
+        User userToUpdate = userRepo.findOne(id);
         if(userToUpdate == null)
             throw new ResourceNotFoundException();
         User authenticatedUser = principalService.getAuthenticatedUser();
         if(!userToUpdate.getId().equals(authenticatedUser.getId()))
             throw new ResourceNotOwnedByPrincipalException();
 
-        userService.merge(user);
+        userRepo.save(user);
         return ResponseEntity.ok(user);
     }
 

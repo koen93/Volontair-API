@@ -1,14 +1,12 @@
-package com.projectb.endpoint;
+package com.projectb.repositories;
 
 import com.projectb.entities.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.core.annotation.RestResource;
-import org.springframework.transaction.annotation.Transactional;
+import com.projectb.repositories.UserRepoCustom;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-public class UserServiceImpl implements UserServiceCustom {
+public class UserRepoImpl implements UserRepoCustom {
     @PersistenceContext
     private EntityManager entityManager;
 
