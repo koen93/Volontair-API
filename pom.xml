@@ -19,6 +19,8 @@
         <module>src/PcsTask</module>
         <module>src/PcsAuth</module>
         <module>src/BsAuth</module>
+        <module>src/PcsConversation</module>
+        <module>src/BsConversation</module>
     </modules>
 
     <properties>
