@@ -20,6 +20,4 @@ import java.util.Set;
 public interface MessageRepo extends BasicRepo<Message> {
     @Query("select m from com.projectb.entities.Message m where m.conversation = ?1 and m.created >= ?2 order by m.created")
     Set<Message> findSince(@Param("conversation") Conversation conversation, @Param("since") Timestamp date);
-
-    Set<Message> findByConversationAndCreatedGreaterThanEqual(@Param("conversation") Conversation conversation, @Param("created") @Temporal(TemporalType.TIMESTAMP) Date created);
 }
