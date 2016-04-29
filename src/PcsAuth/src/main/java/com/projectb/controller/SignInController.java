@@ -50,19 +50,23 @@ public class SignInController {
         String providerId = "facebook";
         ConnectionFactory<?> connectionFactory = connectionFactoryLocator.getConnectionFactory(providerId);
 
-        FacebookTemplate facebookTemplate = new FacebookTemplate(accessToken);
+        // verify token
 
-        User profile = facebookTemplate.fetchObject("me", User.class, "id", "name", "link");
+        FacebookTemplate facebookAppTemplate = new FacebookTemplate(environment.getProperty("facebook.clientId") + "|" + environment.getProperty("facebook.clientSecret"));
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.set("input_token", accessToken);
-        DebugToken debugToken = facebookTemplate.fetchObject("debug_token", DebugToken.class, map);
+        DebugToken debugToken = facebookAppTemplate.fetchObject("debug_token", DebugToken.class, map);
         DebugData debugData = debugToken.getData();
 
         if(!debugData.getAppId().equals(environment.getProperty("facebook.clientId")))
             throw new InvalidFacebookCredentials();
         if(!debugData.isValid())
             throw new InvalidFacebookCredentials();
+
+        // login using token
+        FacebookTemplate facebookTemplate = new FacebookTemplate(accessToken);
+        User profile = facebookTemplate.fetchObject("me", User.class, "id", "name", "link");
 
         String providerUserId = profile.getId();
         String displayName = profile.getName();
