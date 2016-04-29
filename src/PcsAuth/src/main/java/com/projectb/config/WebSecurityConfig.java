@@ -1,9 +1,6 @@
 package com.projectb.config;
 
-import com.projectb.auth.BasicSignUpService;
-import com.projectb.auth.BasicSocialUserDetailsService;
-import com.projectb.auth.BasicUserDetailsManager;
-import com.projectb.auth.SignUpService;
+import com.projectb.auth.*;
 import com.projectb.entities.Offer;
 import com.projectb.entities.Role;
 import com.projectb.entities.User;
@@ -22,12 +19,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.UserDetailsManager;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.social.security.SocialUserDetailsService;
 
 import javax.sql.DataSource;
 
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private static final String URL_SIGNIN = "/signin";
+
     @Autowired
     private UserRepo userRepo;
 
@@ -51,9 +51,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
             .formLogin()
-                .loginPage("/signin")
-                .loginProcessingUrl("/signin/authenticate")
-                .failureUrl("/signin?error")
+                .loginPage(URL_SIGNIN)
+                .loginProcessingUrl(URL_SIGNIN + "/authenticate")
+                .failureUrl(URL_SIGNIN + "?error")
                 .permitAll()
                 .and();
     }
@@ -105,5 +105,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         autowireCapableBeanFactory.autowireBean(basicUserDetailsManager);
 
         return basicUserDetailsManager;
+    }
+
+    @Bean
+    public LoginUrlAuthenticationEntryPoint loginUrlAuthenticationEntryPoint() {
+        return new BasicLoginUrlAuthenticationEntryPoint(URL_SIGNIN);
     }
 }
