@@ -1,5 +1,6 @@
 package com.projectb.endpoint;
 
+import com.projectb.entities.Offer;
 import com.projectb.repositories.OfferRepo;
 import com.projectb.repositories.abs.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.List;
+
 @RepositoryRestController
-public class OfferServiceController extends TaskServiceController {
+public class OfferServiceController extends TaskServiceController<Offer> {
     @Autowired
     private OfferRepo offerRepo;
+
+    @RequestMapping(value= "/offers/search/findWithinRadius", method = RequestMethod.GET)
+    public ResponseEntity<List<Offer>> findWithinRadius(double lat, double lng, int radius) {
+        return super.findWithinRadius(lat, lng, radius);
+    }
 
     @Override
     @RequestMapping(value= "/offers/{id}/close", method = RequestMethod.PUT)
@@ -27,7 +35,7 @@ public class OfferServiceController extends TaskServiceController {
     }
 
     @Override
-    public TaskRepo provideRepo() {
+    public TaskRepo<Offer> provideRepo() {
         return offerRepo;
     }
 }
