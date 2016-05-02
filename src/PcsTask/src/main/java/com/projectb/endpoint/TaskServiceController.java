@@ -2,19 +2,22 @@ package com.projectb.endpoint;
 
 import com.projectb.abs.AbsTask;
 import com.projectb.auth.PrincipalService;
-import com.projectb.entities.Offer;
 import com.projectb.entities.User;
 import com.projectb.exception.ResourceNotOwnedByPrincipalException;
 import com.projectb.repositories.abs.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.List;
 
 public abstract class TaskServiceController<T extends AbsTask> {
     @Autowired
     private PrincipalService principalService;
+
+    public ResponseEntity<List<T>> findWithinRadius(double lat, double lng, int radius) {
+        return ResponseEntity.ok(provideRepo().findAll());
+    }
 
     public ResponseEntity<?> closeTask(@PathVariable Long id) {
         T task = provideRepo().findOne(id);
