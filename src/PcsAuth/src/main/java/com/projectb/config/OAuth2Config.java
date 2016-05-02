@@ -2,11 +2,8 @@ package com.projectb.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.social.SocialWebAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,16 +14,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.*
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.oauth2.provider.approval.DefaultUserApprovalHandler;
-import org.springframework.security.oauth2.provider.approval.UserApprovalHandler;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-import org.springframework.social.oauth2.GrantType;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
@@ -69,7 +61,7 @@ public class OAuth2Config {
 
             http
                 .authorizeRequests()
-                    .antMatchers("/", "/signup**", "/signin**", "/auth/socialAccessToken**", "/webjars/**", "/login")
+                    .antMatchers("/", "/signup**", "/signin**", "/auth/facebook/client**", "/webjars/**", "/login")
                     .permitAll()
                     .and()
                 .formLogin()
@@ -122,9 +114,6 @@ public class OAuth2Config {
         private TokenStore tokenStore;
 
         @Autowired
-        private UserApprovalHandler userApprovalHandler;
-
-        @Autowired
         @Qualifier("authenticationManagerBean")
         private AuthenticationManager authenticationManager;
 
@@ -144,6 +133,7 @@ public class OAuth2Config {
                     .withClient("volontair")
                     .authorizedGrantTypes("authorization_code", "implicit", "client_credentials")
                     .authorities("ROLE_USER")
+                    .autoApprove(true)
                     .scopes("test")
                     .secret("secret");
         }
@@ -152,18 +142,12 @@ public class OAuth2Config {
         public void configure(AuthorizationServerEndpointsConfigurer authorizationServerEndpointsConfigurer) throws Exception {
             authorizationServerEndpointsConfigurer
                     .tokenStore(tokenStore())
-                    .userApprovalHandler(userApprovalHandler)
                     .authenticationManager(authenticationManager);
         }
 
         @Bean
         public TokenStore tokenStore() {
             return new JdbcTokenStore(dataSource);
-        }
-
-        @Bean
-        public UserApprovalHandler userApprovalHandler() {
-            return new DefaultUserApprovalHandler();
         }
     }
 }
