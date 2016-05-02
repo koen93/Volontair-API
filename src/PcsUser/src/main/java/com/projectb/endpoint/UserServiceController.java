@@ -40,6 +40,12 @@ public class UserServiceController {
     @Autowired
     private Environment environment;
 
+    @RequestMapping(method = RequestMethod.GET, value = "/users/me")
+    public @ResponseBody ResponseEntity<User> me() {
+        User authenticatedUser = principalService.getAuthenticatedUser();
+        return ResponseEntity.ok(authenticatedUser);
+    }
+
     @Transactional
     @RequestMapping(method = RequestMethod.PUT, value = "/users/{id}")
     public @ResponseBody ResponseEntity<?> update(@RequestBody User user, @PathVariable("id") long id) {
