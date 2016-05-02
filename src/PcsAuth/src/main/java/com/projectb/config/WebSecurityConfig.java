@@ -54,8 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage(URL_SIGNIN)
                 .loginProcessingUrl(URL_SIGNIN + "/authenticate")
                 .failureUrl(URL_SIGNIN + "?error")
-                .permitAll()
-                .and();
+                .permitAll();
     }
 
     @Override
