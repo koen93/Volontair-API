@@ -67,7 +67,7 @@ public class UserServiceController {
     public void avatar(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
         File avatarFile = getAvatarPath(id);
         if(!avatarFile.exists())
-            throw new ResourceNotFoundException();
+            avatarFile = new File(getAvatarBasePath() + File.separator + "none.png");
 
         try(InputStream in = new BufferedInputStream(new FileInputStream(avatarFile))) {
             // TODO: Rewrite to return proper FileSystemResource using a proper HttpMessageConverter
