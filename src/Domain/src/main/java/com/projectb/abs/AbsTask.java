@@ -30,11 +30,6 @@ public abstract class AbsTask extends AbsEntity {
     @Setter
     private Category category;
 
-    @Column(nullable = false)
-    @Type(type="org.hibernate.spatial.GeometryType")
-    @Setter
-    private Point location;
-
     @Setter
     private Double latitude;
 

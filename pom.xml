@@ -21,6 +21,7 @@
         <module>src/BsAuth</module>
         <module>src/PcsConversation</module>
         <module>src/BsConversation</module>
+        <module>src/PcsDashboard</module>
     </modules>
 
     <properties>
