@@ -9,6 +9,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -19,14 +21,17 @@ public class BasicSignInService implements SignInService {
     @Autowired
     private UserRepo userRepo;
 
+    @Autowired
+    private UserDetailsManager userDetailsManager;
+
     public void signIn(@NonNull String username) {
-        User user = userRepo.findByUsername(username);
+        UserDetails userDetails = userDetailsManager.loadUserByUsername(username);
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        for(Role role : user.getRoles()) {
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        for(GrantedAuthority role : userDetails.getAuthorities()) {
+            authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
         }
 
-        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(user, user.getPassword(), authorities));
+        SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), authorities));
     }
 }
