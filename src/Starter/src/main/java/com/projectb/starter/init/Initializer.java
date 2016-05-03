@@ -174,6 +174,7 @@ public class Initializer {
         requestComputer.setCreator(userOne);
         requestComputer.setTitle(COMPUTER_HELP_TITLE);
         requestComputer.setDescription(COMPUTER_HELP_DESC);
+        requestComputer.setLocation(point);
         requestComputer.setLatitude(COMPUTER_HELP_LAT);
         requestComputer.setLongitude(COMPUTER_HELP_LONG);
 
