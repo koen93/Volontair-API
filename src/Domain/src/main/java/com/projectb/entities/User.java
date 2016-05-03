@@ -42,9 +42,13 @@ public class User extends AbsEntity implements Serializable {
     @ManyToMany
     private List<Category> categories = new ArrayList<>();
 
-//    @OneToMany(cascade = CascadeType.DETACH)
-//    @Setter
-//    private List<Conversation> conversations = new ArrayList<>(); // TODO: Should be Set?
+    @OneToMany(mappedBy = "listener", cascade = CascadeType.DETACH)
+    @Setter
+    private List<Conversation> listenerConversations = new ArrayList<>(); // TODO: Should be Set?
+
+    @OneToMany(mappedBy = "starter", cascade = CascadeType.DETACH)
+    @Setter
+    private List<Conversation> starterConversations = new ArrayList<>(); // TODO: Should be Set?
 
     @OneToMany
     private List<Offer> offers = new ArrayList<>();
