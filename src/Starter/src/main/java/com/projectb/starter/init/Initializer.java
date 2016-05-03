@@ -168,6 +168,7 @@ public class Initializer {
 
     private void initRequests() {
         GeometryFactory geometryFactory = new GeometryFactory();
+        Point point = geometryFactory.createPoint(new Coordinate(52.3702157, 4.895167899999933));
 
         requestComputer = new Request();
         requestComputer.setCreator(userOne);
@@ -181,6 +182,7 @@ public class Initializer {
         Request requestGrocery = new Request();
         requestGrocery.setTitle(GROCERY_TITLE);
         requestGrocery.setDescription(GROCERY_DESC);
+        requestComputer.setLocation(point);
         requestGrocery.setLatitude(GROCERY_LAT);
         requestGrocery.setLongitude(GROCERY_LONG);
 
@@ -189,6 +191,7 @@ public class Initializer {
         Request requestLamp = new Request();
         requestLamp.setTitle(FIX_LAMP_TITLE);
         requestLamp.setDescription(FIX_LAMP_DESC);
+        requestGrocery.setLocation(point);
         requestLamp.setLongitude(FIX_LAMP_LONG);
         requestLamp.setLatitude(FIX_LAMP_LAT);
 
@@ -197,11 +200,13 @@ public class Initializer {
 
     private void initOffers() {
         GeometryFactory geometryFactory = new GeometryFactory();
+        Point point = geometryFactory.createPoint(new Coordinate(52.3702157, 4.895167899999933));
 
         offerChatAndDrink = new Offer();
         offerChatAndDrink.setCreator(userOne);
         offerChatAndDrink.setTitle(DRINKING_CHAT_TITLE);
         offerChatAndDrink.setDescription(DRINKING_CHAT_DESC);
+        offerChatAndDrink.setLocation(point);
         offerChatAndDrink.setLatitude(DRINKING_CHAT_LAT);
         offerChatAndDrink.setLongitude(DRINKING_CHAT_LONG);
 
@@ -210,6 +215,7 @@ public class Initializer {
         Offer offerHelpGarden = new Offer();
         offerHelpGarden.setTitle(HELPING_WITH_GARDEN_TITLE);
         offerHelpGarden.setDescription(HELPING_WITH_GARDEN_DESC);
+        offerHelpGarden.setLocation(point);
         offerHelpGarden.setLatitude(HELPING_WITH_GARDEN_LAT);
         offerHelpGarden.setLongitude(HELPING_WITH_GARDEN_LONG);
 
