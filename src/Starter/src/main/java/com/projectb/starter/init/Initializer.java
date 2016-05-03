@@ -182,7 +182,7 @@ public class Initializer {
         Request requestGrocery = new Request();
         requestGrocery.setTitle(GROCERY_TITLE);
         requestGrocery.setDescription(GROCERY_DESC);
-        requestComputer.setLocation(point);
+        requestGrocery.setLocation(point);
         requestGrocery.setLatitude(GROCERY_LAT);
         requestGrocery.setLongitude(GROCERY_LONG);
 
@@ -191,7 +191,7 @@ public class Initializer {
         Request requestLamp = new Request();
         requestLamp.setTitle(FIX_LAMP_TITLE);
         requestLamp.setDescription(FIX_LAMP_DESC);
-        requestGrocery.setLocation(point);
+        requestLamp.setLocation(point);
         requestLamp.setLongitude(FIX_LAMP_LONG);
         requestLamp.setLatitude(FIX_LAMP_LAT);
 
