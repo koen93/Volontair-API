@@ -11,8 +11,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.rest.webmvc.PersistentEntityResource;
+import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.hateoas.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -41,9 +44,11 @@ public class UserServiceController {
     private Environment environment;
 
     @RequestMapping(method = RequestMethod.GET, value = "/users/me")
-    public @ResponseBody ResponseEntity<User> me() {
+    public @ResponseBody ResponseEntity<Resource<?>> me(PersistentEntityResourceAssembler assembler) {
         User authenticatedUser = principalService.getAuthenticatedUser();
-        return ResponseEntity.ok(authenticatedUser);
+
+        PersistentEntityResource resource = assembler.toFullResource(authenticatedUser);
+        return new ResponseEntity<Resource<?>>(resource, null, HttpStatus.OK);
     }
 
     @Transactional
