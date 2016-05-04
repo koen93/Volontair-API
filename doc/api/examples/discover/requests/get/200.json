@@ -1,0 +1,40 @@
+{
+  "count": 3,
+  "offset": 0,
+  "limit": 10,
+  "data": [
+    {
+      "title": "Hulp met meterkast",
+       "category": "handyman",
+      "summary": "Alle lampen in de kamer werken niet meer waarschijnlijk een stop gesprongen in de meterkast.",
+      "location": {
+        "lat": 51.700940,
+        "lng": 5.306295
+      },
+      "created": "2016-02-23T22:49:05+00:00",
+      "updated": "2016-02-23T22:49:05+00:00"
+    },
+    {
+      "title": "Hulp met computer",
+      "category": "computer",
+      "summary": "Zodra ik mijn internet opstart verschijnen er veel schermpjes hierdoor kan ik niks meer zien op de pagina.",
+      "location": {
+        "lat": 51.700328,
+        "lng": 5.307185
+      },
+      "created": "2016-01-23T22:49:05+00:00",
+      "updated": "2016-01-23T22:49:05+00:00"
+    },
+    {
+      "title": "Een drankje doen",
+      "category": "handyman",
+      "summary": "Lorum ipsum dolor sit amet, consectetur.",
+      "location": {
+        "lat": 51.699703,
+        "lng": 5.308784
+      },
+      "created": "2016-01-11T22:49:05+00:00",
+      "updated": "2016-01-11T22:49:05+00:00"
+    }
+  ]
+}

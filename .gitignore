@@ -16,4 +16,10 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+build/
+*.iml
+.idea/
 
+# Local H2 database"
+/test-db.trace.db
+/test-db.h2.db

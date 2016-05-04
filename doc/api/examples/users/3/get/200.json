@@ -1,0 +1,71 @@
+{
+  "id": 1,
+  "name": "Lisa Roodenburg",
+  "avatar": "users/3/3.png",
+  "summary": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse mollis quis nisi sed sagittis. Fusce malesuada turpis feugiat mauris malesuada faucibus. Fusce lacinia dolor vitae lacus accumsan, ac ullamcorper sapien facilisis. Morbi maximus accumsan purus, in convallis odio. Morbi pellentesque lacinia dui a elementum.",
+  "offersCategories": {
+    "main": [ "cooking", "social", "computer" ],
+    "additional": [ "Wandeling maken", "Boodschappen doen" ]
+  },
+  "contacts": [
+    {
+      "userId": 2,
+      "name": "Jan Smit",
+      "avatar": "2123.png",
+      "summary": "Lorum ipsum dolor sit amet",
+      "offers": [ ],
+      "requests": [ ],
+      "created": "2016-02-23T22:49:05+00:00",
+      "updated": "2016-02-23T22:49:05+00:00"
+    },
+    {
+      "userId": 3,
+      "name": "Maria Klavers",
+      "avatar": "2123.png",
+      "summary": "Lorum ipsum",
+      "offers": [ ],
+      "requests": [ ],
+      "created": "2016-02-23T22:49:05+00:00",
+      "updated": "2016-02-23T22:49:05+00:00"
+    }
+  ],
+  "offers": [
+    {
+      "title": "Hulp met meterkast",
+      "category": "handyman",
+      "summary": "Alle lampen in de kamer werken niet meer waarschijnlijk een stop gesprongen in de meterkast.",
+      "location": {
+        "lat": 51.700940,
+        "lng": 5.306295
+      },
+      "created": "2016-02-23T22:49:05+00:00",
+      "updated": "2016-02-23T22:49:05+00:00"
+    }
+  ],
+  "requests": [
+    {
+      "title": "Hulp met computer",
+      "category": "computer",
+      "summary": "Zodra ik mijn internet opstart verschijnen er veel schermpjes hierdoor kan ik niks meer zien op de pagina.",
+      "location": {
+        "lat": 51.699211,
+        "lng": 5.299214
+      },
+      "created": "2016-01-23T22:49:05+00:00",
+      "updated": "2016-01-23T22:49:05+00:00"
+    },
+    {
+      "title": "Een drankje doen",
+      "category": "handyman",
+      "summary": "Lorum ipsum dolor sit amet, consectetur.",
+      "location": {
+        "lat": 51.699703,
+        "lng": 5.308784
+      },
+      "created": "2016-01-11T22:49:05+00:00",
+      "updated": "2016-01-11T22:49:05+00:00"
+    }
+  ],
+  "created": "2016-02-23T22:49:05+00:00",
+  "updated": "2016-02-23T22:49:05+00:00"
+}

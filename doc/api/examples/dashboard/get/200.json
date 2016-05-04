@@ -1,0 +1,28 @@
+{
+  "nearbyVolonteers": 19,
+  "potentialContacts": 1,
+  "messages": [
+    {
+        "user": 1,
+        "message": "Ja, morgen komt ook goed uit voor mij!",
+        "created": "2016-02-23T22:49:05+00:00"
+    },
+    {
+        "user": 6,
+        "message": "Hoi, het lijkt me leuk om een keer te helpen met het koken. Wat maak je graag?",
+        "created": "2016-01-23T22:49:05+00:00"
+    }
+  ],
+  "connections": [
+    {
+        "name": "Erika Franken",
+        "message": "Hey Erik, zou je morgen even tijd hebben om langs te komen. Ik denk dat een stop in de meterkast is gestolen!",
+        "created": "2016-02-23T22:49:05+00:00"
+    },
+    {
+        "name": "Truus Hikspoors",
+        "message": "Hey Erik, ik heb morgen wel tijd als het je uitkomt.",
+        "created": "2016-02-23T22:49:05+00:00"
+    }
+  ]
+}
