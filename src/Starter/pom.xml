@@ -5,8 +5,8 @@
 
 	<groupId>Volontair-API</groupId>
 	<artifactId>Starter</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
 
 	<name>Starter</name>
 	<description></description>
@@ -71,11 +71,11 @@
 			<artifactId>PcsConversation</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>Volontair-API</groupId>
-			<artifactId>PcsDashboard</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>Volontair-API</groupId>-->
+			<!--<artifactId>PcsDashboard</artifactId>-->
+			<!--<version>1.0-SNAPSHOT</version>-->
+		<!--</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -154,6 +154,11 @@
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.vividsolutions</groupId>
+			<artifactId>jts</artifactId>
+			<version>1.13</version>
 		</dependency>
 	</dependencies>
 	
