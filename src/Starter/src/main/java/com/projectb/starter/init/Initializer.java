@@ -172,6 +172,7 @@ public class Initializer {
         requestComputer = new Request();
         requestComputer.setCreator(userOne);
         requestComputer.setTitle(COMPUTER_HELP_TITLE);
+        requestComputer.setCategory(categoryHousework);
         requestComputer.setDescription(COMPUTER_HELP_DESC);
         requestComputer.setLatitude(COMPUTER_HELP_LAT);
         requestComputer.setLongitude(COMPUTER_HELP_LONG);
@@ -180,6 +181,7 @@ public class Initializer {
 
         Request requestGrocery = new Request();
         requestGrocery.setTitle(GROCERY_TITLE);
+        requestGrocery.setCategory(categoryHousework);
         requestGrocery.setDescription(GROCERY_DESC);
         requestGrocery.setLatitude(GROCERY_LAT);
         requestGrocery.setLongitude(GROCERY_LONG);
@@ -188,6 +190,7 @@ public class Initializer {
 
         Request requestLamp = new Request();
         requestLamp.setTitle(FIX_LAMP_TITLE);
+        requestLamp.setCategory(categoryHousework);
         requestLamp.setDescription(FIX_LAMP_DESC);
         requestLamp.setLongitude(FIX_LAMP_LONG);
         requestLamp.setLatitude(FIX_LAMP_LAT);
@@ -201,6 +204,7 @@ public class Initializer {
 
         offerChatAndDrink = new Offer();
         offerChatAndDrink.setCreator(userOne);
+        offerChatAndDrink.setCategory(categoryHousework);
         offerChatAndDrink.setTitle(DRINKING_CHAT_TITLE);
         offerChatAndDrink.setDescription(DRINKING_CHAT_DESC);
         offerChatAndDrink.setLatitude(DRINKING_CHAT_LAT);
@@ -210,6 +214,7 @@ public class Initializer {
 
         Offer offerHelpGarden = new Offer();
         offerHelpGarden.setTitle(HELPING_WITH_GARDEN_TITLE);
+        offerHelpGarden.setCategory(categoryHousework);
         offerHelpGarden.setDescription(HELPING_WITH_GARDEN_DESC);
         offerHelpGarden.setLatitude(HELPING_WITH_GARDEN_LAT);
         offerHelpGarden.setLongitude(HELPING_WITH_GARDEN_LONG);
