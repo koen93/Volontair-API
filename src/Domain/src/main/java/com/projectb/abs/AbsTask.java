@@ -26,7 +26,7 @@ public abstract class AbsTask extends AbsEntity {
     @Setter
     private String description;
 
-    @OneToOne(cascade = CascadeType.DETACH)
+    @ManyToOne(cascade = CascadeType.DETACH)
     @Setter
     private Category category;
 
