@@ -71,11 +71,11 @@
 			<artifactId>PcsConversation</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
-		<dependency>
-			<groupId>Volontair-API</groupId>
-			<artifactId>PcsDashboard</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>Volontair-API</groupId>-->
+			<!--<artifactId>PcsDashboard</artifactId>-->
+			<!--<version>1.0-SNAPSHOT</version>-->
+		<!--</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
