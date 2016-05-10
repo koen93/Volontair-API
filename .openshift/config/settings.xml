@@ -1,3 +1,6 @@
 <settings>
     <localRepository>${OPENSHIFT_DATA_DIR}/m2/repository</localRepository>
+    <pluginGroups>
+        <pluginGroup>org.apache.tomcat.maven</pluginGroup>
+    </pluginGroups>
 </settings>
