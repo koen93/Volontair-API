@@ -22,6 +22,6 @@ export M2=$OPENSHIFT_DATA_DIR/apache-maven-3.3.9/bin
 export MAVEN_OPTS="-Xms384m -Xmx412m"
 
 export JAVA_HOME=/etc/alternatives/java_sdk_1.8.0
-export PATH=$JAVA_HOME/bin:$PATH
+export PATH=$JAVA_HOME/bin:$M2:$PATH
 
 mvn -s .openshift/config/settings.xml clean -Popenshift clean install
