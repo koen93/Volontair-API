@@ -1,8 +1,8 @@
 package com.projectb.endpoint;
 
 import com.projectb.auth.PrincipalService;
-import com.projectb.entities.Message;
 import com.projectb.entities.User;
+import com.projectb.entities.Message;
 import com.projectb.exception.ResourceNotOwnedByPrincipalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
