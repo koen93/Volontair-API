@@ -20,6 +20,8 @@ build/
 *.iml
 .idea/
 
+target/
+
 # Local H2 database"
 /test-db.trace.db
 /test-db.h2.db
