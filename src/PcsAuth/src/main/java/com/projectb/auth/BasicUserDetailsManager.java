@@ -1,12 +1,11 @@
 package com.projectb.auth;
 
-import com.projectb.entities.Role;
 import com.projectb.entities.User;
+import com.projectb.entities.Role;
 import com.projectb.repositories.RoleRepo;
 import com.projectb.repositories.UserRepo;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;

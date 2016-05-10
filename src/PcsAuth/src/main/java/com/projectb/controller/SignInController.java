@@ -59,7 +59,7 @@ public class SignInController {
         DebugToken debugToken = facebookAppTemplate.fetchObject("debug_token", DebugToken.class, map);
         DebugData debugData = debugToken.getData();
 
-        if(!debugData.getAppId().equals(environment.getProperty("facebook.clientId")))
+        if(debugData.getAppId() == null || !debugData.getAppId().equals(environment.getProperty("facebook.clientId")))
             throw new InvalidFacebookCredentials();
         if(!debugData.isValid())
             throw new InvalidFacebookCredentials();

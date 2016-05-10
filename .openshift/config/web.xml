@@ -1623,7 +1623,7 @@
     </mime-mapping>
     <mime-mapping>
         <extension>gac</extension>
-        <mime-type>application/vnd.groove-account</mime-type>
+        <mime-type>application/vnd.groove-user</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>gbr</extension>

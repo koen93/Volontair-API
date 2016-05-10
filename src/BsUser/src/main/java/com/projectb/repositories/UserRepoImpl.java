@@ -1,7 +1,6 @@
 package com.projectb.repositories;
 
 import com.projectb.entities.User;
-import com.projectb.repositories.UserRepoCustom;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

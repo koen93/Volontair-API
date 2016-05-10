@@ -1,7 +1,6 @@
 package com.projectb.entities;
 
 import com.projectb.abs.AbsEntity;
-import com.projectb.abs.AbsTask;
 import lombok.Getter;
 import lombok.Setter;
 

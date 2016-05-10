@@ -2,8 +2,6 @@ package com.projectb.endpoint;
 
 import com.projectb.abs.AbsTask;
 import com.projectb.auth.PrincipalService;
-import com.projectb.entities.Offer;
-import com.projectb.entities.Request;
 import com.projectb.entities.User;
 import com.projectb.exception.ResourceNotOwnedByPrincipalException;
 import org.springframework.beans.factory.annotation.Autowired;
