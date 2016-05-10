@@ -2,9 +2,7 @@ package com.projectb.endpoint;
 
 import com.projectb.auth.PrincipalService;
 import com.projectb.entities.Report;
-import com.projectb.entities.User;
 import com.projectb.exception.MethodNotAllowedException;
-import com.projectb.exception.ResourceNotOwnedByPrincipalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleBeforeCreate;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;

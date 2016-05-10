@@ -4,7 +4,6 @@ import com.projectb.abs.AbsEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.JoinColumnOrFormula;
 
 import javax.persistence.*;
 
