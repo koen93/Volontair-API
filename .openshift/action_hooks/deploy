@@ -27,4 +27,4 @@ export PATH=$JAVA_HOME/bin:$M2:$PATH
 ./start
 
 mvn -s .openshift/config/settings.xml clean -Popenshift clean install
-cp src/Starter/target/*.war webapps/ROOT.war
+cp src/Starter/target/*.war $OPENSHIFT_DATA_DIR/webapps/ROOT.war
