@@ -1,5 +1,6 @@
 package com.projectb.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.projectb.auth.SignInService;
 import com.projectb.exception.InvalidFacebookCredentials;
@@ -108,6 +109,7 @@ public class SignInController {
     }
 
     @Getter
+    @JsonIgnoreProperties(ignoreUnknown = true)
     private static class DebugData {
         // TODO: Might want to set setPropertyNamingStrategy instead?
         @JsonProperty("app_id")
