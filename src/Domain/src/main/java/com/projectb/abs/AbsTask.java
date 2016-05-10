@@ -1,7 +1,7 @@
 package com.projectb.abs;
 
 import com.projectb.entities.Category;
-import com.projectb.entities.Account;
+import com.projectb.entities.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,7 +12,7 @@ import javax.persistence.*;
 public abstract class AbsTask extends AbsEntity {
     @ManyToOne
     @Setter
-    private Account creator;
+    private User creator;
 
     @Column(nullable = false)
     @Setter

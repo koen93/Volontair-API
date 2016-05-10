@@ -1,6 +1,6 @@
 package com.projectb.auth;
 
-import com.projectb.entities.Account;
+import com.projectb.entities.User;
 import com.projectb.repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.social.connect.Connection;
@@ -19,14 +19,14 @@ public class UserConnectionSignUp implements ConnectionSignUp {
         UserProfile profile = connection.fetchUserProfile();
 
         try {
-            Account account = new Account();
-            account.setUsername(profile.getEmail());
-            account.setPassword("generate"); // TODO: Generate a password, or better yet. Or disable local login.
-            account.setName(profile.getName());
+            User user = new User();
+            user.setUsername(profile.getEmail());
+            user.setPassword("generate"); // TODO: Generate a password, or better yet. Or disable local login.
+            user.setName(profile.getName());
 
-            signUpService.signUp(account);
+            signUpService.signUp(user);
 
-            return account.getUsername();
+            return user.getUsername();
         } catch (Exception e) {
             e.printStackTrace();
         }

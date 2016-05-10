@@ -1,7 +1,7 @@
 package com.projectb.endpoint;
 
 import com.projectb.auth.PrincipalService;
-import com.projectb.entities.Account;
+import com.projectb.entities.User;
 import com.projectb.exception.CouldNotProcessAvatarException;
 import com.projectb.exception.IdDoesNotMatchResourceException;
 import com.projectb.exception.ResourceNotOwnedByPrincipalException;
@@ -45,26 +45,26 @@ public class UserServiceController {
 
     @RequestMapping(method = RequestMethod.GET, value = "/users/me")
     public @ResponseBody ResponseEntity<Resource<?>> me(PersistentEntityResourceAssembler assembler) {
-        Account authenticatedAccount = principalService.getAuthenticatedUser();
+        User authenticatedUser = principalService.getAuthenticatedUser();
 
-        PersistentEntityResource resource = assembler.toFullResource(authenticatedAccount);
+        PersistentEntityResource resource = assembler.toFullResource(authenticatedUser);
         return new ResponseEntity<Resource<?>>(resource, null, HttpStatus.OK);
     }
 
     @Transactional
     @RequestMapping(method = RequestMethod.PUT, value = "/users/{id}")
-    public @ResponseBody ResponseEntity<?> update(@RequestBody Account account, @PathVariable("id") long id) {
-        if(account.getId() != id)
+    public @ResponseBody ResponseEntity<?> update(@RequestBody User user, @PathVariable("id") long id) {
+        if(user.getId() != id)
             throw new IdDoesNotMatchResourceException();
-        Account accountToUpdate = userRepo.findOne(id);
-        if(accountToUpdate == null)
+        User userToUpdate = userRepo.findOne(id);
+        if(userToUpdate == null)
             throw new ResourceNotFoundException();
-        Account authenticatedAccount = principalService.getAuthenticatedUser();
-        if(!accountToUpdate.getId().equals(authenticatedAccount.getId()))
+        User authenticatedUser = principalService.getAuthenticatedUser();
+        if(!userToUpdate.getId().equals(authenticatedUser.getId()))
             throw new ResourceNotOwnedByPrincipalException();
 
-        userRepo.save(account);
-        return ResponseEntity.ok(account);
+        userRepo.save(user);
+        return ResponseEntity.ok(user);
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/users/{id}/avatar.png")

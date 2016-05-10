@@ -1,7 +1,7 @@
 package com.projectb.repositories;
 
-import com.projectb.entities.Account;
+import com.projectb.entities.User;
 
 public interface UserRepoCustom {
-    Account merge(Account account);
+    User merge(User user);
 }

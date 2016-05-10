@@ -21,9 +21,9 @@ public class Message extends AbsEntity {
 
     @ManyToOne
     @Setter
-    public Account sender;
+    public User sender;
 
-    public Message(Account sender, String message) {
+    public Message(User sender, String message) {
         this.sender = sender;
         this.message = message;
     }

@@ -1,8 +1,8 @@
 package com.projectb.auth;
 
-import com.projectb.entities.Account;
+import com.projectb.entities.User;
 
 public interface SignUpService {
-    Account signUp(Account account);
-    Account signUp(String username, String password);
+    User signUp(User user);
+    User signUp(String username, String password);
 }

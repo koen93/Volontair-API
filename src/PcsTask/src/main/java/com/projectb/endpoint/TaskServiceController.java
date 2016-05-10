@@ -2,7 +2,7 @@ package com.projectb.endpoint;
 
 import com.projectb.abs.AbsTask;
 import com.projectb.auth.PrincipalService;
-import com.projectb.entities.Account;
+import com.projectb.entities.User;
 import com.projectb.exception.ResourceNotOwnedByPrincipalException;
 import com.projectb.repositories.abs.TaskRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,8 +72,8 @@ public abstract class TaskServiceController<T extends AbsTask> {
     }
 
     private void verifyOwner(T task) {
-        Account account = principalService.getAuthenticatedUser();
-        if(!account.getId().equals(task.getCreator().getId()))
+        User user = principalService.getAuthenticatedUser();
+        if(!user.getId().equals(task.getCreator().getId()))
             throw new ResourceNotOwnedByPrincipalException();
     }
 

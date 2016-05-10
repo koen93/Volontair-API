@@ -1,7 +1,7 @@
 package com.projectb.endpoint;
 
 import com.projectb.auth.PrincipalService;
-import com.projectb.entities.Account;
+import com.projectb.entities.User;
 import com.projectb.entities.Message;
 import com.projectb.exception.ResourceNotOwnedByPrincipalException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +20,17 @@ public class MessageEventHandler {
     @HandleBeforeSave
     @HandleBeforeDelete
     public void checkPrivileges(Message message) {
-        Account authenticatedAccount = principalService.getAuthenticatedUser();
-        if(!message.getSender().getId().equals(authenticatedAccount.getId()))
+        User authenticatedUser = principalService.getAuthenticatedUser();
+        if(!message.getSender().getId().equals(authenticatedUser.getId()))
             throw new ResourceNotOwnedByPrincipalException();
     }
 
     @HandleBeforeCreate
     public void checkPostPrivileges(Message message) {
-        Account authenticatedAccount = principalService.getAuthenticatedUser();
-        message.setSender(authenticatedAccount);
-        if(!message.getConversation().getListener().getId().equals(authenticatedAccount.getId())
-        && !message.getConversation().getStarter().getId().equals(authenticatedAccount.getId())) {
+        User authenticatedUser = principalService.getAuthenticatedUser();
+        message.setSender(authenticatedUser);
+        if(!message.getConversation().getListener().getId().equals(authenticatedUser.getId())
+        && !message.getConversation().getStarter().getId().equals(authenticatedUser.getId())) {
             throw new ResourceNotOwnedByPrincipalException();
         }
     }

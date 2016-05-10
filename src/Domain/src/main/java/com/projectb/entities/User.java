@@ -14,10 +14,11 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name = "Account")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class Account extends AbsEntity implements Serializable {
+public class User extends AbsEntity implements Serializable {
 
     @Column
     @Setter

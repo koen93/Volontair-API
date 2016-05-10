@@ -1,0 +1,17 @@
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/auth/UserConnectionSignUp.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/auth/BasicUserDetails.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/config/OAuth2Config.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/auth/BasicLoginUrlAuthenticationEntryPoint.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/exception/SecretPasswordNotSetException.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/config/SocialConfig.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/controller/SignInController.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/controller/SignUpController.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/auth/BasicUserDetailsManager.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/controller/OAuthController.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/auth/BasicSocialUserDetailsService.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/exception/InvalidFacebookCredentials.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/config/WebSecurityConfig.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/auth/SimpleUsersConnectionRepository.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/controller/IndexController.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/controller/SignUpForm.java
+/home/koen/IdeaProjects/Volontair-API/src/PcsAuth/src/main/java/com/projectb/auth/SimpleConnectionRepository.java

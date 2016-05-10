@@ -1,6 +1,6 @@
 package com.projectb.repositories;
 
-import com.projectb.entities.Account;
+import com.projectb.entities.User;
 import com.projectb.repo.BasicRepo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,17 +11,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RepositoryRestResource(path = "users", collectionResourceRel = "users", itemResourceRel = "users")
-public interface UserRepo extends BasicRepo<Account> {
-    Account findByUsername(@Param("username") String username);
+public interface UserRepo extends BasicRepo<User> {
+    User findByUsername(@Param("username") String username);
 
     @Override
     @RestResource(exported = false)
-    Page<Account> findAll(Pageable pageable);
+    Page<User> findAll(Pageable pageable);
 
     @Override
     @RestResource(exported = false)
     void delete(Long id);
 
     @Override
-    Account save(Account s);
+    User save(User s);
 }

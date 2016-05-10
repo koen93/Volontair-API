@@ -13,11 +13,11 @@ import javax.persistence.*;
 public class Report extends AbsEntity {
     @ManyToOne(optional = false)
     @Setter
-    public Account reporter;
+    public User reporter;
 
     @ManyToOne(optional = false)
     @Setter
-    public Account reportee;
+    public User reportee;
 
     @Column(nullable = false)
     public String reason;

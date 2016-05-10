@@ -1,7 +1,7 @@
 package com.projectb.auth;
 
 import com.projectb.entities.Role;
-import com.projectb.entities.Account;
+import com.projectb.entities.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,12 +14,12 @@ import java.util.List;
 
 @RequiredArgsConstructor
 public final class BasicUserDetails implements UserDetails, SocialUserDetails {
-    private final Account account;
+    private final User user;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        List<Role> userRoles = account.getRoles();
+        List<Role> userRoles = user.getRoles();
 
         for(Role role : userRoles) {
             SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
@@ -36,12 +36,12 @@ public final class BasicUserDetails implements UserDetails, SocialUserDetails {
 
     @Override
     public String getPassword() {
-        return account.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return account.getUsername();
+        return user.getUsername();
     }
 
     @Override
@@ -51,7 +51,7 @@ public final class BasicUserDetails implements UserDetails, SocialUserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return account.isEnabled();
+        return user.isEnabled();
     }
 
     @Override

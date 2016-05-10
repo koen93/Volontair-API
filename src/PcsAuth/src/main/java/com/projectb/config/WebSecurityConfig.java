@@ -1,7 +1,7 @@
 package com.projectb.config;
 
 import com.projectb.auth.*;
-import com.projectb.entities.Account;
+import com.projectb.entities.User;
 import com.projectb.entities.Role;
 import com.projectb.repositories.RoleRepo;
 import com.projectb.repositories.UserRepo;
@@ -60,13 +60,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         Role role = new Role("ROLE_USER");
         roleRepo.saveAndFlush(role);
 
-        Account account = new Account();
-        account.setUsername("account");
-        account.setPassword("password");
-        account.setName("Sara Tancredi");
-        account.setSummary("Lorum ipsum dolor sit amet.");
+        User user = new User();
+        user.setUsername("user");
+        user.setPassword("password");
+        user.setName("Sara Tancredi");
+        user.setSummary("Lorum ipsum dolor sit amet.");
 
-        signUpService().signUp(account);
+        signUpService().signUp(user);
     }
 
     @Bean(name="authenticationManagerBean")

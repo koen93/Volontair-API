@@ -1,7 +1,7 @@
 package com.projectb.auth;
 
-import com.projectb.entities.Account;
+import com.projectb.entities.User;
 
 public interface PrincipalService {
-    Account getAuthenticatedUser();
+    User getAuthenticatedUser();
 }

@@ -1,6 +1,6 @@
 package com.projectb.auth;
 
-import com.projectb.entities.Account;
+import com.projectb.entities.User;
 import com.projectb.entities.Role;
 import com.projectb.repositories.RoleRepo;
 import com.projectb.repositories.UserRepo;
@@ -20,30 +20,30 @@ public class BasicSignUpService implements SignUpService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Account signUp(@NonNull Account account) {
-        if(account.getUsername() == null && account.getUsername().isEmpty())
+    public User signUp(@NonNull User user) {
+        if(user.getUsername() == null && user.getUsername().isEmpty())
             throw new IllegalArgumentException("Username may not be null or empty.");
-        if(account.getPassword() == null & account.getPassword().isEmpty())
+        if(user.getPassword() == null & user.getPassword().isEmpty())
             throw new IllegalArgumentException("Password may not be null or empty.");
 
-        account.setEnabled(true);
+        user.setEnabled(true);
 
         Role role = roleRepo.findByName("ROLE_USER");
         if(role == null)
             throw new IllegalStateException("Could not find 'ROLE_USER' role.");
-        account.getRoles().add(role);
+        user.getRoles().add(role);
 
-        userRepo.save(account);
+        userRepo.save(user);
 
-        return account;
+        return user;
     }
 
-    public Account signUp(@NonNull String username, @NonNull String password) {
-        Account account = new Account();
-        account.setUsername(username);
-        account.setPassword(passwordEncoder.encode(password));
-        signUp(account);
+    public User signUp(@NonNull String username, @NonNull String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(passwordEncoder.encode(password));
+        signUp(user);
 
-        return account;
+        return user;
     }
 }
