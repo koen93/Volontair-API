@@ -17,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class User extends AbsEntity implements Serializable {
+public class Account extends AbsEntity implements Serializable {
 
     @Column
     @Setter

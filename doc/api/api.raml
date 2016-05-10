@@ -19,11 +19,11 @@ traits:
   local: !include traits/local.raml
   orderable: !include traits/orderable.raml
 
-/setup: # TODO: Not a resource. Uses several resources to create a new \user. To be used by the setup wizard in the app
+/setup: # TODO: Not a resource. Uses several resources to create a new \account. To be used by the setup wizard in the app
   /{userId}:
     post:
       displayName: Setup
-      description: Sets up a new user.
+      description: Sets up a new account.
       responses:
         201:
           body:
@@ -31,7 +31,7 @@ traits:
               type: model.User
               example: !include examples/setup/{userId}/post/201.json
 
-/dashboard: # TODO: Assuming dashboard does not include any user-specific data
+/dashboard: # TODO: Assuming dashboard does not include any account-specific data
   get:
     description: Retrieves some interesting data to show in a dashboard
     responses:
@@ -72,7 +72,7 @@ traits:
 
 /conversations:
   get:
-    description: Retrieves a list of all private conversations or this user
+    description: Retrieves a list of all private conversations or this account
     responses:
       200:
         body:
@@ -80,7 +80,7 @@ traits:
             type: model.Conversation[]
             example: !include examples/conversations/get/200.json
       401:
-        description: Response if the user is not authenticated
+        description: Response if the account is not authenticated
   /{conversationId}:
     get:
       description: Retrieves a private conversation
@@ -91,7 +91,7 @@ traits:
               type: model.Conversation
               example: !include examples/conversations/{conversationId}/get/200.json
         403:
-          description: Response if authenticated user is not part of the conversation
+          description: Response if authenticated account is not part of the conversation
     /messages:
       get:
         description: Retrieves a list of messages
@@ -131,7 +131,7 @@ traits:
 /users:
   /{userId}:
     get:
-      description: Retrieve a user
+      description: Retrieve a account
       responses:
         200:
           body:
@@ -139,7 +139,7 @@ traits:
               type: model.User
               example: !include examples/users/{userId}/get/200.json
     put:
-      description: Update a user
+      description: Update a account
       responses:
         200:
           body:
@@ -151,7 +151,7 @@ traits:
       get:
     /contacts:
       get:
-        description: Retrieves a list of user contacts
+        description: Retrieves a list of account contacts
         responses:
           200:
             body:

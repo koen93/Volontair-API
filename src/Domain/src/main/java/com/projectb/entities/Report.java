@@ -1,7 +1,6 @@
 package com.projectb.entities;
 
 import com.projectb.abs.AbsEntity;
-import com.projectb.abs.AbsTask;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,11 +13,11 @@ import javax.persistence.*;
 public class Report extends AbsEntity {
     @ManyToOne(optional = false)
     @Setter
-    public User reporter;
+    public Account reporter;
 
     @ManyToOne(optional = false)
     @Setter
-    public User reportee;
+    public Account reportee;
 
     @Column(nullable = false)
     public String reason;

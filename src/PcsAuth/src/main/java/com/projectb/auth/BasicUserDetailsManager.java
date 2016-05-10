@@ -1,12 +1,11 @@
 package com.projectb.auth;
 
+import com.projectb.entities.Account;
 import com.projectb.entities.Role;
-import com.projectb.entities.User;
 import com.projectb.repositories.RoleRepo;
 import com.projectb.repositories.UserRepo;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,55 +47,55 @@ public final class BasicUserDetailsManager implements UserDetailsManager {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByUsername(username);
-        if(user == null)
+        Account account = userRepo.findByUsername(username);
+        if(account == null)
             throw new UsernameNotFoundException(String.format("Username %s could not be found.", username));
-        return new BasicUserDetails(user);
+        return new BasicUserDetails(account);
     }
 
     @Override
     public void createUser(UserDetails userDetails) {
         validateUserDetails(userDetails);
 
-        User user = new User();
-        user.setUsername(userDetails.getUsername());
-        user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
-        user.setEnabled(userDetails.isEnabled());
+        Account account = new Account();
+        account.setUsername(userDetails.getUsername());
+        account.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+        account.setEnabled(userDetails.isEnabled());
 
         Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
         for(GrantedAuthority authority : authorities) {
             Role role = roleRepo.findByName(authority.getAuthority());
             if(role != null)
-                user.getRoles().add(role);
+                account.getRoles().add(role);
             else
                 logger.warn(String.format("Could not find role %s.", authority.getAuthority()));
         }
 
-        signUpService.signUp(user);
+        signUpService.signUp(account);
     }
 
     @Override
     public void updateUser(UserDetails userDetails) {
         validateUserDetails(userDetails);
 
-        User user = userRepo.findByUsername(userDetails.getUsername());
-        user.setUsername(userDetails.getUsername());
-        user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
-        user.setEnabled(userDetails.isEnabled());
+        Account account = userRepo.findByUsername(userDetails.getUsername());
+        account.setUsername(userDetails.getUsername());
+        account.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+        account.setEnabled(userDetails.isEnabled());
 
 //        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-//        user.getRoles().clear();
+//        account.getRoles().clear();
 //        for(GrantedAuthority authority : authorities) {
-//            user.getRoles().add(new Role(authority.getAuthority()));
+//            account.getRoles().add(new Role(authority.getAuthority()));
 //        }
 
-        userRepo.save(user);
+        userRepo.save(account);
     }
 
     @Override
     public void deleteUser(String username) {
-        User user = userRepo.findByUsername(username);
-        userRepo.delete(user);
+        Account account = userRepo.findByUsername(username);
+        userRepo.delete(account);
     }
 
     @Override
@@ -108,15 +107,15 @@ public final class BasicUserDetailsManager implements UserDetailsManager {
             // This would indicate bad coding somewhere
             throw new AccessDeniedException(
                     "Can't change password as no Authentication object found in context "
-                            + "for current user.");
+                            + "for current account.");
         }
 
         String username = currentUser.getName();
 
-        // If an authentication manager has been set, re-authenticate the user with the
+        // If an authentication manager has been set, re-authenticate the account with the
         // supplied password.
         if (authenticationManager != null) {
-            logger.debug("Reauthenticating user '" + username
+            logger.debug("Reauthenticating account '" + username
                     + "' for password change request.");
 
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
@@ -126,19 +125,19 @@ public final class BasicUserDetailsManager implements UserDetailsManager {
             logger.debug("No authentication manager set. Password won't be re-checked.");
         }
 
-        logger.debug("Changing password for user '" + username + "'");
+        logger.debug("Changing password for account '" + username + "'");
 
-        User user = userRepo.findByUsername(username);
-        user.setPassword(newPassword);
+        Account account = userRepo.findByUsername(username);
+        account.setPassword(newPassword);
 
         SecurityContextHolder.getContext().setAuthentication(createNewAuthentication(currentUser, newPassword));
     }
 
     private Authentication createNewAuthentication(Authentication currentAuth, String newPassword) {
         UserDetails userDetails = loadUserByUsername(currentAuth.getName());
-        User user = userRepo.findByUsername(userDetails.getUsername());
+        Account account = userRepo.findByUsername(userDetails.getUsername());
 
-        UsernamePasswordAuthenticationToken newAuthentication = new UsernamePasswordAuthenticationToken(user, null, userDetails.getAuthorities());
+        UsernamePasswordAuthenticationToken newAuthentication = new UsernamePasswordAuthenticationToken(account, null, userDetails.getAuthorities());
         newAuthentication.setDetails(currentAuth.getDetails());
 
         return newAuthentication;
@@ -146,11 +145,11 @@ public final class BasicUserDetailsManager implements UserDetailsManager {
 
     @Override
     public boolean userExists(String username) {
-        User user = userRepo.findByUsername(username);
+        Account account = userRepo.findByUsername(username);
 
-        // TODO: Throw exception when more than one user is found like JdbcUserDetailsManager?
+        // TODO: Throw exception when more than one account is found like JdbcUserDetailsManager?
 
-        return user != null;
+        return account != null;
     }
 
     private void validateUserDetails(UserDetails userDetails) {

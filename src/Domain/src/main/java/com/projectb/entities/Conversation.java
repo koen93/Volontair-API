@@ -14,11 +14,11 @@ import java.util.Set;
 public class Conversation extends AbsEntity {
     @ManyToOne
     @Setter
-    private User starter;
+    private Account starter;
 
     @ManyToOne
     @Setter
-    private User listener;
+    private Account listener;
 
     @OneToMany(mappedBy = "conversation")
     private Set<Message> messages = new LinkedHashSet<>();

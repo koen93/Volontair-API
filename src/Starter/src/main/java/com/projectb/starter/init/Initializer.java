@@ -91,8 +91,8 @@ public class Initializer {
     private Category categorytechnicalQuestions;
     private Category categorySocialActivities;
 
-    private User userOne;
-    private User userTwo;
+    private Account accountOne;
+    private Account accountTwo;
 
     private Request requestComputer;
     private Offer offerChatAndDrink;
@@ -117,33 +117,33 @@ public class Initializer {
     }
 
     private void initUsers() {
-        userOne = new User();
+        accountOne = new Account();
 
-        userOne.setUsername("kotterdijk91");
-        userOne.setPassword("password");
-        userOne.setName("Karel Otterdijk");
-        userOne.setSummary("Hallo, ik ben Karel Otterdijk.");
-        userOne.setEnabled(true);
-        userOne.getRoles().add(roleRepo.findByName("ROLE_USER"));
+        accountOne.setUsername("kotterdijk91");
+        accountOne.setPassword("password");
+        accountOne.setName("Karel Otterdijk");
+        accountOne.setSummary("Hallo, ik ben Karel Otterdijk.");
+        accountOne.setEnabled(true);
+        accountOne.getRoles().add(roleRepo.findByName("ROLE_USER"));
 
-        userOne.getCategories().add(categorytechnicalQuestions);
-        userOne.getCategories().add(categorySocialActivities);
+        accountOne.getCategories().add(categorytechnicalQuestions);
+        accountOne.getCategories().add(categorySocialActivities);
 
-        userOne.getRequests().add(requestComputer);
-        userOne.getOffers().add(offerChatAndDrink);
+        accountOne.getRequests().add(requestComputer);
+        accountOne.getOffers().add(offerChatAndDrink);
 
-        userRepo.save(userOne);
+        userRepo.save(accountOne);
 
-        userTwo = new User();
+        accountTwo = new Account();
 
-        userTwo.setUsername("annaliebherr");
-        userTwo.setPassword("password");
-        userTwo.setName("Anna Liebherr");
-        userTwo.setSummary("Hallo, ik ben Karel Otterdijk.");
-        userTwo.setEnabled(true);
-        userTwo.getRoles().add(roleRepo.findByName("ROLE_USER"));
+        accountTwo.setUsername("annaliebherr");
+        accountTwo.setPassword("password");
+        accountTwo.setName("Anna Liebherr");
+        accountTwo.setSummary("Hallo, ik ben Karel Otterdijk.");
+        accountTwo.setEnabled(true);
+        accountTwo.getRoles().add(roleRepo.findByName("ROLE_USER"));
 
-        userRepo.save(userTwo);
+        userRepo.save(accountTwo);
     }
 
     private void initCategories() {
@@ -188,7 +188,7 @@ public class Initializer {
         GeometryFactory geometryFactory = new GeometryFactory();
 
         requestComputer = new Request();
-        requestComputer.setCreator(userOne);
+        requestComputer.setCreator(accountOne);
         requestComputer.setTitle(COMPUTER_HELP_TITLE);
         requestComputer.setCategory(categorytechnicalQuestions);
         requestComputer.setDescription(COMPUTER_HELP_DESC);
@@ -221,7 +221,7 @@ public class Initializer {
         Point point = geometryFactory.createPoint(new Coordinate(52.3702157, 4.895167899999933));
 
         offerChatAndDrink = new Offer();
-        offerChatAndDrink.setCreator(userOne);
+        offerChatAndDrink.setCreator(accountOne);
         offerChatAndDrink.setCategory(categorySocialActivities);
         offerChatAndDrink.setTitle(DRINKING_CHAT_TITLE);
         offerChatAndDrink.setDescription(DRINKING_CHAT_DESC);
@@ -242,23 +242,23 @@ public class Initializer {
 
     private void initConversations() {
         Conversation conversation = new Conversation();
-        conversation.setStarter(userOne);
-        conversation.setListener(userTwo);
+        conversation.setStarter(accountOne);
+        conversation.setListener(accountTwo);
         conversationRepo.save(conversation);
 
-        Message message1 = new Message(userOne, "Hallo!");
+        Message message1 = new Message(accountOne, "Hallo!");
         conversation.addMessage(message1);
         messageRepo.save(message1);
 
-        Message message2 = new Message(userTwo, "Hej!");
+        Message message2 = new Message(accountTwo, "Hej!");
         conversation.addMessage(message2);
         messageRepo.save(message2);
 
-        Message message3 = new Message(userOne, "Hoe gaat het?");
+        Message message3 = new Message(accountOne, "Hoe gaat het?");
         conversation.addMessage(message3);
         messageRepo.save(message3);
 
-        Message message4 = new Message(userTwo, "Goed hoor! Met jou?");
+        Message message4 = new Message(accountTwo, "Goed hoor! Met jou?");
         conversation.addMessage(message4);
         messageRepo.save(message4);
     }

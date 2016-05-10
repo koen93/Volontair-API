@@ -1,7 +1,5 @@
 package com.projectb.auth;
 
-import com.projectb.entities.Role;
-import com.projectb.entities.User;
 import com.projectb.repositories.UserRepo;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;

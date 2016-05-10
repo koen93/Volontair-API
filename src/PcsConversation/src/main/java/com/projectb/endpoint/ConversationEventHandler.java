@@ -1,8 +1,8 @@
 package com.projectb.endpoint;
 
 import com.projectb.auth.PrincipalService;
+import com.projectb.entities.Account;
 import com.projectb.entities.Conversation;
-import com.projectb.entities.User;
 import com.projectb.exception.ResourceNotOwnedByPrincipalException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleBeforeDelete;
@@ -19,9 +19,9 @@ public class ConversationEventHandler {
     @HandleBeforeSave
     @HandleBeforeDelete
     public void checkPrivileges(Conversation conversation) {
-        User authenticatedUser = principalService.getAuthenticatedUser();
-        if(!conversation.getListener().getId().equals(authenticatedUser.getId())
-        && !conversation.getStarter().getId().equals(authenticatedUser.getId())) {
+        Account authenticatedAccount = principalService.getAuthenticatedUser();
+        if(!conversation.getListener().getId().equals(authenticatedAccount.getId())
+        && !conversation.getStarter().getId().equals(authenticatedAccount.getId())) {
             throw new ResourceNotOwnedByPrincipalException();
         }
     }

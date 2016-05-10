@@ -4,7 +4,6 @@ import com.projectb.abs.AbsEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.JoinColumnOrFormula;
 
 import javax.persistence.*;
 
@@ -22,9 +21,9 @@ public class Message extends AbsEntity {
 
     @ManyToOne
     @Setter
-    public User sender;
+    public Account sender;
 
-    public Message(User sender, String message) {
+    public Message(Account sender, String message) {
         this.sender = sender;
         this.message = message;
     }

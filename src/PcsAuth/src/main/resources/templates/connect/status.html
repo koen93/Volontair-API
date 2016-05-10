@@ -24,7 +24,7 @@
             <td th:text="${providerId}"></td>
             <td>
                 <span th:if="${!#lists.isEmpty(connectionMap[__${providerId}__])}">
-                    Connected to as <span th:text="${connectionMap[__${providerId}__][0].displayName}">user display name</span>.
+                    Connected to as <span th:text="${connectionMap[__${providerId}__][0].displayName}">account display name</span>.
                 </span>
                 <span th:if="${#lists.isEmpty(connectionMap[__${providerId}__])}">
                     Not connected.

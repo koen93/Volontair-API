@@ -3,7 +3,7 @@ package com.projectb.endpoint;
 import com.projectb.auth.PrincipalService;
 import com.projectb.entities.Conversation;
 import com.projectb.entities.Message;
-import com.projectb.entities.User;
+import com.projectb.entities.Account;
 import com.projectb.exception.ResourceNotOwnedByPrincipalException;
 import com.projectb.repositories.ConversationRepo;
 import com.projectb.repositories.MessageRepo;
@@ -27,16 +27,16 @@ public class ConverstionServiceController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/conversations/{id}/message")
     public @ResponseBody ResponseEntity<?> addMessage(@PathVariable("id") long id, @RequestBody Message message) {
-        User authenticatedUser = principalService.getAuthenticatedUser();
+        Account authenticatedAccount = principalService.getAuthenticatedUser();
         Conversation conversation = conversationRepo.findOne(id);
         if(conversation == null)
             throw new ResourceNotFoundException();
-        if(!conversation.getListener().getId().equals(authenticatedUser.getId())
-        && !conversation.getStarter().getId().equals(authenticatedUser.getId())) {
+        if(!conversation.getListener().getId().equals(authenticatedAccount.getId())
+        && !conversation.getStarter().getId().equals(authenticatedAccount.getId())) {
             throw new ResourceNotOwnedByPrincipalException();
         }
 
-        message.setSender(authenticatedUser);
+        message.setSender(authenticatedAccount);
         message.setConversation(conversation);
         messageRepo.save(message);
 

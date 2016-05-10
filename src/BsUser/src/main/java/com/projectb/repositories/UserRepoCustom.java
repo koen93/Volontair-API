@@ -1,8 +1,7 @@
 package com.projectb.repositories;
 
-import com.projectb.entities.User;
-import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import com.projectb.entities.Account;
 
 public interface UserRepoCustom {
-    User merge(User user);
+    Account merge(Account account);
 }

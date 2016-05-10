@@ -1,9 +1,8 @@
 package com.projectb.config;
 
 import com.projectb.auth.*;
-import com.projectb.entities.Offer;
+import com.projectb.entities.Account;
 import com.projectb.entities.Role;
-import com.projectb.entities.User;
 import com.projectb.repositories.RoleRepo;
 import com.projectb.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +17,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.social.security.SocialUserDetailsService;
-
-import javax.sql.DataSource;
 
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -64,13 +60,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         Role role = new Role("ROLE_USER");
         roleRepo.saveAndFlush(role);
 
-        User user = new User();
-        user.setUsername("user");
-        user.setPassword("password");
-        user.setName("Sara Tancredi");
-        user.setSummary("Lorum ipsum dolor sit amet.");
+        Account account = new Account();
+        account.setUsername("account");
+        account.setPassword("password");
+        account.setName("Sara Tancredi");
+        account.setSummary("Lorum ipsum dolor sit amet.");
 
-        signUpService().signUp(user);
+        signUpService().signUp(account);
     }
 
     @Bean(name="authenticationManagerBean")

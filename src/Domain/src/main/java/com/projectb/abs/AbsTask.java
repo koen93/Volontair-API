@@ -1,22 +1,18 @@
 package com.projectb.abs;
 
 import com.projectb.entities.Category;
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.Point;
-import com.projectb.entities.User;
+import com.projectb.entities.Account;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Getter
 @MappedSuperclass
 public abstract class AbsTask extends AbsEntity {
     @ManyToOne
     @Setter
-    private User creator;
+    private Account creator;
 
     @Column(nullable = false)
     @Setter
