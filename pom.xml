@@ -103,6 +103,22 @@
         </profile>
         <profile>
 			<id>openshift</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <version>2.2</version>
+                        <configuration>
+                            <path>/${project.build.finalName}</path>
+                            <update>true</update>
+                            <url>http://localhost:8080/manager/text</url>
+                            <username>${env.TOMCAT_USERNAME}</username>
+                            <password>${env.TOMCAT_PASSWORD}</password>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
 		</profile>
     </profiles>
 

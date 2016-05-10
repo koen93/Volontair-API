@@ -24,4 +24,4 @@ export MAVEN_OPTS="-Xms384m -Xmx412m"
 export JAVA_HOME=/etc/alternatives/java_sdk_1.8.0
 export PATH=$JAVA_HOME/bin:$M2:$PATH
 
-mvn -s .openshift/config/settings.xml clean -Popenshift clean install
+mvn -s .openshift/config/settings.xml clean -Popenshift clean install tomcat7:redeploy
