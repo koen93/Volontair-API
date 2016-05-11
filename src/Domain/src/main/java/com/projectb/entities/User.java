@@ -51,11 +51,11 @@ public class User extends AbsEntity implements Serializable {
     @Setter
     private List<Conversation> starterConversations = new ArrayList<>(); // TODO: Should be Set?
 
-    @OneToMany
-    private List<Offer> offers = new ArrayList<>();
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.DETACH)
+    private List<Offer> offers = new ArrayList<>(); // TODO: Should be Set?
 
-    @OneToMany
-    private List<Request> requests = new ArrayList<>();
+    @OneToMany(mappedBy = "creator", cascade = CascadeType.DETACH)
+    private List<Request> requests = new ArrayList<>(); // TODO: Should be Set?
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JsonIgnore
