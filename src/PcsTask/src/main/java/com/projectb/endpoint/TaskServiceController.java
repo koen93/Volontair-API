@@ -26,7 +26,6 @@ public abstract class TaskServiceController<T extends AbsTask> {
     private PrincipalService principalService;
 
     public ResponseEntity<Resources<?>> findWithinRadius(PersistentEntityResourceAssembler assembler, Class<? extends T> type, double lat, double lng, int radius) {
-        //Simple calculation
 
         List<T> tasksBasedByRadius = new ArrayList<>();
         List<T> tasks = provideRepo().findAll();
