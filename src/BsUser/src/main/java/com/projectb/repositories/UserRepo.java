@@ -15,7 +15,7 @@ public interface UserRepo extends BasicRepo<User> {
     User findByUsername(@Param("username") String username);
 
     @Override
-    @RestResource(exported = false)
+//    @RestResource(exported = false)
     Page<User> findAll(Pageable pageable);
 
     @Override
