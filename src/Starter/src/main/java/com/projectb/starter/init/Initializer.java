@@ -90,12 +90,19 @@ public class Initializer {
 
     private Category categorytechnicalQuestions;
     private Category categorySocialActivities;
+    private Category categoryHousekeeping;
 
     private User userOne;
     private User userTwo;
+    private User userThree;
+    private User userFour;
 
     private Request requestComputer;
+    private Request requestGrocery;
+    private Request requestLamp;
+
     private Offer offerChatAndDrink;
+    private Offer offerHelpGarden;
 
     // Call to create dummy data
     @PostConstruct
@@ -131,6 +138,8 @@ public class Initializer {
 
         userOne.getRequests().add(requestComputer);
         userOne.getOffers().add(offerChatAndDrink);
+        userOne.setLatitude(51.441642);
+        userOne.setLongitude(5.469722);
 
         userRepo.save(userOne);
 
@@ -139,11 +148,46 @@ public class Initializer {
         userTwo.setUsername("annaliebherr");
         userTwo.setPassword("password");
         userTwo.setName("Anna Liebherr");
-        userTwo.setSummary("Hallo, ik ben Karel Otterdijk.");
+        userTwo.setSummary("Hallo, ik ben Anna Liebherr.");
         userTwo.setEnabled(true);
         userTwo.getRoles().add(roleRepo.findByName("ROLE_USER"));
+        userOne.getCategories().add(categorySocialActivities);
+        userOne.getRequests().add(requestGrocery);
+        userTwo.setLatitude(51.615789);
+        userTwo.setLongitude(5.539240);
 
         userRepo.save(userTwo);
+
+
+        userThree = new User();
+
+        userThree.setUsername("janjanssen");
+        userThree.setPassword("password");
+        userThree.setName("Jan Janssen");
+        userThree.setSummary("Hallo, ik ben Jan Janssen.");
+        userThree.setEnabled(true);
+        userThree.getRoles().add(roleRepo.findByName("ROLE_USER"));
+        userOne.getCategories().add(categorytechnicalQuestions);
+        userOne.getRequests().add(requestLamp);
+        userThree.setLatitude(51.653306);
+        userThree.setLongitude(5.294347);
+
+        userRepo.save(userThree);
+
+        userFour = new User();
+
+        userFour.setUsername("pietpietersen");
+        userFour.setPassword("password");
+        userFour.setName("Piet Pietersen");
+        userFour.setSummary("Hallo, ik ben Piet Pietersen.");
+        userFour.setEnabled(true);
+        userFour.getRoles().add(roleRepo.findByName("ROLE_USER"));
+        userOne.getCategories().add(categoryHousekeeping);
+        userOne.getOffers().add(offerHelpGarden);
+        userFour.setLatitude(52.090737);
+        userFour.setLongitude(5.121420);
+
+        userRepo.save(userFour);
     }
 
     private void initCategories() {
@@ -159,7 +203,7 @@ public class Initializer {
         categorySocialActivities.setIconKey(CATEGORY_ICON_SOCIAL_ACTIVITIES);
         categoryRepo.save(categorySocialActivities);
 
-        Category categoryHousekeeping = new Category();
+        categoryHousekeeping = new Category();
         categoryHousekeeping.setName(CATEGORY_NAME_HOUSEKEEPING);
         categoryHousekeeping.setColorHex(CATEGORY_COLOR_HOUSEKEEPING);
         categoryHousekeeping.setIconKey(CATEGORY_ICON_HOUSEKEEPING);
@@ -197,7 +241,7 @@ public class Initializer {
 
         requestRepo.save(requestComputer);
 
-        Request requestGrocery = new Request();
+        requestGrocery = new Request();
         requestGrocery.setTitle(GROCERY_TITLE);
         requestGrocery.setCategory(categorySocialActivities);
         requestGrocery.setDescription(GROCERY_DESC);
@@ -206,7 +250,7 @@ public class Initializer {
 
         requestRepo.save(requestGrocery);
 
-        Request requestLamp = new Request();
+        requestLamp = new Request();
         requestLamp.setTitle(FIX_LAMP_TITLE);
         requestLamp.setCategory(categorySocialActivities);
         requestLamp.setDescription(FIX_LAMP_DESC);
@@ -230,7 +274,7 @@ public class Initializer {
 
         offerRepo.save(offerChatAndDrink);
 
-        Offer offerHelpGarden = new Offer();
+        offerHelpGarden = new Offer();
         offerHelpGarden.setTitle(HELPING_WITH_GARDEN_TITLE);
         offerHelpGarden.setCategory(categorySocialActivities);
         offerHelpGarden.setDescription(HELPING_WITH_GARDEN_DESC);
@@ -261,5 +305,26 @@ public class Initializer {
         Message message4 = new Message(userTwo, "Goed hoor! Met jou?");
         conversation.addMessage(message4);
         messageRepo.save(message4);
+
+        Conversation conversation2 = new Conversation();
+        conversation2.setStarter(userThree);
+        conversation2.setListener(userFour);
+        conversationRepo.save(conversation2);
+
+        Message conversation2message1 = new Message(userOne, "Hallo!");
+        conversation2.addMessage(conversation2message1);
+        messageRepo.save(conversation2message1);
+
+        Message conversation2message2 = new Message(userTwo, "Hej!");
+        conversation2.addMessage(conversation2message2);
+        messageRepo.save(conversation2message2);
+
+        Message conversation2message3 = new Message(userOne, "Hoe gaat het?");
+        conversation2.addMessage(conversation2message3);
+        messageRepo.save(conversation2message3);
+
+        Message conversation2message4 = new Message(userTwo, "Goed hoor! Met jou?");
+        conversation2.addMessage(conversation2message4);
+        messageRepo.save(conversation2message4);
     }
 }
