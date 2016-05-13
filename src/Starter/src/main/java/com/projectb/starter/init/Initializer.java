@@ -155,8 +155,8 @@ public class Initializer {
         userTwo.setEnabled(true);
         userTwo.getRoles().add(roleRepo.findByName("ROLE_USER"));
         userTwo.getCategories().add(categorytechnicalQuestions);
-        userOne.getCategories().add(categorySocialActivities);
-        userOne.getRequests().add(requestGrocery);
+        userTwo.getCategories().add(categorySocialActivities);
+        userTwo.getRequests().add(requestGrocery);
         userTwo.setLatitude(51.615789);
         userTwo.setLongitude(5.539240);
 
@@ -171,8 +171,8 @@ public class Initializer {
         userThree.setSummary("Hallo, ik ben Jan Janssen.");
         userThree.setEnabled(true);
         userThree.getRoles().add(roleRepo.findByName("ROLE_USER"));
-        userOne.getCategories().add(categoryRepairingAndReplacing);
-        userOne.getRequests().add(requestLamp);
+        userThree.getCategories().add(categoryRepairingAndReplacing);
+        userThree.getRequests().add(requestLamp);
         userThree.setLatitude(51.653306);
         userThree.setLongitude(5.294347);
 
@@ -186,8 +186,8 @@ public class Initializer {
         userFour.setSummary("Hallo, ik ben Piet Pietersen.");
         userFour.setEnabled(true);
         userFour.getRoles().add(roleRepo.findByName("ROLE_USER"));
-        userOne.getCategories().add(categoryRepairingAndReplacing);
-        userOne.getOffers().add(offerHelpGarden);
+        userThree.getCategories().add(categoryRepairingAndReplacing);
+        userThree.getOffers().add(offerHelpGarden);
         userFour.setLatitude(52.090737);
         userFour.setLongitude(5.121420);
 
