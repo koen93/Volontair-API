@@ -29,15 +29,14 @@ public abstract class TaskServiceController<T extends AbsTask> {
 
         List<T> tasksBasedByRadius = new ArrayList<>();
         List<T> tasks = provideRepo().findAll();
-        if(tasks != null) {
+        if(tasks != null && (lat > -90 || lat < 90) && (lng > -180 || lng < 180)) {
             tasksBasedByRadius = findEstablishmentsWithinRadius(tasks, lat, lng, radius);
         }
-
         return ResponseEntity.ok(entitiesToResource(tasksBasedByRadius, assembler, type));
     }
 
     public List<T> findEstablishmentsWithinRadius(List<T> list, double lat, double lng, double radius) {
-        return list.stream().filter(e -> haversine(lat, lng, e.getLatitude(), e.getLongitude()) <= radius).collect(Collectors.toList());
+        return list.stream().filter(e -> haversine(lat, lng, e.getCreator().getLatitude(), e.getCreator().getLongitude()) <= radius).collect(Collectors.toList());
     }
 
     public static double haversine(double lat1, double lon1, double lat2, double lon2) {
