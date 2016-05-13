@@ -10,6 +10,7 @@ import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.core.EmbeddedWrappers;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -25,13 +26,18 @@ public abstract class TaskServiceController<T extends AbsTask> {
     @Autowired
     private PrincipalService principalService;
 
-    public ResponseEntity<Resources<?>> findWithinRadius(PersistentEntityResourceAssembler assembler, Class<? extends T> type, double lat, double lng, int radius) {
+    public ResponseEntity findWithinRadius(PersistentEntityResourceAssembler assembler, Class<? extends T> type, double lat, double lng, int radius) {
 
-        List<T> tasksBasedByRadius = new ArrayList<>();
         List<T> tasks = provideRepo().findAll();
-        if(tasks != null && (lat > -90 || lat < 90) && (lng > -180 || lng < 180)) {
-            tasksBasedByRadius = findEstablishmentsWithinRadius(tasks, lat, lng, radius);
-        }
+
+        if(lat < -90 || lat > 90 || lng < -180 || lng > 180)
+            return new ResponseEntity(HttpStatus.NOT_ACCEPTABLE);
+
+
+        List<T> tasksBasedByRadius = findEstablishmentsWithinRadius(tasks, lat, lng, radius);
+        if(tasksBasedByRadius.size() == 0)
+            return new ResponseEntity(HttpStatus.NO_CONTENT);
+
         return ResponseEntity.ok(entitiesToResource(tasksBasedByRadius, assembler, type));
     }
 
