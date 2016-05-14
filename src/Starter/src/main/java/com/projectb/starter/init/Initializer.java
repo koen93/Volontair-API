@@ -49,23 +49,12 @@ public class Initializer {
     private String FIX_LAMP_DESC = "Two light bulbs are broken. The problem is that I am in a wheelchair and cannot change them by myself...";
     private String GROCERY_DESC = "I just want someone to help when I want to store my grocery's delivered by AH. Maybe a cup of coffee afterwards?";
     private String COMPUTER_HELP_DESC = "I have some problems with viruses and malware.. need assistance to install some anti-virus/malware tools.";
-//    private Double COMPUTER_HELP_LAT = 51.7889006;
-//    private Double COMPUTER_HELP_LONG = 5.2848906;
-//    private Double GROCERY_LAT = 52.6889006;
-//    private Double GROCERY_LONG = 5.1848906;
-//    private Double FIX_LAMP_LAT = 51.5889006;
-//    private Double FIX_LAMP_LONG = 5.3448906;
 
     //Offer constants
     private String DRINKING_CHAT_TITLE = "Chat with some coffee";
     private String HELPING_WITH_GARDEN_TITLE = "Helping in your garden";
     private String DRINKING_CHAT_DESC = "Anybody who likes a simple chat with some fresh coffee :)";
     private String HELPING_WITH_GARDEN_DESC = "Anybody who needs help in their garden? I could help if you like!";
-
-//    private Double DRINKING_CHAT_LAT = 50.6889006;
-//    private Double DRINKING_CHAT_LONG = 5.0848906;
-//    private Double HELPING_WITH_GARDEN_LAT = 51.6999006;
-//    private Double HELPING_WITH_GARDEN_LONG = 5.2868906;
 
     @Autowired
     private RequestRepo requestRepo;
@@ -240,8 +229,6 @@ public class Initializer {
         requestComputer.setTitle(COMPUTER_HELP_TITLE);
         requestComputer.setCategory(categorytechnicalQuestions);
         requestComputer.setDescription(COMPUTER_HELP_DESC);
-//        requestComputer.setLatitude(COMPUTER_HELP_LAT);
-//        requestComputer.setLongitude(COMPUTER_HELP_LONG);
 
         requestRepo.save(requestComputer);
 
@@ -250,8 +237,6 @@ public class Initializer {
         requestGrocery.setTitle(GROCERY_TITLE);
         requestGrocery.setCategory(categorySocialActivities);
         requestGrocery.setDescription(GROCERY_DESC);
-//        requestGrocery.setLatitude(GROCERY_LAT);
-//        requestGrocery.setLongitude(GROCERY_LONG);
 
         requestRepo.save(requestGrocery);
 
@@ -260,8 +245,6 @@ public class Initializer {
         requestLamp.setTitle(FIX_LAMP_TITLE);
         requestLamp.setCategory(categorySocialActivities);
         requestLamp.setDescription(FIX_LAMP_DESC);
-//        requestLamp.setLongitude(FIX_LAMP_LONG);
-//        requestLamp.setLatitude(FIX_LAMP_LAT);
 
         requestRepo.save(requestLamp);
     }
@@ -275,8 +258,6 @@ public class Initializer {
         offerChatAndDrink.setCategory(categorySocialActivities);
         offerChatAndDrink.setTitle(DRINKING_CHAT_TITLE);
         offerChatAndDrink.setDescription(DRINKING_CHAT_DESC);
-//        offerChatAndDrink.setLatitude(DRINKING_CHAT_LAT);
-//        offerChatAndDrink.setLongitude(DRINKING_CHAT_LONG);
 
         offerRepo.save(offerChatAndDrink);
 
@@ -285,8 +266,6 @@ public class Initializer {
         offerHelpGarden.setTitle(HELPING_WITH_GARDEN_TITLE);
         offerHelpGarden.setCategory(categorySocialActivities);
         offerHelpGarden.setDescription(HELPING_WITH_GARDEN_DESC);
-//        offerHelpGarden.setLatitude(HELPING_WITH_GARDEN_LAT);
-//        offerHelpGarden.setLongitude(HELPING_WITH_GARDEN_LONG);
 
         offerRepo.save(offerHelpGarden);
     }
