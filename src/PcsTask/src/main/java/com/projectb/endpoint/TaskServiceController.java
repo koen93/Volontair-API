@@ -37,7 +37,10 @@ public abstract class TaskServiceController<T extends AbsTask> {
     }
 
     public List<T> findEstablishmentsWithinRadius(List<T> list, double lat, double lng, double radius) {
-        return list.stream().filter(e -> haversine(lat, lng, e.getLatitude(), e.getLongitude()) <= radius).collect(Collectors.toList());
+        return list.stream()
+                .filter(e -> e.getCreator() != null && e.getCreator().getLatitude() != null && e.getCreator().getLongitude() != null)
+                .filter(e -> haversine(lat, lng, e.getCreator().getLatitude(), e.getCreator().getLongitude()) <= radius)
+                .collect(Collectors.toList());
     }
 
     public static double haversine(double lat1, double lon1, double lat2, double lon2) {
