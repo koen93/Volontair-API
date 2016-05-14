@@ -27,12 +27,6 @@ public abstract class AbsTask extends AbsEntity {
     private Category category;
 
     @Setter
-    private Double latitude;
-
-    @Setter
-    private Double longitude;
-
-    @Setter
     private boolean closed = false;
 
 }
