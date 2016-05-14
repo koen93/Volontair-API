@@ -64,9 +64,11 @@ public class User extends AbsEntity implements Serializable {
     @Setter
     private boolean enabled;
 
+    @NotNull
     @Setter
     private Double latitude;
 
+    @NotNull
     @Setter
     private Double longitude;
 }

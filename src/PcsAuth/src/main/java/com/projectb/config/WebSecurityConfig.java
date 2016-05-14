@@ -65,6 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         user.setPassword("password");
         user.setName("Sara Tancredi");
         user.setSummary("Lorum ipsum dolor sit amet.");
+        user.setLongitude(51.441642);
+        user.setLatitude(5.469722);
 
         signUpService().signUp(user);
     }
