@@ -20,8 +20,9 @@ import java.util.Set;
 @Getter
 public class User extends AbsEntity implements Serializable {
 
-    @Column
+    @Column(unique = true)
     @Setter
+    @NotNull
     private String username;
 
     @Column(length = 60)
