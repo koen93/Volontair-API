@@ -74,7 +74,7 @@ public class User extends AbsEntity implements Serializable {
     @Setter
     private Double longitude = 0.00;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     public Goal getGoal() {
         return goal;
     }
