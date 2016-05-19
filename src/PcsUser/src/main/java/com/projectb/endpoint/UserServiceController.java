@@ -70,40 +70,41 @@ public class UserServiceController {
     @RequestMapping(method = RequestMethod.GET, value = "/users/{id}/avatar.png")
     @ResponseBody
     public void avatar(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
-        File avatarFile = getAvatarPath(id);
-        if(!avatarFile.exists())
-            avatarFile = new File(getClass().getClassLoader().getResource("static/images/none.png").getFile());
-
-        try(InputStream in = new BufferedInputStream(new FileInputStream(avatarFile))) {
-            // TODO: Rewrite to return proper FileSystemResource using a proper HttpMessageConverter
-            response.setContentType(MediaType.IMAGE_PNG_VALUE);
-            IOUtils.copy(in, response.getOutputStream());
-        }
+//        File avatarFile = getAvatarPath(id);
+//        if(!avatarFile.exists())
+//            avatarFile = new File(getClass().getClassLoader().getResource("static/images/none.png").getFile());
+//
+//        try(InputStream in = new BufferedInputStream(new FileInputStream(avatarFile))) {
+//            // TODO: Rewrite to return proper FileSystemResource using a proper HttpMessageConverter
+//            response.setContentType(MediaType.IMAGE_PNG_VALUE);
+//            IOUtils.copy(in, response.getOutputStream());
+//        }
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/users/{id}/avatar")
     public @ResponseBody ResponseEntity<?> uploadAvatar(@RequestParam("avatar") MultipartFile file, @PathVariable("id") long id) {
-        if(!file.isEmpty()) {
-            // Create path and directories
-            File dir = getAvatarBasePath();
+//        if(!file.isEmpty()) {
+//            // Create path and directories
+//            File dir = getAvatarBasePath();
+//
+//            // Create file on server
+//            File avatarFile = getAvatarPath(id);
+//
+//            try(BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(avatarFile))) {
+//                BufferedImage image = ImageIO.read(file.getInputStream());
+//                BufferedImage resizedImage = fitImage(image);
+//                ImageIO.write(resizedImage, "png", avatarFile);
+//
+//                // Update user
+//                logger.info("Uploaded avatar %s for %d to %s", file.getName(), id, avatarFile.getAbsoluteFile());
+//                return ResponseEntity.ok().build();
+//            } catch (IOException e) {
+//                throw new CouldNotProcessAvatarException(e);
+//            }
+//        }
 
-            // Create file on server
-            File avatarFile = getAvatarPath(id);
-
-            try(BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(avatarFile))) {
-                BufferedImage image = ImageIO.read(file.getInputStream());
-                BufferedImage resizedImage = fitImage(image);
-                ImageIO.write(resizedImage, "png", avatarFile);
-
-                // Update user
-                logger.info("Uploaded avatar %s for %d to %s", file.getName(), id, avatarFile.getAbsoluteFile());
-                return ResponseEntity.ok().build();
-            } catch (IOException e) {
-                throw new CouldNotProcessAvatarException(e);
-            }
-        }
-
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     private BufferedImage fitImage(BufferedImage originalImage) {
