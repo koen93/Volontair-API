@@ -63,6 +63,9 @@ public class User extends AbsEntity implements Serializable {
     private List<Role> roles = new ArrayList<>(); // TODO: Should be Set?
 
     @Setter
+    private Goal goal;
+
+    @Setter
     private boolean enabled;
 
     @Setter
@@ -70,4 +73,9 @@ public class User extends AbsEntity implements Serializable {
 
     @Setter
     private Double longitude = 0.00;
+
+    @Enumerated(EnumType.STRING)
+    public Goal getGoal() {
+        return goal;
+    }
 }

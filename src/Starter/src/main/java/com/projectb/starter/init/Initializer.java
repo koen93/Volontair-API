@@ -132,6 +132,7 @@ public class Initializer {
         userOne.getOffers().add(offerChatAndDrink);
         userOne.setLatitude(51.441642);
         userOne.setLongitude(5.469722);
+        userOne.setGoal(Goal.GIVE_AND_GET_HELP);
 
         userRepo.save(userOne);
 
@@ -148,6 +149,7 @@ public class Initializer {
         userTwo.getRequests().add(requestGrocery);
         userTwo.setLatitude(51.615789);
         userTwo.setLongitude(5.539240);
+        userTwo.setGoal(Goal.GET_HELP);
 
         userRepo.save(userTwo);
 
@@ -164,6 +166,7 @@ public class Initializer {
         userThree.getRequests().add(requestLamp);
         userThree.setLatitude(51.653306);
         userThree.setLongitude(5.294347);
+        userThree.setGoal(Goal.GET_HELP);
 
         userRepo.save(userThree);
 
@@ -179,6 +182,7 @@ public class Initializer {
         userThree.getOffers().add(offerHelpGarden);
         userFour.setLatitude(52.090737);
         userFour.setLongitude(5.121420);
+        userFour.setGoal(Goal.GIVE_HELP);
 
         userRepo.save(userFour);
     }
