@@ -118,16 +118,14 @@ public class Initializer {
     private void initUsers() {
         userOne = new User();
 
-        userOne.setUsername("kotterdijk91");
+        userOne.setUsername("kotterdijk91@example.com");
         userOne.setPassword("password");
         userOne.setName("Karel Otterdijk");
         userOne.setSummary("Hallo, ik ben Karel Otterdijk.");
         userOne.setEnabled(true);
         userOne.getRoles().add(roleRepo.findByName("ROLE_USER"));
-
         userOne.getCategories().add(categorytechnicalQuestions);
         userOne.getCategories().add(categorySocialActivities);
-
         userOne.getRequests().add(requestComputer);
         userOne.getOffers().add(offerChatAndDrink);
         userOne.setLatitude(51.441642);
@@ -137,7 +135,7 @@ public class Initializer {
 
         userTwo = new User();
 
-        userTwo.setUsername("annaliebherr");
+        userTwo.setUsername("annaliebherr@example.com");
         userTwo.setPassword("password");
         userTwo.setName("Anna Liebherr");
         userTwo.setSummary("Hallo, ik ben Anna Liebherr.");
@@ -154,7 +152,7 @@ public class Initializer {
 
         userThree = new User();
 
-        userThree.setUsername("janjanssen");
+        userThree.setUsername("janjanssen@example.com");
         userThree.setPassword("password");
         userThree.setName("Jan Janssen");
         userThree.setSummary("Hallo, ik ben Jan Janssen.");
@@ -169,14 +167,14 @@ public class Initializer {
 
         userFour = new User();
 
-        userFour.setUsername("pietpietersen");
+        userFour.setUsername("pietpietersen@example.com");
         userFour.setPassword("password");
         userFour.setName("Piet Pietersen");
         userFour.setSummary("Hallo, ik ben Piet Pietersen.");
         userFour.setEnabled(true);
         userFour.getRoles().add(roleRepo.findByName("ROLE_USER"));
-        userThree.getCategories().add(categoryRepairingAndReplacing);
-        userThree.getOffers().add(offerHelpGarden);
+        userFour.getCategories().add(categoryRepairingAndReplacing);
+        userFour.getOffers().add(offerHelpGarden);
         userFour.setLatitude(52.090737);
         userFour.setLongitude(5.121420);
 
