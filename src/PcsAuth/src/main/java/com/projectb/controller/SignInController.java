@@ -93,7 +93,7 @@ public class SignInController {
             connectionSignUp.execute(connection);
 
         // sign in
-        signInService.signIn(userIdsWithConnection.get(0));
+        signInService.signInSocial(userIdsWithConnection.get(0), connectionData.getImageUrl());
 
         return "redirect:/";
     }

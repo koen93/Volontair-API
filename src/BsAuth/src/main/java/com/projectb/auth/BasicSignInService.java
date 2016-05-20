@@ -1,6 +1,8 @@
 package com.projectb.auth;
 
+import com.projectb.entities.User;
 import com.projectb.repositories.UserRepo;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,5 +33,12 @@ public class BasicSignInService implements SignInService {
         }
 
         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), authorities));
+    }
+
+    @Override
+    public void signInSocial(String username, String imageUrl) {
+        User user = userRepo.findByUsername(username);
+        user.setImageUrl(imageUrl);
+        signIn(username);
     }
 }
