@@ -21,4 +21,12 @@ public class Dashboard {
 
     @JsonProperty("connections")
     private List<Conversation> connections = new ArrayList<>();
+
+    public void setNearbyVolonteers(int nearbyVolonteers) {
+        this.nearbyVolonteers = nearbyVolonteers;
+    }
+
+    public void setPotentialContacts(int potentialContacts) {
+        this.potentialContacts = potentialContacts;
+    }
 }
