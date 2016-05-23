@@ -1,26 +1,21 @@
 package com.projectb.endpoint;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.projectb.auth.PrincipalService;
 import com.projectb.entities.User;
 import com.projectb.exception.CouldNotProcessAvatarException;
 import com.projectb.exception.IdDoesNotMatchResourceException;
 import com.projectb.exception.ResourceNotOwnedByPrincipalException;
 import com.projectb.repositories.UserRepo;
-import org.apache.commons.io.IOUtils;
-import org.hibernate.type.ImageType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.rest.webmvc.PersistentEntityResource;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.hateoas.Resource;
 import org.springframework.http.*;
-import org.springframework.social.support.URIBuilder;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,7 +27,6 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URL;
 
 @RepositoryRestController
@@ -72,19 +66,21 @@ public class UserServiceController {
         return ResponseEntity.ok(user);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/users/{id}/avatar")
-    public ResponseEntity<InputStreamResource> avatar(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
-        URL facebookImageUrl = getFacebookImageUrl(id);
-        if(facebookImageUrl != null) {
-            InputStreamResource inputStreamResource = new InputStreamResource(facebookImageUrl.openStream());
+    @RequestMapping(method = RequestMethod.GET, value = "/users/{id}/avatar.png")
+    public @ResponseBody ResponseEntity<?> avatar(@PathVariable("id") long id, @RequestParam(name = "width", required = false) Integer width, @RequestParam(name = "height", required = false) Integer height, HttpServletResponse response) throws IOException {
 
-            return ResponseEntity
-                    .ok()
-                    .contentLength(inputStreamResource.contentLength())
-                    .contentType(MediaType.parseMediaType("image/png"))
-                    .body(inputStreamResource);
+        URL facebookImageUrl;
+        if(width != null && height != null) {
+            facebookImageUrl = new URL(userRepo.getOne(id).getImageUrl() + "?width=" + width + "&height=" + height);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else {
+            facebookImageUrl = new URL(userRepo.getOne(id).getImageUrl());
+        }
+
+        BufferedImage read = ImageIO.read(facebookImageUrl);
+        response.setContentType(MediaType.IMAGE_PNG_VALUE);
+        ImageIO.write(read, "PNG", response.getOutputStream());
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/users/{id}/avatar")
