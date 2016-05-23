@@ -73,7 +73,7 @@ public class UserServiceController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/users/{id}/avatar")
-    public @ResponseBody ResponseEntity<InputStreamResource> avatar(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
+    public ResponseEntity<InputStreamResource> avatar(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
         URL facebookImageUrl = getFacebookImageUrl(id);
         if(facebookImageUrl != null) {
             InputStreamResource inputStreamResource = new InputStreamResource(facebookImageUrl.openStream());
@@ -81,7 +81,7 @@ public class UserServiceController {
             return ResponseEntity
                     .ok()
                     .contentLength(inputStreamResource.contentLength())
-                    .contentType(MediaType.IMAGE_JPEG)
+                    .contentType(MediaType.parseMediaType("image/png"))
                     .body(inputStreamResource);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
