@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RepositoryRestResource(path = "users", collectionResourceRel = "users", itemResourceRel = "users")
-public interface UserRepo extends BasicRepo<User> {
+public interface UserRepo extends BasicRepo<User>, UserRepoCustom {
     User findByUsername(@Param("username") String username);
 
     @Override
