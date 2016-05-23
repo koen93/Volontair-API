@@ -165,6 +165,7 @@ public class Initializer {
         userThree.setLatitude(51.653306);
         userThree.setLongitude(5.294347);
         userThree.setGoal(Goal.GET_HELP);
+        userThree.setImageUrl("https://graph.facebook.com/67563683055/picture?type=square");
 
         userRepo.save(userThree);
 

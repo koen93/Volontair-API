@@ -36,9 +36,10 @@ public class BasicSignInService implements SignInService {
     }
 
     @Override
-    public void signInSocial(String username, String imageUrl) {
+    public void signInSocial(@NonNull String username, @NonNull String imageUrl) {
         User user = userRepo.findByUsername(username);
         user.setImageUrl(imageUrl);
+        userRepo.save(user);
         signIn(username);
     }
 }
