@@ -23,6 +23,7 @@ public class UserConnectionSignUp implements ConnectionSignUp {
             user.setUsername(profile.getEmail());
             user.setPassword("generate"); // TODO: Generate a password, or better yet. Or disable local login.
             user.setName(profile.getName());
+            user.setImageUrl(connection.getImageUrl());
 
             signUpService.signUp(user);
 

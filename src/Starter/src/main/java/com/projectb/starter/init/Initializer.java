@@ -148,6 +148,7 @@ public class Initializer {
         userTwo.setLatitude(51.615789);
         userTwo.setLongitude(5.539240);
         userTwo.setGoal(Goal.GET_HELP);
+        userTwo.setImageUrl("https://graph.facebook.com/67563683055/picture");
 
         userRepo.save(userTwo);
 
@@ -165,6 +166,7 @@ public class Initializer {
         userThree.setLatitude(51.653306);
         userThree.setLongitude(5.294347);
         userThree.setGoal(Goal.GET_HELP);
+        userThree.setImageUrl("https://graph.facebook.com/67563683055/picture");
 
         userRepo.save(userThree);
 
