@@ -118,26 +118,25 @@ public class Initializer {
     private void initUsers() {
         userOne = new User();
 
-        userOne.setUsername("kotterdijk91");
+        userOne.setUsername("kotterdijk91@example.com");
         userOne.setPassword("password");
         userOne.setName("Karel Otterdijk");
         userOne.setSummary("Hallo, ik ben Karel Otterdijk.");
         userOne.setEnabled(true);
         userOne.getRoles().add(roleRepo.findByName("ROLE_USER"));
-
         userOne.getCategories().add(categorytechnicalQuestions);
         userOne.getCategories().add(categorySocialActivities);
-
         userOne.getRequests().add(requestComputer);
         userOne.getOffers().add(offerChatAndDrink);
         userOne.setLatitude(51.441642);
         userOne.setLongitude(5.469722);
+        userOne.setGoal(Goal.GIVE_AND_GET_HELP);
 
         userRepo.save(userOne);
 
         userTwo = new User();
 
-        userTwo.setUsername("annaliebherr");
+        userTwo.setUsername("annaliebherr@example.com");
         userTwo.setPassword("password");
         userTwo.setName("Anna Liebherr");
         userTwo.setSummary("Hallo, ik ben Anna Liebherr.");
@@ -148,13 +147,15 @@ public class Initializer {
         userTwo.getRequests().add(requestGrocery);
         userTwo.setLatitude(51.615789);
         userTwo.setLongitude(5.539240);
+        userTwo.setGoal(Goal.GET_HELP);
+        userTwo.setImageUrl("https://graph.facebook.com/67563683055/picture");
 
         userRepo.save(userTwo);
 
 
         userThree = new User();
 
-        userThree.setUsername("janjanssen");
+        userThree.setUsername("janjanssen@example.com");
         userThree.setPassword("password");
         userThree.setName("Jan Janssen");
         userThree.setSummary("Hallo, ik ben Jan Janssen.");
@@ -164,21 +165,24 @@ public class Initializer {
         userThree.getRequests().add(requestLamp);
         userThree.setLatitude(51.653306);
         userThree.setLongitude(5.294347);
+        userThree.setGoal(Goal.GET_HELP);
+        userThree.setImageUrl("https://graph.facebook.com/67563683055/picture");
 
         userRepo.save(userThree);
 
         userFour = new User();
 
-        userFour.setUsername("pietpietersen");
+        userFour.setUsername("pietpietersen@example.com");
         userFour.setPassword("password");
         userFour.setName("Piet Pietersen");
         userFour.setSummary("Hallo, ik ben Piet Pietersen.");
         userFour.setEnabled(true);
         userFour.getRoles().add(roleRepo.findByName("ROLE_USER"));
-        userThree.getCategories().add(categoryRepairingAndReplacing);
-        userThree.getOffers().add(offerHelpGarden);
+        userFour.getCategories().add(categoryRepairingAndReplacing);
+        userFour.getOffers().add(offerHelpGarden);
         userFour.setLatitude(52.090737);
         userFour.setLongitude(5.121420);
+        userFour.setGoal(Goal.GIVE_HELP);
 
         userRepo.save(userFour);
     }

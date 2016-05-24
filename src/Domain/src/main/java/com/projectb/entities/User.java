@@ -8,10 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "Account")
@@ -42,7 +39,7 @@ public class User extends AbsEntity implements Serializable {
     private String summary;
 
     @ManyToMany
-    private List<Category> categories = new ArrayList<>();
+    private Set<Category> categories = new HashSet<>();
 
     @OneToMany(mappedBy = "listener", cascade = CascadeType.DETACH)
     @Setter
@@ -63,6 +60,9 @@ public class User extends AbsEntity implements Serializable {
     private List<Role> roles = new ArrayList<>(); // TODO: Should be Set?
 
     @Setter
+    private Goal goal;
+
+    @Setter
     private boolean enabled;
 
     @Setter
@@ -70,4 +70,13 @@ public class User extends AbsEntity implements Serializable {
 
     @Setter
     private Double longitude = 0.00;
+
+    @Setter
+    private String imageUrl;
+
+    @Enumerated(EnumType.STRING)
+    public Goal getGoal() {
+        return goal;
+    }
+
 }

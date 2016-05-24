@@ -6,7 +6,6 @@ import com.projectb.exception.CouldNotProcessAvatarException;
 import com.projectb.exception.IdDoesNotMatchResourceException;
 import com.projectb.exception.ResourceNotOwnedByPrincipalException;
 import com.projectb.repositories.UserRepo;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,7 @@ import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.hateoas.Resource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +26,8 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 @RepositoryRestController
 public class UserServiceController {
@@ -68,17 +67,20 @@ public class UserServiceController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/users/{id}/avatar.png")
-    @ResponseBody
-    public void avatar(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
-        File avatarFile = getAvatarPath(id);
-        if(!avatarFile.exists())
-            avatarFile = new File(getClass().getClassLoader().getResource("static/images/none.png").getFile());
+    public @ResponseBody ResponseEntity<?> avatar(@PathVariable("id") long id, @RequestParam(name = "width", required = false) Integer width, @RequestParam(name = "height", required = false) Integer height, HttpServletResponse response) throws IOException {
 
-        try(InputStream in = new BufferedInputStream(new FileInputStream(avatarFile))) {
-            // TODO: Rewrite to return proper FileSystemResource using a proper HttpMessageConverter
-            response.setContentType(MediaType.IMAGE_PNG_VALUE);
-            IOUtils.copy(in, response.getOutputStream());
+        URL facebookImageUrl;
+        if(width != null && height != null) {
+            facebookImageUrl = new URL(userRepo.getOne(id).getImageUrl() + "?width=" + width + "&height=" + height);
         }
+        else {
+            facebookImageUrl = new URL(userRepo.getOne(id).getImageUrl());
+        }
+
+        BufferedImage read = ImageIO.read(facebookImageUrl);
+        response.setContentType(MediaType.IMAGE_PNG_VALUE);
+        ImageIO.write(read, "PNG", response.getOutputStream());
+        return ResponseEntity.ok().build();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/users/{id}/avatar")
@@ -143,5 +145,15 @@ public class UserServiceController {
 
     private File getAvatarPath(long id) {
         return new File(getAvatarBasePath() + File.separator + id + ".png");
+    }
+
+    private URL getFacebookImageUrl(long id) {
+        URL faceBookImageUrl = null;
+        try {
+            faceBookImageUrl = new URL(userRepo.getOne(id).getImageUrl());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return faceBookImageUrl;
     }
 }

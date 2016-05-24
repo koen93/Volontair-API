@@ -1,6 +1,8 @@
 package com.projectb.auth;
 
+import com.projectb.entities.User;
 import com.projectb.repositories.UserRepo;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
