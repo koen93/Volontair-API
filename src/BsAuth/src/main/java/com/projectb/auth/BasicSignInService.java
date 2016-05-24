@@ -34,12 +34,4 @@ public class BasicSignInService implements SignInService {
 
         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), authorities));
     }
-
-    @Override
-    public void signInSocial(@NonNull String username, @NonNull String imageUrl) {
-        User user = userRepo.findByUsername(username);
-        user.setImageUrl(imageUrl);
-        userRepo.save(user);
-        signIn(username);
-    }
 }
