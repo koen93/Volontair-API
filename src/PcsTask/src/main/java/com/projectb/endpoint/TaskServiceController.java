@@ -27,7 +27,6 @@ public abstract class TaskServiceController<T extends AbsTask> {
     private PrincipalService principalService;
 
     public ResponseEntity findWithinRadius(PersistentEntityResourceAssembler assembler, Class<? extends T> type, double lat, double lng, int radius) {
-
         List<T> tasks = provideRepo().findAll();
 
         if(lat < -90 || lat > 90 || lng < -180 || lng > 180)

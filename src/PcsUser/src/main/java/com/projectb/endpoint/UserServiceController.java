@@ -1,6 +1,7 @@
 package com.projectb.endpoint;
 
 import com.projectb.auth.PrincipalService;
+import com.projectb.entities.Goal;
 import com.projectb.entities.User;
 import com.projectb.exception.CouldNotProcessAvatarException;
 import com.projectb.exception.IdDoesNotMatchResourceException;
@@ -15,6 +16,8 @@ import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
+import org.springframework.hateoas.core.EmbeddedWrappers;
 import org.springframework.http.*;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -28,10 +31,14 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @RepositoryRestController
 public class UserServiceController {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceController.class.getSimpleName());
+    private static final EmbeddedWrappers WRAPPERS = new EmbeddedWrappers(false);
 
     @Autowired
     private PrincipalService principalService;
@@ -41,6 +48,13 @@ public class UserServiceController {
 
     @Autowired
     private Environment environment;
+
+    @RequestMapping(method = RequestMethod.GET, value = "/users/search/findWithinBounds")
+    public @ResponseBody ResponseEntity<?> usersWithinBounds(PersistentEntityResourceAssembler assembler, @RequestParam double northEastLat, @RequestParam double northEastLng, @RequestParam double southWestLat, @RequestParam double southWestLng, @RequestParam Goal goal) {
+        List<User> withinBounds = userRepo.findWithinBounds(northEastLat, northEastLng, southWestLat, southWestLng, goal);
+
+        return ResponseEntity.ok(entitiesToResource(withinBounds, assembler));
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "/users/me")
     public @ResponseBody ResponseEntity<Resource<?>> me(PersistentEntityResourceAssembler assembler) {
@@ -155,5 +169,19 @@ public class UserServiceController {
             e.printStackTrace();
         }
         return faceBookImageUrl;
+    }
+
+    private Resources<?> entitiesToResource(Iterable<User> entities, PersistentEntityResourceAssembler assembler) {
+        if(!entities.iterator().hasNext()) {
+            List<Object> content = Arrays.<Object>asList(WRAPPERS.emptyCollectionOf(User.class));
+            return new Resources<Object>(content); // TODO: getDefaultSelfLink()?
+        }
+
+        List<Resource<Object>> resources = new ArrayList<>();
+        for(User user : entities) {
+            resources.add(user == null ? null : assembler.toResource(user));
+        }
+
+        return new Resources<Resource<Object>>(resources); // TODO: getDefaultSelfLink()?
     }
 }

@@ -3,6 +3,7 @@ package com.projectb.repositories;
 import com.projectb.entities.Goal;
 import com.projectb.entities.User;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -21,6 +22,19 @@ public class UserRepoImpl implements UserRepoCustom {
         return entityManager.merge(user);
     }
 
+    @Override
+    public List<User> findWithinBounds(double northEastLat, double northEastLng, double southWestLat, double southWestLng, Goal goal) {
+        Query query = entityManager.createQuery("SELECT u from User u where (u.latitude >= :southLat AND u.latitude <= :northLat) AND (u.longitude >= :westLng AND u.longitude <= :eastLng) AND (u.goal = :goalBoth OR u.goal = :goal)");
+        query.setParameter("northLat", northEastLat);
+        query.setParameter("southLat", southWestLat);
+        query.setParameter("eastLng", northEastLng);
+        query.setParameter("westLng", southWestLng);
+        query.setParameter("goalBoth", Goal.GIVE_AND_GET_HELP);
+        query.setParameter("goal", goal);
+
+        return query.getResultList();
+    }
+
     /**
      * Find users within the given radius.
      *
@@ -36,19 +50,11 @@ public class UserRepoImpl implements UserRepoCustom {
     public List<User> findWithinRadiusAndGoal(double lat, double lng, int radius, Goal goal) {
         double distanceInMeters = radius * 1000;
 
-        double northLat = lat + Math.toDegrees(distanceInMeters / EARTH_RADIUS);
-        double southLat = lat - Math.toDegrees(distanceInMeters / EARTH_RADIUS);
-        double eastLng = lng + Math.toDegrees(distanceInMeters / EARTH_RADIUS / Math.cos(Math.toRadians(lat)));
-        double westLng = lng - Math.toDegrees(distanceInMeters / EARTH_RADIUS / Math.cos(Math.toRadians(lat)));
+        double northEastLat = lat + Math.toDegrees(distanceInMeters / EARTH_RADIUS);
+        double southWestLat = lat - Math.toDegrees(distanceInMeters / EARTH_RADIUS);
+        double northEastLng = lng + Math.toDegrees(distanceInMeters / EARTH_RADIUS / Math.cos(Math.toRadians(lat)));
+        double southWestLng = lng - Math.toDegrees(distanceInMeters / EARTH_RADIUS / Math.cos(Math.toRadians(lat)));
 
-        Query query = entityManager.createQuery("SELECT u from User u where (u.latitude >= :southLat AND u.latitude <= :northLat) AND (u.longitude >= :westLng AND u.longitude <= :eastLng) AND (u.goal = :goalBoth OR u.goal = :goal)");
-        query.setParameter("northLat", northLat);
-        query.setParameter("southLat", southLat);
-        query.setParameter("eastLng", eastLng);
-        query.setParameter("westLng", westLng);
-        query.setParameter("goalBoth", Goal.GIVE_AND_GET_HELP);
-        query.setParameter("goal", goal);
-
-        return query.getResultList();
+        return findWithinBounds(northEastLat, northEastLng, southWestLat, southWestLng, goal);
     }
 }
