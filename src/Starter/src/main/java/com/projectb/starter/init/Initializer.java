@@ -120,8 +120,8 @@ public class Initializer {
 
         userOne.setUsername("kotterdijk91@example.com");
         userOne.setPassword("password");
-        userOne.setName("Karel Otterdijk");
-        userOne.setSummary("Hallo, ik ben Karel Otterdijk.");
+        userOne.setName("Mark Suikerberg");
+        userOne.setSummary("Hallo, ik ben Mark Suikerberg.");
         userOne.setEnabled(true);
         userOne.getRoles().add(roleRepo.findByName("ROLE_USER"));
         userOne.getCategories().add(categorytechnicalQuestions);
@@ -130,6 +130,7 @@ public class Initializer {
         userOne.getOffers().add(offerChatAndDrink);
         userOne.setLatitude(51.441642);
         userOne.setLongitude(5.469722);
+        userOne.setImageUrl("https://graph.facebook.com/4/picture");
         userOne.setGoal(Goal.GIVE_AND_GET_HELP);
 
         userRepo.save(userOne);
@@ -148,7 +149,7 @@ public class Initializer {
         userTwo.setLatitude(51.615789);
         userTwo.setLongitude(5.539240);
         userTwo.setGoal(Goal.GET_HELP);
-        userTwo.setImageUrl("https://graph.facebook.com/67563683055/picture");
+        userTwo.setImageUrl("https://graph.facebook.com/100002153883826/picture");
 
         userRepo.save(userTwo);
 
@@ -166,7 +167,7 @@ public class Initializer {
         userThree.setLatitude(51.653306);
         userThree.setLongitude(5.294347);
         userThree.setGoal(Goal.GET_HELP);
-        userThree.setImageUrl("https://graph.facebook.com/67563683055/picture");
+        userThree.setImageUrl("https://graph.facebook.com/1435737693304473/picture");
 
         userRepo.save(userThree);
 
@@ -183,6 +184,7 @@ public class Initializer {
         userFour.setLatitude(52.090737);
         userFour.setLongitude(5.121420);
         userFour.setGoal(Goal.GIVE_HELP);
+        userFour.setImageUrl("https://graph.facebook.com/1264306426/picture");
 
         userRepo.save(userFour);
     }
