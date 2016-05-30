@@ -8,14 +8,14 @@ import com.projectb.exception.ResourceNotOwnedByPrincipalException;
 import com.projectb.repositories.ConversationRepo;
 import com.projectb.repositories.MessageRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.RepositoryRestController;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.data.rest.webmvc.*;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RepositoryRestController
-public class ConverstionServiceController {
+public class ConversationServiceController {
     @Autowired
     private ConversationRepo conversationRepo;
 
@@ -26,7 +26,7 @@ public class ConverstionServiceController {
     private PrincipalService principalService;
 
     @RequestMapping(method = RequestMethod.POST, value = "/conversations/{id}/message")
-    public @ResponseBody ResponseEntity<?> addMessage(@PathVariable("id") long id, @RequestBody Message message) {
+    public @ResponseBody ResponseEntity<?> addMessage(PersistentEntityResourceAssembler assembler, @PathVariable("id")long id, @RequestBody Message message) {
         User authenticatedUser = principalService.getAuthenticatedUser();
         Conversation conversation = conversationRepo.findOne(id);
         if(conversation == null)
@@ -40,7 +40,11 @@ public class ConverstionServiceController {
         message.setConversation(conversation);
         messageRepo.save(message);
 
+        // TODO: Mimic Spring Data Rest default implementation
+        PersistentEntityResource resource = assembler.toFullResource(message);
+        HttpHeaders headers = new HttpHeaders();
+
         // TODO: Return message
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ControllerUtils.toResponseEntity(HttpStatus.CREATED, headers, resource);
     }
 }
