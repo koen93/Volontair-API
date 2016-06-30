@@ -61,7 +61,7 @@ public class OAuth2Config {
 
             http
                 .authorizeRequests()
-                    .antMatchers("/", "/signup**", "/signin**", "/auth/facebook/client**", "/webjars/**", "/login")
+                    .antMatchers("/", "/signup**", "/signin**", "/auth/facebook/client**", "/webjars/**", "/login", "/disclaimer")
                     .permitAll()
                     .and()
                 .formLogin()
