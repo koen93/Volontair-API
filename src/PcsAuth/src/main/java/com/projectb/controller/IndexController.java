@@ -16,4 +16,9 @@ public class IndexController {
     public String index() {
         return "index";
     }
+
+    @RequestMapping(value = "/disclaimer")
+    public String disclaimer() {
+        return "disclaimer";
+    }
 }
