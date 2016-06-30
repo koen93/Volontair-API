@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
+/**
+ * http://blog.arganzheng.me/posts/builder-pattern-in-action.html
+ */
 public class CacheControlInterceptor extends HandlerInterceptorAdapter {
     public static final String EXPIRES_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static final String PATTERN_RFC1123 = "EEE, dd MMM yyyy HH:mm:ss zzz";
